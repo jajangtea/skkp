@@ -1,21 +1,26 @@
 <?php
-class EWebUser extends CWebUser{
- 
+
+class EWebUser extends CWebUser {
+
     protected $_model;
- 
-    protected function loadUser()
-    {
-        if ( $this->_model === null ) {
-                $this->_model = User::model()->findByPk($this->id);
+
+    protected function loadUser() {
+        if ($this->_model === null) {
+            $this->_model = User::model()->findByPk($this->id);
         }
         return $this->_model;
     }
-    
-    function getLevel()
-    {
-        $user=$this->loadUser();
-        if($user)
+
+    function getLevel() {
+        $user = $this->loadUser();
+        if ($user)
             return $user->level_id;
         return 100;
     }
+
+    public function getUsername() {
+        $user = $this->loadUser();
+        return $user->username;
+    }
+
 }

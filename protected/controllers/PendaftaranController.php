@@ -73,6 +73,12 @@ class PendaftaranController extends Controller
                         if($valid)
                         {
                             $model->NIM=Yii::app()->user->getUsername();
+                            $model->Tanggal=date('Y-m-d H:i:s');
+                           
+                            if($model->kodePembimbing2=="")
+                            {
+                               $model->kodePembimbing2 = new CDbExpression('NULL'); 
+                            }
                             if($model->save())
 				$this->redirect(array('view','id'=>$model->idPendaftaran));
                         }
@@ -81,7 +87,6 @@ class PendaftaranController extends Controller
                 $this->layout='mainHome';
 		$this->render('create',array(
 			'model'=>$model,
-                        'modelMhs'=>$modelMhs,
 		));
 	}
 
