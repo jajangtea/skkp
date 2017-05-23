@@ -8,9 +8,11 @@
  * @property string $Nama
  * @property string $Tlp
  * @property string $KodeJurusan
+ * @property integer $IdUser
  *
  * The followings are the available model relations:
  * @property Jurusan $kodeJurusan
+ * @property User $idUser
  * @property Nilaikp[] $nilaikps
  * @property Pendaftaran[] $pendaftarans
  */
@@ -33,13 +35,13 @@ class Mahasiswa extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('NIM', 'required'),
-			array('NIM', 'numerical', 'integerOnly'=>true),
+			array('NIM, IdUser', 'numerical', 'integerOnly'=>true),
 			array('Nama', 'length', 'max'=>200),
 			array('Tlp', 'length', 'max'=>20),
 			array('KodeJurusan', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('NIM, Nama, Tlp, KodeJurusan', 'safe', 'on'=>'search'),
+			array('NIM, Nama, Tlp, KodeJurusan, IdUser', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +54,7 @@ class Mahasiswa extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'kodeJurusan' => array(self::BELONGS_TO, 'Jurusan', 'KodeJurusan'),
+			'idUser' => array(self::BELONGS_TO, 'User', 'IdUser'),
 			'nilaikps' => array(self::HAS_MANY, 'Nilaikp', 'NIM'),
 			'pendaftarans' => array(self::HAS_MANY, 'Pendaftaran', 'NIM'),
 		);
@@ -67,6 +70,7 @@ class Mahasiswa extends CActiveRecord
 			'Nama' => 'Nama',
 			'Tlp' => 'Tlp',
 			'KodeJurusan' => 'Kode Jurusan',
+			'IdUser' => 'Id User',
 		);
 	}
 
@@ -92,6 +96,7 @@ class Mahasiswa extends CActiveRecord
 		$criteria->compare('Nama',$this->Nama,true);
 		$criteria->compare('Tlp',$this->Tlp,true);
 		$criteria->compare('KodeJurusan',$this->KodeJurusan,true);
+		$criteria->compare('IdUser',$this->IdUser);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -17,5 +17,9 @@
 	<?php echo CHtml::encode($data->Tlp); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('IdUser')); ?>:</b>
+	<?php echo CHtml::encode($data->IdUser); ?>
+	<br />
+
 
 </div>

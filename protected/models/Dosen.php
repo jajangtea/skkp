@@ -7,8 +7,10 @@
  * @property string $KodeDosen
  * @property string $NamaDosen
  * @property string $Tlp
+ * @property integer $IdUser
  *
  * The followings are the available model relations:
+ * @property User $idUser
  * @property Jabatan[] $jabatans
  * @property Sidangdetil[] $sidangdetils
  * @property Sidangdetil[] $sidangdetils1
@@ -32,12 +34,13 @@ class Dosen extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('KodeDosen', 'required'),
+			array('IdUser', 'numerical', 'integerOnly'=>true),
 			array('KodeDosen', 'length', 'max'=>3),
 			array('NamaDosen', 'length', 'max'=>200),
 			array('Tlp', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('KodeDosen, NamaDosen, Tlp', 'safe', 'on'=>'search'),
+			array('KodeDosen, NamaDosen, Tlp, IdUser', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,6 +52,7 @@ class Dosen extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idUser' => array(self::BELONGS_TO, 'User', 'IdUser'),
 			'jabatans' => array(self::HAS_MANY, 'Jabatan', 'KodeDosen'),
 			'sidangdetils' => array(self::HAS_MANY, 'Sidangdetil', 'Penguji1'),
 			'sidangdetils1' => array(self::HAS_MANY, 'Sidangdetil', 'Penguji2'),
@@ -64,6 +68,7 @@ class Dosen extends CActiveRecord
 			'KodeDosen' => 'Kode Dosen',
 			'NamaDosen' => 'Nama Dosen',
 			'Tlp' => 'Tlp',
+			'IdUser' => 'Id User',
 		);
 	}
 
@@ -88,6 +93,7 @@ class Dosen extends CActiveRecord
 		$criteria->compare('KodeDosen',$this->KodeDosen,true);
 		$criteria->compare('NamaDosen',$this->NamaDosen,true);
 		$criteria->compare('Tlp',$this->Tlp,true);
+		$criteria->compare('IdUser',$this->IdUser);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

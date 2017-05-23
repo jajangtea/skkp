@@ -18,4 +18,4 @@ $this->menu=array(
 
 <h1>Update Pendaftaran <?php echo $model->idPendaftaran; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'modelMhs'=>$modelMhs)); ?>

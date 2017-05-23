@@ -4,7 +4,6 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'dosen-form',
@@ -15,32 +14,45 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
+	<p class="text-info">Kolom dengan tanda <span class="required">*</span> tidak boleh kosong.</p>
+	<div class="text-danger">
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
+	</div>
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'KodeDosen'); ?>
-		<?php echo $form->textField($model,'KodeDosen',array('size'=>3,'maxlength'=>3)); ?>
-		<?php echo $form->error($model,'KodeDosen'); ?>
+		<?php echo $form->textField($model,'KodeDosen',array('size'=>3,'maxlength'=>3, 'class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo $form->error($model,'KodeDosen',array('class'=>'text-danger')); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'NamaDosen'); ?>
-		<?php echo $form->textField($model,'NamaDosen',array('size'=>60,'maxlength'=>200)); ?>
-		<?php echo $form->error($model,'NamaDosen'); ?>
+		<?php echo $form->textField($model,'NamaDosen',array('size'=>60,'maxlength'=>200, 'class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo $form->error($model,'NamaDosen',array('class'=>'text-danger')); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'Tlp'); ?>
-		<?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'Tlp'); ?>
+		<?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20, 'class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo $form->error($model,'Tlp',array('class'=>'text-danger')); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'IdUser'); ?>
+		<?php echo $form->textField($model,'IdUser', array('class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo $form->error($model,'IdUser',array('class'=>'text-danger')); ?>
+	</div>
+
+	<div class="form-group">
+                 <?php
+if($model->isNewRecord)
+{
+echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-success'),'<i class="fa fa-save"></i> Create');
+}
+else
+{
+echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-info'),'<i class="fa fa-save"></i> Save');
+}
+?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

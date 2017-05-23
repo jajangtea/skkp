@@ -66,16 +66,22 @@ class PendaftaranController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Pendaftaran']))
 		{
-			$model->attributes=$_POST['Pendaftaran'];
-			if($model->save())
+                        $model->attributes=$_POST['Pendaftaran'];
+                        $valid=$model->validate();
+                        if($valid)
+                        {
+                            $model->NIM=Yii::app()->user->getUsername();
+                            if($model->save())
 				$this->redirect(array('view','id'=>$model->idPendaftaran));
+                        }
+			
 		}
-
+                $this->layout='mainHome';
 		$this->render('create',array(
 			'model'=>$model,
+                        'modelMhs'=>$modelMhs,
 		));
 	}
 
@@ -87,7 +93,7 @@ class PendaftaranController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+                $modelMhs=new Mahasiswa;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -100,6 +106,7 @@ class PendaftaranController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+                        'modelMhs'=>$modelMhs,
 		));
 	}
 

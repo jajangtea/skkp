@@ -5,6 +5,30 @@ class SiteController extends Controller
 	/**
 	 * Declares class-based actions.
 	 */
+        public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}
+    
+        public function accessRules()
+	{
+		return array(
+			array('allow',
+				'actions'=>array('index','login'),
+				'users'=>array('*'),
+			),
+			array('allow',
+				'actions'=>array('update','view','aktif'),
+				'users'=>array('@'),
+			),
+			array('allow',
+				'actions'=>array('admin','delete'),
+				'expression'=>'$user->getLevel()==1',
+			),
+		);
+	}
 	public function actions()
 	{
 		return array(
@@ -29,12 +53,30 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+                if(Yii::app()->user->getLevel()==1)
+                {
+                    $this->layout='main';
+                    $data= Sidangmaster::sidangaktif();
+                        $this->render('index',array(
+                        'data'=>$data,
+                    ));
+                }
+                else
+                {
+                    $this->layout='mainHome';
+                    $data= Sidangmaster::sidangaktif();
+                    $this->render('index',array(
+                    'data'=>$data,
+                ));
+                }
+               
 	}
 
 	/**
 	 * This is the action to handle external exceptions.
 	 */
+        
+        
 	public function actionError()
 	{
 		if($error=Yii::app()->errorHandler->error)
@@ -77,6 +119,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+                $this->layout='mainReg';
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -92,7 +135,14 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+                            if(Yii::app()->user->getLevel()==3)
+                            {
+                                $this->redirect(array('pendaftaran/create'));
+                            }
+                            else{
+                                $this->redirect(Yii::app()->user->returnUrl);
+                            }
+				
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -104,6 +154,15 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect(array('site/login'));
+	}
+        
+        protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='comment-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 	}
 }

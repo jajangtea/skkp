@@ -24,5 +24,6 @@ $this->menu=array(
 		'KodeDosen',
 		'NamaDosen',
 		'Tlp',
+		'IdUser',
 	),
 )); ?>

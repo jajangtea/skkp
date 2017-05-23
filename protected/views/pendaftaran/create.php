@@ -13,6 +13,5 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Pendaftaran</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'modelMhs'=>$modelMhs)); ?>
