@@ -77,14 +77,15 @@ class PendaftaranController extends Controller
                            
                             if($model->kodePembimbing2=="")
                             {
-                               $model->kodePembimbing2 = new CDbExpression('NULL'); 
+                               
+                              $model->kodePembimbing2="AG";
                             }
                             if($model->save())
 				$this->redirect(array('view','id'=>$model->idPendaftaran));
                         }
 			
 		}
-                $this->layout='mainHome';
+                //$this->layout='mainHome';
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -134,9 +135,13 @@ class PendaftaranController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Pendaftaran');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		$model=new Pendaftaran('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Pendaftaran']))
+			$model->attributes=$_GET['Pendaftaran'];
+                //$this->layout='mainHome';
+		$this->render('admin',array(
+			'model'=>$model,
 		));
 	}
 
@@ -149,7 +154,7 @@ class PendaftaranController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Pendaftaran']))
 			$model->attributes=$_GET['Pendaftaran'];
-
+                //$this->layout='mainHome';
 		$this->render('admin',array(
 			'model'=>$model,
 		));

@@ -45,11 +45,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">JenisSidang :</label>
+                    <label class="col-lg-2 control-label">Jenis Sidang :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo $form->textField($model, 'IDJenisSidang', array('class' => 'form-control', 'style' => 'width:30%')); ?>
+                                <?php echo CHtml::activeDropDownList($model,'IdSidang', $model->getNamaSidang(),array('prompt' => 'Pilih Sidang','class'=>'form-control')); ?>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <?php
-                        echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Save');
+                            echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
                         ?>
                     </div>
                 </div> 

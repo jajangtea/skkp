@@ -9,7 +9,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Pendaftaran', 'url'=>array('index')),
-	array('label'=>'Manage Pendaftaran', 'url'=>array('admin')),
 );
 ?>
 

@@ -8,7 +8,6 @@
 class UserIdentity extends CUserIdentity
 {
 	private $_id;
-        private $username;
 	
 	public function authenticate()
 	{

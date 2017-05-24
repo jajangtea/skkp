@@ -10,12 +10,20 @@ $this->breadcrumbs = array(
 
 <h1>Kelola Pendaftaran</h1>
 <div class="search-form">
-        <?php
-        $this->renderPartial('_search', array(
-            'model' => $model,
-        ));
-        ?>
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    echo "<strong>";
+    $this->menu=array(
+	array('label'=>'Kelola Data', 'url'=>array('index')),
+	array('label'=>'Daftar Sidang', 'url'=>array('create')),
+);
+     echo "</strong>";
+    ?>
+    
 </div><!-- search-form -->
+
 <div class="row">
     <div class="col-lg-12">
         <div class="main-box clearfix">
@@ -41,14 +49,52 @@ $this->breadcrumbs = array(
                                       )+
                                       array_search($data,$this->grid->dataProvider->getData())+1',
                             ),
-                            'Tanggal',
+                            array(
+                                'name' => 'Tanggal',
+                                'type' => 'raw',
+                                'header' => 'Tgl.Daftar',
+                                'value' => '$data->Tanggal',
+                                'htmlOptions'=>array('width'=>'40px'),
+                            ),
+                            
                             'NIM',
-                            'IDJenisSidang',
-                            'KodePembimbing1',
-                            'KodePembimbing2',
-                            /*
-                              'Judul',
-                             */
+                            'idSidang.iDJenisSidang.NamaSidang',
+                            array(
+                                'name' => 'KodePembimbing1',
+                                'type' => 'raw',
+                                'header' => 'P1',
+                                'value' => 'CHtml::encode($data->kodePembimbing1->KodeDosen)',
+                                'htmlOptions'=>array('width'=>'40px'),
+                            ),
+                            array(
+                                'name' => 'KodePembimbing1',
+                                'type' => 'raw',
+                                'header' => 'Nama Dosen',
+                                'value' => 'CHtml::encode($data->kodePembimbing1->NamaDosen)',
+                                'htmlOptions'=>array('width'=>'160px'),
+                            ),
+                            array(
+                                'name' => 'KodePembimbing2',
+                                'type' => 'raw',
+                                'header' => 'P2',
+                                'value' => 'CHtml::encode($data->kodePembimbing2->KodeDosen)',
+                                'htmlOptions'=>array('width'=>'40px'),
+                            ),
+                            array(
+                                'name' => 'KodePembimbing1',
+                                'type' => 'raw',
+                                'header' => 'Nama Dosen',
+                                'value' => 'CHtml::encode($data->kodePembimbing2->NamaDosen)',
+                                'htmlOptions'=>array('width'=>'160px'),
+                            ),
+                            array(
+                                'name' => 'Judul',
+                                'type' => 'raw',
+                                'header' => 'Nama Dosen',
+                                'value' => '$data->Judul',
+                                'htmlOptions'=>array('width'=>'260px'),
+                            ),
+                             
                             array(
                                 'class' => 'CButtonColumn',
                             ),

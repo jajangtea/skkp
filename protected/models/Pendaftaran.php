@@ -38,6 +38,7 @@ class Pendaftaran extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('NIM, IdSidang', 'numerical', 'integerOnly' => true),
+            array('KodePembimbing1, KodePembimbing2', 'required'),
             array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
             array('Tanggal, Judul', 'safe'),
             // The following rule is used by search().
@@ -93,7 +94,10 @@ class Pendaftaran extends CActiveRecord {
     public function search() {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria(array(
+            'condition'=>'NIM=:NIM',
+            'params'=>array(':NIM'=>Yii::app()->user->getUsername()),
+        ));
 
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
         $criteria->compare('Tanggal', $this->Tanggal, true);
