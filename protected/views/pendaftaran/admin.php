@@ -14,12 +14,9 @@ $this->breadcrumbs = array(
     $this->renderPartial('_search', array(
         'model' => $model,
     ));
-    echo "<strong>";
     $this->menu=array(
-	array('label'=>'Kelola Data', 'url'=>array('index')),
 	array('label'=>'Daftar Sidang', 'url'=>array('create')),
 );
-     echo "</strong>";
     ?>
     
 </div><!-- search-form -->
@@ -58,6 +55,13 @@ $this->breadcrumbs = array(
                             ),
                             
                             'NIM',
+                            array(
+                                'name' => 'NIM',
+                                'type' => 'raw',
+                                'header' => 'Mahasiswa',
+                                'value' => 'CHtml::encode($data->nIM->Nama)',
+                                'htmlOptions'=>array('width'=>'40px'),
+                            ),
                             'idSidang.iDJenisSidang.NamaSidang',
                             array(
                                 'name' => 'KodePembimbing1',
@@ -94,6 +98,7 @@ $this->breadcrumbs = array(
                                 'value' => '$data->Judul',
                                 'htmlOptions'=>array('width'=>'260px'),
                             ),
+                            'Judul',
                              
                             array(
                                 'class' => 'CButtonColumn',

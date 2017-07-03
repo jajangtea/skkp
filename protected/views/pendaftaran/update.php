@@ -12,7 +12,6 @@ $this->menu=array(
 	array('label'=>'List Pendaftaran', 'url'=>array('index')),
 	array('label'=>'Create Pendaftaran', 'url'=>array('create')),
 	array('label'=>'View Pendaftaran', 'url'=>array('view', 'id'=>$model->idPendaftaran)),
-	array('label'=>'Manage Pendaftaran', 'url'=>array('admin')),
 );
 ?>
 

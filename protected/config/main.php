@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'SISTEM INFROMASI KP DAN SKRIPSI',
-
+        'timeZone'=>'Asia/Jakarta',
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -20,6 +20,9 @@ return array(
 	),
 
 	'modules'=>array(
+        //languange
+	
+
 		// uncomment the following to enable the Gii tool
 		
 		'gii'=>array(
@@ -30,10 +33,13 @@ return array(
 		),
 		
 	),
-
+        'sourceLanguage' =>'id',
+        'language' => 'id',
 	// application components
 	'components'=>array(
-
+                'localtime'=>array(
+                    'class'=>'LocalTime',
+                ),
 		'user'=>array(
 			// enable cookie-based authentication
                         'class'=>'application.components.EWebUser',

@@ -51,7 +51,7 @@ $this->breadcrumbs = array(
     <div class="row">
         <div class="col-xs-12">
              <?php echo CHtml::submitButton('Login',array('class'=>'btn btn-success col-xs-12')); ?>
-            <p>Jika belum mempunyai akun silahkan <?php echo CHtml::link('Registrasi',array('user/create')); ?> terlebih dahulu. </p>
+            <p>Jika belum mempunyai akun silahkan <?php echo CHtml::link('Registrasi',array('user/create')); ?> atau kembali ke <?php echo CHtml::link('Home',array('site/index')); ?> .</p>
         </div>
     </div>
     <?php $this->endWidget(); ?>

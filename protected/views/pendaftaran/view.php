@@ -9,10 +9,8 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('label' => 'List Pendaftaran', 'url' => array('index')),
-    array('label' => 'Create Pendaftaran', 'url' => array('create')),
     array('label' => 'Update Pendaftaran', 'url' => array('update', 'id' => $model->idPendaftaran)),
     array('label' => 'Delete Pendaftaran', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idPendaftaran), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage Pendaftaran', 'url' => array('admin')),
 );
 ?>
 
@@ -32,11 +30,31 @@ $this->menu = array(
                 $this->widget('zii.widgets.CDetailView', array(
                     'data' => $model,
                     'attributes' => array(
-                        'Tanggal',
-                        'NIM',
-                        'IdSidang',
-                        'KodePembimbing1',
-                        'KodePembimbing2',
+                        array(
+                                'name' => 'Tanggal Daftar',
+                                'value' => $model->Tanggal,
+                            ),
+                        array(
+                                'name' => 'Sidang',
+                                'value' => $model->idSidang->iDJenisSidang->NamaSidang,
+                            ),
+                        array(
+                                'name' => 'Kode',
+                                'value' => $model->KodePembimbing1,
+                            ),
+                        array(
+                                'name' => 'Nama P1',
+                                'value' => $model->kodePembimbing1->NamaDosen,
+                            ),
+                        
+                        array(
+                                'name' => 'Kode',
+                                'value' => $model->KodePembimbing2,
+                            ),
+                        array(
+                                'name' => 'Nama P2',
+                                'value' => $model->kodePembimbing2->NamaDosen,
+                            ),
                         'Judul',
                     ),
                 ));

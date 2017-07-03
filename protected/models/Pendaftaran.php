@@ -38,7 +38,10 @@ class Pendaftaran extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('NIM, IdSidang', 'numerical', 'integerOnly' => true),
-            array('KodePembimbing1, KodePembimbing2', 'required'),
+            array('IdSidang', 'required','message'=>'Sidang harus dipilih.'),
+            array('KodePembimbing1', 'required','message'=>'Pembimbing 1 tidak boleh kosong.'),
+            array('KodePembimbing2', 'required','message'=>'Pembimbing 2 tidak boleh kosong.'),
+            array('Judul', 'required','message'=>'Judul tidak boleh kosong.'),
             array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
             array('Tanggal, Judul', 'safe'),
             // The following rule is used by search().
@@ -93,12 +96,17 @@ class Pendaftaran extends CActiveRecord {
      */
     public function search() {
         // @todo Please modify the following code to remove attributes that should not be searched.
-
-        $criteria = new CDbCriteria(array(
+        if(Yii::app()->user->getLevel()==3)
+        {
+            $criteria = new CDbCriteria(array(
             'condition'=>'NIM=:NIM',
             'params'=>array(':NIM'=>Yii::app()->user->getUsername()),
         ));
-
+        }
+        else
+        {
+             $criteria = new CDbCriteria();
+        }
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
         $criteria->compare('Tanggal', $this->Tanggal, true);
         $criteria->compare('NIM', $this->NIM);
@@ -129,6 +137,37 @@ class Pendaftaran extends CActiveRecord {
     
     public function getPembimbing(){
         return CHtml::listData(Dosen::model()->findAll(), 'KodeDosen', 'NamaDosen');
+    }
+    
+    public function cekPendaftaran($nim)
+    {
+        $sql="select count(*) from prd_pendaftaran p left join prd_sidangmaster sm on p.IdSidang=sm.IdSidang where p.nim=".$nim." and sm.status=1 and  sm.IDJenisSidang in(1,2,3)";// and sm.IDJenisSidang=".$kompre."";
+        $command=Yii::app()->db->createCommand($sql)->queryScalar();
+        return $command;
+    }
+    
+    public function cekKompre($nim)
+    {
+        $sql="select count(*) from prd_pendaftaran p left join prd_sidangmaster sm on p.IdSidang=sm.IdSidang where p.nim=".$nim." and sm.status=1 and  sm.IDJenisSidang=4";// and sm.IDJenisSidang=".$kompre."";
+        $command=Yii::app()->db->createCommand($sql)->queryScalar();
+        return $command;
+    }
+    
+    public function getTanggalSidang()
+    {
+        $sql="SELECT tanggal FROM prd_sidangmaster WHERE STATUS=1;";
+        $command=Yii::app()->db->createCommand($sql)->queryScalar();
+        return $command;
+    }
+    public function hitungjmlsidang($idjenis)
+    {
+        $sql="SELECT COUNT(*) FROM prd_pendaftaran p 
+            LEFT JOIN prd_sidangmaster sm ON p.IdSidang=sm.IdSidang 
+            LEFT JOIN prd_jenissidang js ON sm.IdJenisSidang=js.IdJenisSidang 
+            WHERE js.IdJenisSidang=".$idjenis." AND sm.tanggal<=(SELECT tanggal 
+            FROM prd_sidangmaster WHERE STATUS=1 AND IdJenisSidang=".$idjenis.")";
+        $command=Yii::app()->db->createCommand($sql)->queryScalar();
+        return $command;
     }
 
 }

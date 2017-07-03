@@ -116,6 +116,14 @@ class Sidangmaster extends CActiveRecord {
         return $data = Yii::app()->db->createCommand($sql)->queryRow();
         ;
     }
+    
+    public function jenisSidangAktif($idjenis) {
+        $sql = "SELECT js.`IDJenisSidang`,js.`NamaSidang`,sm.`Tanggal`,sm.`tglBuka`,sm.`tglTutup`,ta.`Tahun`,ta.`Semester` FROM prd_sidangmaster sm 
+                LEFT JOIN prd_jenissidang js ON js.`IDJenisSidang`=sm.`IDJenisSidang`  
+                LEFT JOIN prd_ta ta ON ta.`IdTa`=sm.`IdTa` WHERE sm.`status`=1 and sm.`IDJenisSidang`=".$idjenis."";
+        return $data = Yii::app()->db->createCommand($sql)->queryRow();
+        ;
+    }
 
     
 

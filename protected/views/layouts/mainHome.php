@@ -8,7 +8,9 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/skkp.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
+    
     </head>
     <body class="theme-blue fixed-header">
         <div id="theme-wrapper">
@@ -39,9 +41,8 @@
                         </div>				
                         <div class="nav-no-collapse pull-right" id="header-nav">
                             <ul class="nav navbar-nav pull-right">	
-                                <li>                            
-                                    <div id="loading" style="display: none">
-                                        Please wait while process your request !!!
+                                <li>         
+                                    <div id="myDiv">
                                     </div>
                                 </li>                        
                                 <li class="hidden-xxs">
@@ -77,25 +78,24 @@
                             <div id="col-left-inner" class="col-left-nano-content">
                                 <div id="user-left-box" class="clearfix hidden-sm hidden-xs">
                                     <div class="user-box">
-                                         <img alt="" src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/img/stti.png" />
+                                        <img alt="" src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/img/no_photo.png" />
                                     </div>
                                 </div>
                                 <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
                                     <ul class="nav nav-pills nav-stacked">
                                         <li>
-                                            <li class="nav-header nav-header-first hidden-sm hidden-xs">
+                                        <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             NAVIGASI
                                         </li>
-                                            <?php
-                                            $this->beginWidget('zii.widgets.CPortlet', array(
-                                                
-                                            ));
-                                            $this->widget('zii.widgets.CMenu', array(
-                                                'items' => $this->menu,
-                                                'htmlOptions' => array('class' => 'operations'),
-                                            ));
-                                            $this->endWidget();
-                                            ?>
+                                        <?php
+                                        $this->beginWidget('zii.widgets.CPortlet', array(
+                                        ));
+                                        $this->widget('zii.widgets.CMenu', array(
+                                            'items' => $this->menu,
+                                            'htmlOptions' => array('class' => 'operations'),
+                                        ));
+                                        $this->endWidget();
+                                        ?>
                                         </li> 
                                     </ul>
                                 </div>
@@ -106,26 +106,48 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="main-box clearfix">                
-                                        <div class="main-box-body clearfix">
-                                            <div class="row">
-                                                <ol class="breadcrumb">
-                                                    <?php if (isset($this->breadcrumbs)): ?>
-                                                        <?php
-                                                        $this->widget('ext.bootstrap.widgets.BootCrumb', array(
-                                                            'links' => $this->breadcrumbs,
-                                                        ));
-                                                        ?><!-- breadcrumbs -->
-                                                    <?php endif ?>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ol class="breadcrumb">
+                                        <?php if (isset($this->breadcrumbs)): ?>
+                                            <?php
+                                            $this->widget('ext.bootstrap.widgets.BootCrumb', array(
+                                                'links' => $this->breadcrumbs,
+                                            ));
+                                            ?><!-- breadcrumbs -->
+                                        <?php endif ?>
+                                    </ol>
                                     <div class="main-box clearfix">                
                                         <div class="main-box-body clearfix">
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <br /><strong>Selamat Datang !!!</strong>
+                                                    <?php
+                                                    $session = new CHttpSession;
+                                                    $session->open();
+                                                    if ($session['cekpendaftaran'] != "") {
+                                                        echo "<br/>";
+                                                        echo "<br/>";
+                                                        echo "<div class=\"text-danger\">";
+                                                        echo "<i class=\"fa fa-info-circle fa-fw fa-lg\"></i>";
+                                                        echo "<strong>";
+                                                        echo "Peringatan  : ";
+                                                        echo "</strong>";
+                                                        echo $session['cekpendaftaran'];
+                                                        echo "</div>";
+                                                        $session->remove('cekpendaftaran');
+                                                    }
+                                                    if ($session['cekpendaftaranKompre'] != "") {
+                                                        echo "<br/>";
+                                                        echo "<br/>";
+                                                        echo "<div class=\"text-danger\">";
+                                                        echo "<i class=\"fa fa-info-circle fa-fw fa-lg\"></i>";
+                                                        echo "<strong>";
+                                                        echo "Peringatan  : ";
+                                                        echo "</strong>";
+                                                        echo $session['cekpendaftaranKompre'];
+                                                        echo "</div>";
+                                                        $session->remove('cekpendaftaranKompre');
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <div class="col-lg-4 pull-right">
                                                     <div class="filter-block pull-right">
@@ -133,6 +155,10 @@
                                                         if (Yii::app()->user->isGuest) {
                                                             echo CHtml::link('<i class="fa fa-lock fa-lg"></i> Login', array('site/login'), array('class' => 'btn btn-primary pull-left'));
                                                             echo CHtml::link('<i class="fa fa-user fa-lg"></i>  Registrasi', array('user/create'), array('class' => 'btn btn-primary pull-left'));
+                                                            echo CHtml::link('<i class="fa fa-pencil fa-lg"></i> Daftar Sidang', array('pendaftaran/create'), array('class' => 'btn btn-primary pull-left'));
+                                                        }
+                                                        else{
+                                                             echo CHtml::link('<i class="fa fa-pencil fa-lg"></i> Daftar Sidang', array('pendaftaran/create'), array('class' => 'btn btn-primary pull-left'));
                                                         }
                                                         ?>                                                       </div>
 
@@ -140,6 +166,7 @@
                                             </div>                    
                                         </div>
                                     </div>
+
                                     <?php echo $content; ?>
                                 </div>
                             </div>

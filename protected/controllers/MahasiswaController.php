@@ -15,7 +15,7 @@ class MahasiswaController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -33,11 +33,11 @@ class MahasiswaController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'expression' => '$user->getLevel()==1',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'expression' => '$user->getLevel()==1',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -122,9 +122,13 @@ class MahasiswaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Mahasiswa');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+		$model=new Mahasiswa('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Mahasiswa']))
+			$model->attributes=$_GET['Mahasiswa'];
+                $this->layout='main';
+		$this->render('admin',array(
+			'model'=>$model,
 		));
 	}
 

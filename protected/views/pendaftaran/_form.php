@@ -42,7 +42,6 @@ $form = $this->beginWidget('CActiveForm', array(
                                     <?php echo CHtml::activeDropDownList($model,'IdSidang', $model->getNamaSidang(),array('prompt' => 'Pilih Sidang','class'=>'form-control')); ?>
                                 </div>
                                 <div class="col-lg-10">        
-                                   <?php echo $form->error($model,'IdSidang'); ?>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +54,6 @@ $form = $this->beginWidget('CActiveForm', array(
                                     <?php echo CHtml::activeDropDownList($model,'KodePembimbing1', $model->getPembimbing(),array('prompt' => 'Pilih Pembimbing','class'=>'form-control')); ?>
                                 </div>
                                 <div class="col-lg-10">        
-                                    <?php echo $form->error($model, 'KodePembimbing1', array('class' => 'text-danger')); ?>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +66,6 @@ $form = $this->beginWidget('CActiveForm', array(
                                     <?php echo CHtml::activeDropDownList($model,'KodePembimbing2', $model->getPembimbing(),array('prompt' => 'Pilih Pembimbing','class'=>'form-control')); ?>
                                 </div>
                                 <div class="col-lg-10">        
-                                    <?php echo $form->error($model, 'KodePembimbing2', array('class' => 'text-danger')); ?>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +79,6 @@ $form = $this->beginWidget('CActiveForm', array(
 
                                 </div>
                                 <div class="col-lg-10">        
-                                    <?php echo $form->error($model, 'Judul', array('class' => 'text-danger')); ?>
                                 </div>
                             </div>
                         </div>
