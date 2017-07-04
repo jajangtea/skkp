@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaikp', 'url'=>array('index')),
-	array('label'=>'Manage Nilaikp', 'url'=>array('admin')),
+	array('label'=>'Manage Nilai KP', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Nilaikp</h1>
+
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -33,6 +33,7 @@ class Nilaikp extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+                        array('NIM','required'),
 			array('NIM', 'numerical', 'integerOnly'=>true),
 			array('NilaiPembimbing, NilaiPenguji, NilaiPerusahaan, NA', 'numerical'),
 			array('Index', 'length', 'max'=>2),

@@ -75,29 +75,30 @@
                                     <div class="user-box">
                                         <span class="name">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <?php if (Yii::app()->user->isGuest) {
+                                                <?php
+                                                if (Yii::app()->user->isGuest) {
                                                     echo 'Tamu';
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     echo Yii::app()->user->name;
                                                 }
                                                 ?>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
-                                             <?php if (!Yii::app()->user->isGuest) {
-                                                    echo "<ul class=\"dropdown-menu\">";
-                                                    echo "<li>";
-                                                    echo CHtml::link("<i class=\"fa  fa-plus-circle fa-lg\"></i> Logout", array('site/logout'), array('visible' => !Yii::app()->user->isGuest));
-                                                    echo "</li>";
-                                                    echo "</ul>";
-                                                }
-                                                ?>
+                                            <?php
+                                            if (!Yii::app()->user->isGuest) {
+                                                echo "<ul class=\"dropdown-menu\">";
+                                                echo "<li>";
+                                                echo CHtml::link("<i class=\"fa  fa-plus-circle fa-lg\"></i> Logout", array('site/logout'), array('visible' => !Yii::app()->user->isGuest));
+                                                echo "</li>";
+                                                echo "</ul>";
+                                            }
+                                            ?>
                                         </span>
                                         <span class="status">
-                                             <?php if (!Yii::app()->user->isGuest) {
-                                                    echo '<i class="fa fa-circle"></i> Online';
-                                                }
+                                            <?php
+                                            if (!Yii::app()->user->isGuest) {
+                                                echo '<i class="fa fa-circle"></i> Online';
+                                            }
                                             ?>
                                         </span>
                                     </div>
@@ -128,7 +129,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="#" class="dropdown-toggle">
-                                                        <?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
+<?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
                                                         <i class="fa fa-angle-right drop-icon"></i>
                                                     </a>
                                                 </li>
@@ -147,18 +148,45 @@
                                             </a>
                                         </li>
 
+                                        <li>
+                                            <a href="index.php?r=nilaikp/admin">
+                                                <i class="fa fa-book"></i>
+                                                <span>Nilai KP</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-envelope"></i>
+                                                <span>Nilai Skripsi</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="index.php?r=nilaimasterskripsi/admin">
+                                                        Pra Sidang
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.php?r=nilaidetilskripsi/admin">
+                                                        Sidang Akhir
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
                                         </li>
                                         <li>
                                             <?php
-                                                $this->beginWidget('zii.widgets.CPortlet', array(
-                                                ));
-                                                $this->widget('zii.widgets.CMenu', array(
-                                                    'items' => $this->menu,
-                                                    'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
-                                                ));
-                                                $this->endWidget();
+                                            $this->beginWidget('zii.widgets.CPortlet', array(
+                                            ));
+                                            $this->widget('zii.widgets.CMenu', array(
+                                                'items' => $this->menu,
+                                                'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
+                                            ));
+                                            $this->endWidget();
                                             ?>
                                         </li>
 
@@ -180,10 +208,10 @@
                                                     'links' => $this->breadcrumbs,
                                                 ));
                                                 ?><!-- breadcrumbs -->
-                                            <?php endif ?>
+<?php endif ?>
                                         </ol>
                                     </div>
-                                    <?php echo $content; ?>
+<?php echo $content; ?>
                                 </div>
                             </div>
                         </div>					

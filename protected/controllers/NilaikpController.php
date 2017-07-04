@@ -29,15 +29,15 @@ class NilaikpController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'expression' => '$user->getLevel()==1',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'expression' => '$user->getLevel()==1',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'expression' => '$user->getLevel()==1',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -51,6 +51,7 @@ class NilaikpController extends Controller
 	 */
 	public function actionView($id)
 	{
+                $this->layout = 'main';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -62,10 +63,11 @@ class NilaikpController extends Controller
 	 */
 	public function actionCreate()
 	{
+                $this->layout = 'main';
 		$model=new Nilaikp;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['Nilaikp']))
 		{
@@ -86,10 +88,11 @@ class NilaikpController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+                $this->layout = 'main';
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['Nilaikp']))
 		{
@@ -122,6 +125,7 @@ class NilaikpController extends Controller
 	 */
 	public function actionIndex()
 	{
+                $this->layout = 'main';
 		$dataProvider=new CActiveDataProvider('Nilaikp');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -133,6 +137,7 @@ class NilaikpController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->layout = 'main';
 		$model=new Nilaikp('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Nilaikp']))
