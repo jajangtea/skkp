@@ -8307,3 +8307,154 @@ Stack trace:
 REQUEST_URI=/skkp/
 HTTP_REFERER=http://localhost/
 ---
+2017/07/03 23:39:58 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() gagal: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'heri' in 'where clause'. Statement SQL yang dijalankan: select count(*) from prd_pendaftaran p left join prd_sidangmaster sm on p.IdSidang=sm.IdSidang where p.nim=heri and sm.status=1 and  sm.IDJenisSidang in(1,2,3).
+in /mnt/c/xampp/htdocs/skkp/protected/models/Pendaftaran.php (145)
+in /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php (82)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/03 23:39:58 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'heri' in 'where clause'. The SQL statement executed was: select count(*) from prd_pendaftaran p left join prd_sidangmaster sm on p.IdSidang=sm.IdSidang where p.nim=heri and sm.status=1 and  sm.IDJenisSidang in(1,2,3) in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:543
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /mnt/c/xampp/htdocs/skkp/protected/models/Pendaftaran.php(145): CDbCommand->queryScalar()
+#2 /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php(82): Pendaftaran::cekPendaftaran('heri')
+#3 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): PendaftaranController->actionCreate()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('pendaftaran/cre...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=pendaftaran/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=pendaftaran/create
+---
+2017/07/03 23:42:52 [error] [system.db.CDbCommand] CDbCommand::execute() gagal: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). Statement SQL yang dijalankan: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5).
+in /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php (99)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/03 23:42:52 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). The SQL statement executed was: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5) in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:358
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1080): CDbCommand->execute()
+#1 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(809): CActiveRecord->insert(NULL)
+#2 /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php(99): CActiveRecord->save()
+#3 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): PendaftaranController->actionCreate()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('pendaftaran/cre...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=pendaftaran/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=pendaftaran/create
+---
+2017/07/03 23:43:33 [error] [system.db.CDbCommand] CDbCommand::execute() gagal: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). Statement SQL yang dijalankan: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5).
+in /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php (99)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/03 23:43:33 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). The SQL statement executed was: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5) in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:358
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1080): CDbCommand->execute()
+#1 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(809): CActiveRecord->insert(NULL)
+#2 /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php(99): CActiveRecord->save()
+#3 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): PendaftaranController->actionCreate()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('pendaftaran/cre...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=pendaftaran/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=pendaftaran/create
+---
+2017/07/03 23:45:26 [error] [system.db.CDbCommand] CDbCommand::execute() gagal: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). Statement SQL yang dijalankan: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5).
+in /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php (99)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/03 23:45:26 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`dbsidang`.`prd_pendaftaran`, CONSTRAINT `prd_pendaftaran_ibfk_1` FOREIGN KEY (`NIM`) REFERENCES `prd_mahasiswa` (`NIM`) ON DELETE CASCADE ON UPDATE CASCADE). The SQL statement executed was: INSERT INTO `prd_pendaftaran` (`IdSidang`, `KodePembimbing1`, `KodePembimbing2`, `Judul`, `NIM`, `Tanggal`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5) in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:358
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1080): CDbCommand->execute()
+#1 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(809): CActiveRecord->insert(NULL)
+#2 /mnt/c/xampp/htdocs/skkp/protected/controllers/PendaftaranController.php(99): CActiveRecord->save()
+#3 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): PendaftaranController->actionCreate()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('pendaftaran/cre...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=pendaftaran/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=pendaftaran/create
+---
+2017/07/04 08:42:41 [error] [exception.CHttpException.404] CHttpException: Tidak bisa mengurai request "sidang" in /mnt/c/xampp/htdocs/core/web/CWebApplication.php:286
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('sidang')
+#1 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/skkp/index.php?r=sidang
+---
+2017/07/04 08:42:52 [error] [exception.CHttpException.404] CHttpException: Tidak bisa mengurai request "sidang-master" in /mnt/c/xampp/htdocs/core/web/CWebApplication.php:286
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('sidang-master')
+#1 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/skkp/index.php?r=sidang-master
+---
+2017/07/04 09:42:19 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('admin')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('sidangdetil/adm...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=sidangdetil/admin
+HTTP_REFERER=http://localhost/skkp/index.php?r=sidangdetil
+---
+2017/07/04 09:43:30 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('admin')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('sidangdetil/adm...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=sidangdetil/admin
+HTTP_REFERER=http://localhost/skkp/index.php?r=sidangdetil
+---

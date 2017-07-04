@@ -94,7 +94,7 @@ $this->breadcrumbs = array(
                             array(
                                 'name' => 'Judul',
                                 'type' => 'raw',
-                                'header' => 'Nama Dosen',
+                                'header' => 'Judul',
                                 'value' => '$data->Judul',
                                 'htmlOptions'=>array('width'=>'260px'),
                             ),

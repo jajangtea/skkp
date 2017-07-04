@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
     </head>
-    <body class="theme-blue fixed-header">
+    <body class="theme-turquoise fixed-header">
         <div id="theme-wrapper">
             <header class="navbar" id="header-navbar">
                 <div class="container">
@@ -117,34 +117,31 @@
                                             </ul>
                                         </li>   
                                         <li>
-                                            <a href="#" class="dropdown-toggle">
+                                            <a href="index.php?r=pendaftaran/admin">
                                                 <i class="fa fa-star"></i>
-                                                <span>Pendaftaran</span>
-                                                <i class="fa fa-angle-right drop-icon"></i>
+                                                <span>Kelola Pendaftaran</span>
                                             </a>
-                                            <ul class="submenu">
-                                                <li>
-                                                        <?php echo CHtml::link('Kelola Pendaftaran', array('pendaftaran/index')) ?>
-                                                </li>
-                                            </ul>
-                                        </li>   
+                                        </li>  
                                         <li>
-                                            <a href="#" class="dropdown-toggle">
+                                            <a href="index.php?r=sidangmaster/admin">
                                                 <i class="fa fa-medkit"></i>
-                                                <span>Akademik</span>
-                                                <i class="fa fa-angle-right drop-icon"></i>
+                                                <span>Kelola Sidang</span>
                                             </a>
-                                            <ul class="submenu">
-                                                <li>
-                                                    <a href="">
-                                                        Ketua Prodi
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
                                         </li>
 
+                                        <li class="nav-header hidden-sm hidden-xs">
+                                            Components
+                                        </li>
+                                        <li>
+                                            <?php
+                                                $this->beginWidget('zii.widgets.CPortlet', array(
+                                                ));
+                                                $this->widget('zii.widgets.CMenu', array(
+                                                    'items' => $this->menu,
+                                                    'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
+                                                ));
+                                                $this->endWidget();
+                                            ?>
                                         </li>
 
                                     </ul>

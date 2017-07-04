@@ -37,7 +37,7 @@ class PendaftaranController extends Controller {
                 'actions' => array('admin', 'delete'),
                 'expression' => '$user->getLevel()==3',
             ),
-             array('allow', // allow admin user to perform 'admin' and 'delete' actions
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete'),
                 'expression' => '$user->getLevel()==1',
             ),
@@ -52,6 +52,11 @@ class PendaftaranController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -62,7 +67,11 @@ class PendaftaranController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = new Pendaftaran;
 
         // Uncomment the following line if AJAX validation is needed
@@ -114,6 +123,11 @@ class PendaftaranController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = $this->loadModel($id);
         $modelMhs = new Mahasiswa;
         // Uncomment the following line if AJAX validation is needed
@@ -148,6 +162,11 @@ class PendaftaranController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pendaftaran']))
@@ -157,7 +176,7 @@ class PendaftaranController extends Controller {
                 'model' => $model,
             ));
         } else {
-            $this->layout='main';
+            $this->layout = 'main';
             $this->render('admin', array(
                 'model' => $model,
             ));
@@ -168,6 +187,12 @@ class PendaftaranController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pendaftaran']))
