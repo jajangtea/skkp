@@ -8,8 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Sidangmaster', 'url'=>array('index')),
-	array('label'=>'Create Sidangmaster', 'url'=>array('create')),
+	array('label'=>'Create Sidang', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

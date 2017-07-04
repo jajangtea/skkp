@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Sidangmaster', 'url'=>array('index')),
-	array('label'=>'Manage Sidangmaster', 'url'=>array('admin')),
+	array('label'=>'Manage Sidang', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Sidangmaster</h1>
+<h1>Create Sidang</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
