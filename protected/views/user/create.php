@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - Registrasi';
 $this->breadcrumbs=array(
 	'Users'=>array('index'),
 	'Create',

@@ -40,7 +40,7 @@
     
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <?php echo $form->textField($model, 'email', array('size' => 50, 'maxlength' => 50,'placeholder'=>'Emai','class'=>'form-control')); ?>
+        <?php echo $form->textField($model, 'email', array('size' => 50, 'maxlength' => 50,'placeholder'=>'Email','class'=>'form-control')); ?>
     </div>
     <div id="remember-me-wrapper">
         <div class="row">

@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body class="theme-turquoise fixed-header">
         <div id="theme-wrapper">
@@ -74,13 +75,30 @@
                                     <div class="user-box">
                                         <span class="name">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
+                                                <?php if (Yii::app()->user->isGuest) {
+                                                    echo 'Tamu';
+                                                }
+                                                else
+                                                {
+                                                    echo Yii::app()->user->name;
+                                                }
+                                                ?>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href=""><i class="fa fa-user"></i>Profiles</a></li>
-
-                                            </ul>
+                                             <?php if (!Yii::app()->user->isGuest) {
+                                                    echo "<ul class=\"dropdown-menu\">";
+                                                    echo "<li>";
+                                                    echo CHtml::link("<i class=\"fa  fa-plus-circle fa-lg\"></i> Logout", array('site/logout'), array('visible' => !Yii::app()->user->isGuest));
+                                                    echo "</li>";
+                                                    echo "</ul>";
+                                                }
+                                                ?>
+                                        </span>
+                                        <span class="status">
+                                             <?php if (!Yii::app()->user->isGuest) {
+                                                    echo '<i class="fa fa-circle"></i> Online';
+                                                }
+                                            ?>
                                         </span>
                                     </div>
                                 </div>

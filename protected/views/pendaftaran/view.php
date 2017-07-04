@@ -31,6 +31,10 @@ $this->menu = array(
                     'data' => $model,
                     'attributes' => array(
                         array(
+                                'name' => 'Mahasiswa',
+                                'value' => $model->nIM->Nama,
+                            ),
+                        array(
                                 'name' => 'Tanggal Daftar',
                                 'value' => $model->Tanggal,
                             ),

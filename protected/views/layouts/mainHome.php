@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/skkp.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
     </head>
     <body class="theme-white fixed-header">
@@ -99,7 +100,6 @@
                                                     echo "</ul>";
                                                 }
                                                 ?>
-                                            
                                         </span>
                                         <span class="status">
                                              <?php if (!Yii::app()->user->isGuest) {

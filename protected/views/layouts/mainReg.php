@@ -12,10 +12,10 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
-        <title>Cube - Bootstrap Admin Template</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
         <script src="js/demo-rtl.js"></script>
         <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body id="login-page">
         <div class="container">

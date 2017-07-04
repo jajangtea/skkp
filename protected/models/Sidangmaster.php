@@ -124,7 +124,27 @@ class Sidangmaster extends CActiveRecord {
         return $data = Yii::app()->db->createCommand($sql)->queryRow();
         ;
     }
-
     
+    public function ubahStatus() {
+        if ($this->status == "1")
+            return "Aktif";
+        else
+            return "Tidak Aktif";
+    }
+    
+    public static function jenisStatus()
+    {
+            return array(
+                    '1' => 'Aktif',
+                    '0' => 'Tidak Aktif',
+            );
+    }
+    public function getComplete()
+    {
+        return Ta::model()->Tahun.' '.Ta::model()->Semester;
+    }
+    public function getTA() {
+        return CHtml::listData(Ta::model()->findAll(), 'IdTa', 'complete');
+    }
 
 }

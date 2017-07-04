@@ -66,7 +66,7 @@ class SidangmasterController extends Controller {
         $model = new Sidangmaster;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
         $this->layout = 'main';
         if (isset($_POST['Sidangmaster'])) {
             $model->attributes = $_POST['Sidangmaster'];
@@ -88,7 +88,7 @@ class SidangmasterController extends Controller {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
         $this->layout = 'main';
         if (isset($_POST['Sidangmaster'])) {
             $model->attributes = $_POST['Sidangmaster'];

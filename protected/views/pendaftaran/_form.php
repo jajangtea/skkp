@@ -12,7 +12,7 @@ $form = $this->beginWidget('CActiveForm', array(
     // controller action is handling ajax validation correctly.
     // There is a call to performAjaxValidation() commented in generated controller code.
     // See class documentation of CActiveForm for details on this.
-    'enableAjaxValidation' => false,
+    'enableAjaxValidation' => true,
         ));
 ?>
 <div class="row">                
@@ -100,4 +100,4 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
