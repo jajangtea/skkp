@@ -3,16 +3,15 @@
 /* @var $model Ta */
 
 $this->breadcrumbs=array(
-	'Tas'=>array('index'),
+	'TA'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Ta', 'url'=>array('index')),
-	array('label'=>'Manage Ta', 'url'=>array('admin')),
+	array('label'=>'Manage TA', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Ta</h1>
+<h1>Create TA</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

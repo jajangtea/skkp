@@ -16,10 +16,4 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Semester')); ?>:</b>
 	<?php echo CHtml::encode($data->Semester); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Status')); ?>:</b>
-	<?php echo CHtml::encode($data->Status); ?>
-	<br />
-
-
 </div>

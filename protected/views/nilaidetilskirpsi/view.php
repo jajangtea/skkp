@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaidetilskirpsi', 'url'=>array('index')),
-	array('label'=>'Create Nilaidetilskirpsi', 'url'=>array('create')),
-	array('label'=>'Update Nilaidetilskirpsi', 'url'=>array('update', 'id'=>$model->idNilaiSkripsi)),
-	array('label'=>'Delete Nilaidetilskirpsi', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idNilaiSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Nilaidetilskirpsi', 'url'=>array('admin')),
+	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
+	array('label'=>'Update Nilai Detil Skirpsi', 'url'=>array('update', 'id'=>$model->idNilaiSkripsi)),
+	array('label'=>'Delete Nilai Detil Skirpsi', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idNilaiSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
 );
 ?>
 

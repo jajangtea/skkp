@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Nilaidetilskirpsis',
+	'Nilai Detil Skirpsi',
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilaidetilskirpsi', 'url'=>array('create')),
-	array('label'=>'Manage Nilaidetilskirpsi', 'url'=>array('admin')),
+	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
+	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Nilaidetilskirpsis</h1>
+<h1>Nilai Detil Skirpsi</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

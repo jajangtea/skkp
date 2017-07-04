@@ -129,7 +129,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="#" class="dropdown-toggle">
-<?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
+                                                        <?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
                                                         <i class="fa fa-angle-right drop-icon"></i>
                                                     </a>
                                                 </li>
@@ -164,15 +164,22 @@
                                             <ul class="submenu">
                                                 <li>
                                                     <a href="index.php?r=nilaimasterskripsi/admin">
-                                                        Pra Sidang
+                                                        Nilai Master
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="index.php?r=nilaidetilskripsi/admin">
-                                                        Sidang Akhir
+                                                    <a href="index.php?r=nilaidetilskirpsi/admin">
+                                                        Nilai Detil
                                                     </a>
                                                 </li>
                                             </ul>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="index.php?r=ta/admin">
+                                                <i class="fa fa-windows"></i>
+                                                <span>Tahun Ajaran</span>
+                                            </a>
                                         </li>
 
                                         <li class="nav-header hidden-sm hidden-xs">
@@ -208,10 +215,10 @@
                                                     'links' => $this->breadcrumbs,
                                                 ));
                                                 ?><!-- breadcrumbs -->
-<?php endif ?>
+                                            <?php endif ?>
                                         </ol>
                                     </div>
-<?php echo $content; ?>
+                                    <?php echo $content; ?>
                                 </div>
                             </div>
                         </div>					

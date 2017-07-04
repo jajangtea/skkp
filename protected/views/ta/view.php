@@ -3,20 +3,19 @@
 /* @var $model Ta */
 
 $this->breadcrumbs=array(
-	'Tas'=>array('index'),
+	'TA'=>array('index'),
 	$model->IdTa,
 );
 
 $this->menu=array(
-	array('label'=>'List Ta', 'url'=>array('index')),
-	array('label'=>'Create Ta', 'url'=>array('create')),
-	array('label'=>'Update Ta', 'url'=>array('update', 'id'=>$model->IdTa)),
-	array('label'=>'Delete Ta', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdTa),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Ta', 'url'=>array('admin')),
+	array('label'=>'Create TA', 'url'=>array('create')),
+	array('label'=>'Update TA', 'url'=>array('update', 'id'=>$model->IdTa)),
+	array('label'=>'Delete TA', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdTa),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage TA', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Ta #<?php echo $model->IdTa; ?></h1>
+<h1>View TA #<?php echo $model->IdTa; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -24,6 +23,5 @@ $this->menu=array(
 		'IdTa',
 		'Tahun',
 		'Semester',
-		'Status',
 	),
 )); ?>

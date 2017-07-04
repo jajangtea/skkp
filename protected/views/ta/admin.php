@@ -3,13 +3,12 @@
 /* @var $model Ta */
 
 $this->breadcrumbs=array(
-	'Tas'=>array('index'),
+	'TA'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Ta', 'url'=>array('index')),
-	array('label'=>'Create Ta', 'url'=>array('create')),
+	array('label'=>'Create TA', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,12 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Tas</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+<h1>Manage TA</h1>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -43,12 +37,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'ta-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'IdTa',
 		'Tahun',
 		'Semester',
-		'Status',
 		array(
 			'class'=>'CButtonColumn',
 		),

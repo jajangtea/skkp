@@ -1,15 +1,15 @@
 <?php
-/* @var $this NilaimasterskripsiController */
-/* @var $model Nilaimasterskripsi */
+/* @var $this Nilai Master SkripsiController */
+/* @var $model Nilai Master Skripsi */
 
 $this->breadcrumbs=array(
-	'Nilaimasterskripsis'=>array('index'),
+	'Nilai Master Skripsi'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaimasterskripsi', 'url'=>array('index')),
-	array('label'=>'Create Nilaimasterskripsi', 'url'=>array('create')),
+	array('label'=>'List Nilai Master Skripsi', 'url'=>array('index')),
+	array('label'=>'Create Nilai Master Skripsi', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,14 +26,9 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Nilaimasterskripsis</h1>
+<h1>Manage Nilai Master Skripsi</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,

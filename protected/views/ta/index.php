@@ -3,12 +3,12 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Tas',
+	'TA',
 );
 
 $this->menu=array(
-	array('label'=>'Create Ta', 'url'=>array('create')),
-	array('label'=>'Manage Ta', 'url'=>array('admin')),
+	array('label'=>'Create TA', 'url'=>array('create')),
+	array('label'=>'Manage TA', 'url'=>array('admin')),
 );
 ?>
 

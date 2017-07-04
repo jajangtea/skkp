@@ -1,18 +1,18 @@
 <?php
-/* @var $this NilaimasterskripsiController */
+/* @var $this Nilai Master SkripsiController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Nilaimasterskripsis',
+	'Nilai Master Skripsis',
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilaimasterskripsi', 'url'=>array('create')),
-	array('label'=>'Manage Nilaimasterskripsi', 'url'=>array('admin')),
+	array('label'=>'Create Nilai Master Skripsi', 'url'=>array('create')),
+	array('label'=>'Manage Nilai Master Skripsi', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Nilaimasterskripsis</h1>
+<h1>Nilai Master Skripsis</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

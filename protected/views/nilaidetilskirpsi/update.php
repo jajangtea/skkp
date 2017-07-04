@@ -3,19 +3,18 @@
 /* @var $model Nilaidetilskirpsi */
 
 $this->breadcrumbs=array(
-	'Nilaidetilskirpsis'=>array('index'),
+	'Nilai Detil Skirpsi'=>array('index'),
 	$model->idNilaiSkripsi=>array('view','id'=>$model->idNilaiSkripsi),
 	'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaidetilskirpsi', 'url'=>array('index')),
-	array('label'=>'Create Nilaidetilskirpsi', 'url'=>array('create')),
-	array('label'=>'View Nilaidetilskirpsi', 'url'=>array('view', 'id'=>$model->idNilaiSkripsi)),
-	array('label'=>'Manage Nilaidetilskirpsi', 'url'=>array('admin')),
+	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
+	array('label'=>'View Nilai Detil Skirpsi', 'url'=>array('view', 'id'=>$model->idNilaiSkripsi)),
+	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Nilaidetilskirpsi <?php echo $model->idNilaiSkripsi; ?></h1>
+<h1>Update Nilai Detil Skirpsi <?php echo $model->idNilaiSkripsi; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

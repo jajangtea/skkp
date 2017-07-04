@@ -7,8 +7,6 @@
  * @property integer $IdTa
  * @property string $Tahun
  * @property string $Semester
- * @property integer $Status
- *
  * The followings are the available model relations:
  * @property Sidangmaster[] $sidangmasters
  */
@@ -28,12 +26,11 @@ class Ta extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('Status', 'numerical', 'integerOnly' => true),
             array('Tahun', 'length', 'max' => 200),
             array('Semester', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IdTa, Tahun, Semester, Status', 'safe', 'on' => 'search'),
+            array('Tahun, Semester', 'safe', 'on' => 'search'),
         );
     }
 
@@ -56,7 +53,6 @@ class Ta extends CActiveRecord {
             'IdTa' => 'Id Ta',
             'Tahun' => 'Tahun',
             'Semester' => 'Semester',
-            'Status' => 'Status',
         );
     }
 
@@ -80,7 +76,6 @@ class Ta extends CActiveRecord {
         $criteria->compare('IdTa', $this->IdTa);
         $criteria->compare('Tahun', $this->Tahun, true);
         $criteria->compare('Semester', $this->Semester, true);
-        $criteria->compare('Status', $this->Status);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

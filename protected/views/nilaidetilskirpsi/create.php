@@ -3,16 +3,15 @@
 /* @var $model Nilaidetilskirpsi */
 
 $this->breadcrumbs=array(
-	'Nilaidetilskirpsis'=>array('index'),
+	'Nilai Detil Skirpsi'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaidetilskirpsi', 'url'=>array('index')),
-	array('label'=>'Manage Nilaidetilskirpsi', 'url'=>array('admin')),
+	array('label'=>'Manage Nilai detil Skirpsi', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Nilaidetilskirpsi</h1>
+<h1>Create Nilai detil Skirpsi</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

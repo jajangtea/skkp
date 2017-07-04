@@ -1,18 +1,17 @@
 <?php
-/* @var $this NilaimasterskripsiController */
-/* @var $model Nilaimasterskripsi */
+/* @var $this Nilai Master SkripsiController */
+/* @var $model Nilai Master Skripsi */
 
 $this->breadcrumbs=array(
-	'Nilaimasterskripsis'=>array('index'),
+	'Nilai Master Skripsis'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaimasterskripsi', 'url'=>array('index')),
-	array('label'=>'Manage Nilaimasterskripsi', 'url'=>array('admin')),
+	array('label'=>'Manage Nilai Master Skripsi', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Nilaimasterskripsi</h1>
+<h1>Create Nilai Master Skripsi</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
