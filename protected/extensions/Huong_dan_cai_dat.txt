@@ -1,0 +1,17 @@
+﻿- Copy tòan bộ vào folder protected/extensions/
+- Cấu hình trong file main: 
+	+ 'import' => array( ...
+		'application.extensions.*', 
+		...)
+	+ 'components' => array(
+		...
+	        'excel'=>array(
+	          'class'=>'application.extensions.PHPExcel',
+	        ),
+		...
+	   )
+- Hàm hỗ trợ thêm: 
+	+ Khởi tạo 1 lớp xử lý excel: $objPHPExcel = Yii::app()->excel; (Muốn sử dụng bắt buộc phải khởi tạo)
+	+ Cách lưu 1 file excel: $objPHPExcel->saveExcel2007($objPHPExcel,$filename);
+	+ Khởi tạo đọc 1 file excel 2007: $objReader = $objPHPExcel->readExcel2007();
+- Các phần còn lại sử dụng giống như PHPExcel cũ

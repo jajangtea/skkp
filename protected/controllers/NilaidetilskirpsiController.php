@@ -26,16 +26,28 @@ class NilaidetilskirpsiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
                 'expression' => '$user->getLevel()==1',
             ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'expression' => '$user->getLevel()==1',
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==3',
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'expression' => '$user->getLevel()==1',
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==4',
+            ),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==5',
+            ),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==6',
+            ),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==7',
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -48,7 +60,15 @@ class NilaidetilskirpsiController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -59,7 +79,15 @@ class NilaidetilskirpsiController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         $model = new Nilaidetilskirpsi;
 
         // Uncomment the following line if AJAX validation is needed
@@ -82,6 +110,15 @@ class NilaidetilskirpsiController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         $this->layout = 'main';
         $model = $this->loadModel($id);
 
@@ -116,7 +153,15 @@ class NilaidetilskirpsiController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         $dataProvider = new CActiveDataProvider('Nilaidetilskirpsi');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -127,7 +172,15 @@ class NilaidetilskirpsiController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         $model = new Nilaidetilskirpsi('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Nilaidetilskirpsi']))

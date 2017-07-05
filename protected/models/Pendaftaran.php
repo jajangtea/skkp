@@ -161,6 +161,8 @@ class Pendaftaran extends CActiveRecord {
     }
     public function hitungjmlsidang($idjenis)
     {
+        if($idjenis=="")
+            $idjenis=0;
         $sql="SELECT COUNT(*) FROM prd_pendaftaran p 
             LEFT JOIN prd_sidangmaster sm ON p.IdSidang=sm.IdSidang 
             LEFT JOIN prd_jenissidang js ON sm.IdJenisSidang=js.IdJenisSidang 

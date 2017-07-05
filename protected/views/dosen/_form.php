@@ -1,58 +1,86 @@
-<?php
-/* @var $this DosenController */
-/* @var $model Dosen */
-/* @var $form CActiveForm */
-?>
+<div class="form">
 
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'user-form',
+        'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    ));
+    ?>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'dosen-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-)); ?>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="login-box">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="login-box-inner">
 
-	<p class="text-info">Kolom dengan tanda <span class="required">*</span> tidak boleh kosong.</p>
-	<div class="text-danger">
-	<?php echo $form->errorSummary($model); ?>
-	</div>
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'KodeDosen'); ?>
-		<?php echo $form->textField($model,'KodeDosen',array('size'=>3,'maxlength'=>3, 'class'=>'form-control','style'=>'width:30%')); ?>
-		<?php echo $form->error($model,'KodeDosen',array('class'=>'text-danger')); ?>
-	</div>
+                            <p class="note">Fields with <span class="required">*</span> are required.</p>
+                            <?php echo $form->errorSummary($model); ?>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-arrows"></i></span>
+                                <?php echo $form->textField($modelDosen, 'KodeDosen', array('size' => 20, 'maxlength' => 20, 'placeholder' => 'Kode/Inisial', 'class' => 'form-control')); ?>
+                            </div>
 
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'NamaDosen'); ?>
-		<?php echo $form->textField($model,'NamaDosen',array('size'=>60,'maxlength'=>200, 'class'=>'form-control','style'=>'width:30%')); ?>
-		<?php echo $form->error($model,'NamaDosen',array('class'=>'text-danger')); ?>
-	</div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-wechat"></i></span>
+                                <?php echo $form->textField($modelDosen, 'NamaDosen', array('size' => 20, 'maxlength' => 20, 'placeholder' => 'Nama Lengkap', 'class' => 'form-control')); ?>
+                            </div>
 
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'Tlp'); ?>
-		<?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20, 'class'=>'form-control','style'=>'width:30%')); ?>
-		<?php echo $form->error($model,'Tlp',array('class'=>'text-danger')); ?>
-	</div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <?php echo $form->textField($model, 'username', array('size' => 20, 'maxlength' => 20, 'placeholder' => 'Username', 'class' => 'form-control')); ?>
+                            </div>
 
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'IdUser'); ?>
-		<?php echo $form->textField($model,'IdUser', array('class'=>'form-control','style'=>'width:30%')); ?>
-		<?php echo $form->error($model,'IdUser',array('class'=>'text-danger')); ?>
-	</div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <?php echo $form->passwordField($model, 'password', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'Password', 'class' => 'form-control')); ?>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
+                                <?php echo $form->passwordField($model, 'password2', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'Ulangi Password', 'class' => 'form-control')); ?>
+                            </div>
 
-	<div class="form-group">
-                 <?php
-if($model->isNewRecord)
-{
-echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-success'),'<i class="fa fa-save"></i> Create');
-}
-else
-{
-echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-info'),'<i class="fa fa-save"></i> Save');
-}
-?>
-	</div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <?php echo $form->textField($modelDosen, 'Tlp', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'No. Handphone', 'class' => 'form-control')); ?>
+                            </div>
 
-<?php $this->endWidget(); ?>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <?php echo $form->textField($model, 'email', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'Email', 'class' => 'form-control')); ?>
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-rocket"></i></span>
+                                <?php echo $form->dropDownlist($model, 'level_id', CHtml::listData(Level::model()->findAll(), 'id', 'level'), array('class' => 'form-control')); ?>
+                            </div>
+
+                            <div id="remember-me-wrapper">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="checkbox-nice">
+                                            <input type="checkbox" id="terms-cond" checked="checked" />
+                                            <label for="terms-cond">
+                                                I accept terms and conditions
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-success col-xs-12')); ?>
+                                    <p>Kembali ke <?php echo CHtml::link('Home', array('site/index')); ?> . </p>
+                                </div>
+                            </div>
+
+                            <?php $this->endWidget(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- form -->

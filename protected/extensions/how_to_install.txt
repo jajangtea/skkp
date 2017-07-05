@@ -1,0 +1,17 @@
+- Copy to folder protected/extensions/
+- Add to  main file: 
+	+ 'import' => array( ...
+		'application.extensions.*', 
+		...)
+	+ 'components' => array(
+		...
+	        'excel'=>array(
+	          'class'=>'application.extensions.PHPExcel',
+	        ),
+		...
+	   )
+- New function added: 
+	+ Create a new excel object: $objPHPExcel = Yii::app()->excel; (required when using PHPExcel with Yii framework)
+	+ Save a excel file (excel 2007): $objPHPExcel->saveExcel2007($objPHPExcel,$filename);
+	+ Create a 2007 excel object reader : $objReader = $objPHPExcel->readExcel2007();
+- Read more in PHPExcel Document from Codeplex

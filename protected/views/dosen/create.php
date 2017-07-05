@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>Create Dosen</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'modelDosen'=>$modelDosen)); ?>

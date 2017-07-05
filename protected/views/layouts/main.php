@@ -109,7 +109,7 @@
                                             NAVIGASI
                                         </li>
                                         <li>
-                                            <a href="">
+                                            <a href="index.php?r=site/index">
                                                 <i class="fa fa-dashboard"></i>
                                                 <span>Dashboard</span>											
                                             </a>                                        
@@ -124,13 +124,11 @@
                                                 <li>
                                                     <a href="" class="dropdown-toggle">
                                                         <span><?php echo CHtml::link('Mahasiswa', array('mahasiswa/index')) ?></span>
-                                                        <i class="fa fa-angle-right drop-icon"></i>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="dropdown-toggle">
                                                         <?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
-                                                        <i class="fa fa-angle-right drop-icon"></i>
                                                     </a>
                                                 </li>
                                             </ul>

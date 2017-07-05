@@ -68,14 +68,14 @@ class UserController extends Controller {
             $dua = $model->password;
             $model->saltPassword = $model->generateSalt();
             $model->password = $model->hashPassword($dua, $model->saltPassword);
-            $model->level_id = 3;
+            $model->level_id = 2;
             $sss;
             if ($model->save()) {
                 $modelMhs->NIM = $modelMhs->NIM;
                 $modelMhs->kodeJurusan = $modelMhs->KodeJurusan;
                 $modelMhs->Nama = $modelMhs->Nama;
                 $modelMhs->Tlp = $modelMhs->Tlp;
-                $modelMhs->idUser = $model->id;
+                $modelMhs->IdUser = $model->id;
                 $modelMhs->save();
                 $model2 = new LoginForm;
                 $model2->username = $model->username;

@@ -98,8 +98,7 @@ $this->breadcrumbs = array(
                                 'value' => '$data->Judul',
                                 'htmlOptions'=>array('width'=>'260px'),
                             ),
-                            'Judul',
-                             
+                           
                             array(
                                 'class' => 'CButtonColumn',
                             ),

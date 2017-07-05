@@ -35,7 +35,7 @@ class PendaftaranController extends Controller {
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete'),
-                'expression' => '$user->getLevel()==3',
+                'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete'),

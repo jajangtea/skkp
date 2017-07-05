@@ -115,7 +115,7 @@
                                             Navigasi
                                         </li>
                                         <li class="active">
-                                            <a href="index.html">
+                                            <a href="index.php?r=site/index">
                                                 <i class="fa fa-dashboard"></i>
                                                 <span>Dashboard</span>
                                             </a>
@@ -147,6 +147,25 @@
                                                 <span>Pendaftaran Sidang</span>
                                             </a>
                                         </li>
+                                        
+                                        <?php
+                                        if(Yii::app()->user->getLevel()==2)
+                                        {
+                                            echo "<li>";
+                                            echo "<a href=\"index.php?r=nilaikp/index\">";
+                                            echo "<i class=\"fa fa-lock\"></i>";
+                                            echo "<span>Nilai Kerja Praktek</span>";
+                                            echo "</a>";
+                                            echo "</li>";
+                                       
+                                            echo "<li>";
+                                            echo "<a href=\"index.php?r=nilaimasterskripsi/index\">";
+                                            echo "<i class=\"fa fa-lock\"></i>";
+                                            echo "<span>Nilai Skripsi</span>";
+                                            echo "</a>";
+                                            echo "</li>";
+                                        }
+                                        ?>
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
                                         </li>

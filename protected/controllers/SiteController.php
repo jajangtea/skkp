@@ -48,6 +48,15 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
+            $this->layout = 'mainHome';
+        }
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
         $jumlahPrasidang = Pendaftaran::hitungjmlsidang(1);
@@ -61,7 +70,7 @@ class SiteController extends Controller {
         $dataSidangKompre = Sidangmaster::jenisSidangAktif(4);
 
         if (Yii::app()->user->getLevel() == 1) {
-            $this->layout = 'main';
+           // $this->layout = 'main';
             $this->render('index', array(
                 'dataPraSidang' => $dataPraSidang,
                 'dataSidangAkhir' => $dataSidangAkhir,
@@ -74,7 +83,7 @@ class SiteController extends Controller {
                 'jumlahSidangKompre' => $jumlahSidangKompre,
             ));
         } else {
-            $this->layout = 'mainHome';
+           // $this->layout = 'mainHome';
             $data = Sidangmaster::sidangaktif();
             $this->render('index', array(
                 'dataPraSidang' => $dataPraSidang,
