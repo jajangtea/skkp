@@ -5,10 +5,6 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('idNilaiSkripsi')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->idNilaiSkripsi), array('view', 'id'=>$data->idNilaiSkripsi)); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IdPendaftaran')); ?>:</b>
 	<?php echo CHtml::encode($data->IdPendaftaran); ?>
 	<br />

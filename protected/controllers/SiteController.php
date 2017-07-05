@@ -153,7 +153,7 @@ class SiteController extends Controller {
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
                 if (Yii::app()->user->getLevel() == 3) {
-                    $this->redirect(array('pendaftaran/create'));
+                    $this->redirect(array('site/index'));
                 } else {
                     $this->redirect(Yii::app()->user->returnUrl);
                 }

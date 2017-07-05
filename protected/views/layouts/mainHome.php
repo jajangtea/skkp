@@ -124,7 +124,7 @@
                                         if(Yii::app()->user->isGuest)
                                         {
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=user/create/login\">";
+                                            echo "<a href=\"index.php?r=user/create\">";
                                             echo "<i class=\"fa fa-user\"></i>";
                                             echo "<span>Registrasi</span>";
                                             echo "</a>";

@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
-    'Nilaikps',
+    'Nilai Kerja Praktek',
 );
 
 if (!Yii::app()->user->getLevel() == 2) {
@@ -13,8 +13,6 @@ if (!Yii::app()->user->getLevel() == 2) {
     );
 }
 ?>
-
-<h1>Nilaikps</h1>
 
 <?php
 $this->widget('zii.widgets.CListView', array(
