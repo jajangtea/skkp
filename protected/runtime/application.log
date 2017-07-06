@@ -2553,3 +2553,138 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/skkp/index.php?r=sidangmaster/createdas
 ---
+2017/07/06 20:45:26 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2002] No such file or directory in /mnt/c/xampp/htdocs/core/db/CDbConnection.php:399
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbConnection.php(347): CDbConnection->open()
+#1 /mnt/c/xampp/htdocs/core/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /mnt/c/xampp/htdocs/core/base/CModule.php(394): CDbConnection->init()
+#3 /mnt/c/xampp/htdocs/core/base/CApplication.php(459): CModule->getComponent('db')
+#4 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1433): CActiveRecord->getDbConnection()
+#6 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1489): CActiveRecord->getTableAlias(true)
+#7 /mnt/c/xampp/htdocs/skkp/protected/components/EWebUser.php(9): CActiveRecord->findByPk('37')
+#8 /mnt/c/xampp/htdocs/skkp/protected/components/EWebUser.php(22): EWebUser->loadUser()
+#9 /mnt/c/xampp/htdocs/skkp/protected/controllers/SiteController.php(51): EWebUser->getLevel()
+#10 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#12 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#14 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#15 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#16 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#18 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('')
+#20 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('')
+#21 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#22 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#23 {main}
+REQUEST_URI=/skkp/
+---
+2017/07/06 20:46:15 [error] [exception.CHttpException.404] CHttpException: Sistem tidak bisa menemukan action "createssas" seperti yang diminta. in /mnt/c/xampp/htdocs/core/web/CController.php:483
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(270): CController->missingAction('createssas')
+#1 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('createssas')
+#2 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('pendaftaran/cre...')
+#3 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/skkp/index.php?r=pendaftaran/createssas
+---
+2017/07/06 21:32:10 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('delete')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('nilaikp/delete')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=nilaikp/delete&id=5
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaikp/admin
+---
+2017/07/06 22:25:45 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('cetak')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('dosen/cetak')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=dosen/cetak
+---
+2017/07/06 22:34:59 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('cetak')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('dosen/cetak')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=dosen/cetak
+---
+2017/07/06 22:35:06 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('cetak')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('dosen/cetak')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=dosen/cetak
+---
+2017/07/06 22:36:22 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('cetak')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('dosen/cetak')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=dosen/cetak
+---
+2017/07/07 00:03:47 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('lap')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('dosen/lap')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=dosen/lap
+---

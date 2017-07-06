@@ -6,9 +6,8 @@ class DosenController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
     private static $_isInitialized = false;
-    private static $libPathPHPExcel = 'ext.phpexcel.Classes.PHPExcel'; //the path to the PHP excel lib
+    private static $libPathPHPExcel = 'ext.heart.vendors.phpexcel.Classes.PHPExcel'; //the path to the PHP excel lib
 
     /**
      * @return array action filters
@@ -29,7 +28,7 @@ class DosenController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'export', 'laporan'),
+                'actions' => array('index', 'view', 'export', 'laporan', 'lap'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -78,7 +77,7 @@ class DosenController extends Controller {
 //            'model' => $model,
 //        ));
 //    }
-    
+
     public function actionCreate() {
         $this->layout = 'main';
         $model = new User;
@@ -351,29 +350,88 @@ class DosenController extends Controller {
         $this->printOut('daftarhadirdosen');
     }
 
-    public function printOut($filename, $debug = false) {
-        $filename_to_write = $debug == true ? $filename : $filename . '_' . date('Y_m_d_H_m_s');
-        //$writer=new PHPExcel_Writer_Excel5($this->rpt);								
-        $writer = PHPExcel_IOFactory::createWriter($this->rpt, 'Excel5');
-        $writer->setPreCalculateFormulas(false);
-        $filename_to_write = "$filename_to_write.xls";
-        $writer->save($this->exportedDir['full_path'] . $filename_to_write);
-        $this->exportedDir['filename'] = $filename;
-        $this->exportedDir['excel_path'] .= $filename_to_write;
-    }
-
     public function actionLaporan() {
-        $lib = Yii::getPathOfAlias(self::$libPathPHPExcel) . '.php';
-        if (!file_exists($lib)) {
-            Yii::log("PHP Excel lib not found($lib). Export disabled !", CLogger::LEVEL_WARNING, 'EHeartExcel');
-        } else {
-            spl_autoload_unregister(array('YiiBase', 'autoload'));
-            Yii::import(self::$libPathPHPExcel, true);
-            spl_autoload_register(array('YiiBase', 'autoload'));
-            self::$_isInitialized = true;
+        if (!self::$_isInitialized) {
+            $lib = Yii::getPathOfAlias(self::$libPathPHPExcel) . '.php';
+            if (!file_exists($lib)) {
+                Yii::log("PHP Excel lib not found($lib). Export disabled !", CLogger::LEVEL_WARNING, 'EHeartExcel');
+            } else {
+                spl_autoload_unregister(array('YiiBase', 'autoload'));
+                Yii::import(self::$libPathPHPExcel, true);
+                spl_autoload_register(array('YiiBase', 'autoload'));
+                self::$_isInitialized = true;
+            }
         }
 
-        // Create new PHPExcel object
+
+            // Create new PHPExcel object
+            $objPHPExcel = new PHPExcel();
+
+// Set document properties
+            $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+                    ->setLastModifiedBy("Maarten Balliauw")
+                    ->setTitle("Office 2007 XLSX Test Document")
+                    ->setSubject("Office 2007 XLSX Test Document")
+                    ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+                    ->setKeywords("office 2007 openxml php")
+                    ->setCategory("Test result file");
+
+
+// Add some data
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1', 'Hello')
+                    ->setCellValue('B2', 'world!')
+                    ->setCellValue('C1', 'Hello')
+                    ->setCellValue('D2', 'world!');
+
+// Miscellaneous glyphs, UTF-8
+            $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A4', 'Miscellaneous glyphs')
+                    ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+
+// Rename worksheet
+            $objPHPExcel->getActiveSheet()->setTitle('Simple');
+
+
+// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+            $objPHPExcel->setActiveSheetIndex(0);
+
+
+// Redirect output to a client’s web browser (Excel5)
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="01simple.xls"');
+            header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+            header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+            header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+            header('Pragma: public'); // HTTP/1.0
+
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+            $objWriter->save('php://output');
+            exit;
+
+            Yii::app()->end();
+            spl_autoload_register(array('YiiBase', 'autoload'));
+        
+    }
+
+    public function actionLap() {
+        if (!self::$_isInitialized) {
+            $lib = Yii::getPathOfAlias(self::$libPathPHPExcel) . '.php';
+            if (!file_exists($lib)) {
+                Yii::log("PHP Excel lib not found($lib). Export disabled !", CLogger::LEVEL_WARNING, 'EHeartExcel');
+            } else {
+                spl_autoload_unregister(array('YiiBase', 'autoload'));
+                Yii::import(self::$libPathPHPExcel, true);
+                spl_autoload_register(array('YiiBase', 'autoload'));
+                self::$_isInitialized = true;
+            }
+        }
+
         $objPHPExcel = new PHPExcel();
 
 // Set document properties
