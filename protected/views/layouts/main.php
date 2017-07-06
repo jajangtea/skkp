@@ -122,13 +122,18 @@
                                             </a>
                                             <ul class="submenu">
                                                 <li>
+                                                    <a href="#" class="dropdown-toggle">
+                                                        <?php echo CHtml::link('Akun', array('user/admin')) ?>
+                                                    </a>
+                                                </li>
+                                                <li>
                                                     <a href="" class="dropdown-toggle">
                                                         <span><?php echo CHtml::link('Mahasiswa', array('mahasiswa/index')) ?></span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="dropdown-toggle">
-                                                        <?php echo CHtml::link('Kelola Dosen', array('dosen/index')) ?>
+                                                        <?php echo CHtml::link('Dosen', array('dosen/index')) ?>
                                                     </a>
                                                 </li>
                                             </ul>

@@ -162,16 +162,20 @@ class PendaftaranController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        if (Yii::app()->user->getLevel() == 1) {
+         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else {
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
             $this->layout = 'mainHome';
         }
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pendaftaran']))
             $model->attributes = $_GET['Pendaftaran'];
-        if (Yii::app()->user->getLevel() == 3) {
+        if (Yii::app()->user->getLevel() == 2) {
             $this->render('admin', array(
                 'model' => $model,
             ));
@@ -189,7 +193,11 @@ class PendaftaranController extends Controller {
     public function actionAdmin() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else {
+        } else if (Yii::app()->user->getLevel() == 2){
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+            $this->layout = 'mainNilai';
+        } else{
             $this->layout = 'mainHome';
         }
 

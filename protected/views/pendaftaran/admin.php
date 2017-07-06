@@ -8,7 +8,6 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1>Kelola Pendaftaran</h1>
 <div class="search-form">
     <?php
     $this->renderPartial('_search', array(

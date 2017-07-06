@@ -11,7 +11,8 @@ $this->pageTitle = Yii::app()->name;
                 $dataTglPraSidang = strtotime($dataPraSidang['Tanggal']);
                 $dataTglPraSidangBuka = strtotime($dataPraSidang['tglBuka']);
                 $dataTglPraSidangTutup = strtotime($dataPraSidang['tglTutup']);
-
+                
+                $periodeSidang = date('M - Y', $dataTglPraSidang);
                 $tglPraSidang = date('d-m-Y', $dataTglPraSidang);
                 $tglPraSidangBuka = date('d-m-Y', $dataTglPraSidangBuka);
                 $tglPraSidangTutup = date('d-m-Y', $dataTglPraSidangTutup);
@@ -74,8 +75,18 @@ $this->pageTitle = Yii::app()->name;
 //                );
 //                echo CHtml::endForm();
                 ?>
+                
+                <?php
+                    if ($dataPraSidang == 0 && $dataSidangAkhir==0 && $dataSidangKP==0 && $dataSidangKompre==0) {
+                        echo '<h3>Tidak ada sidang pada bulan ini.</h3>';
+                    }
+                    else
+                    {
+                        echo "<h3><strong>Jadwal Sidang yang akan dilaksanakan.</strong> </h3>";
+                    }
+                ?>
 
-                <h3>Jumlah Pendaftar sidang Periode <strong> <?= Yii::t('zii', $hariPraSidang) . "," . $tglPraSidang ?></strong> </h3>
+                
             </div>
         </div>                    
     </div>

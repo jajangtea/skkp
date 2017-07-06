@@ -113,4 +113,24 @@ class Mahasiswa extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public function suggest($keyword, $limit = 20) {
+        $models = $this->findAll(array(
+            'condition' => 'Nama LIKE :keyword or NIM LIKE :kode',
+            'order' => 'Nama',
+            'limit' => $limit,
+            'params' => array(':keyword' => "%$keyword%",':kode'=>"%$keyword%")
+        ));
+        $suggest = array();
+        foreach ($models as $model) {
+            $suggest[] = array(
+                'label' => $model->NIM . ' - ' . $model->Nama . ' - ' . $model->KodeJurusan, // label for dropdown list
+                'value' => $model->NIM, // value for input field
+                'nimMhs' => $model->NIM, // return values from autocomplete
+                'namaMhs'=>$model->Nama,
+                'namaProdi'=>$model->KodeJurusan,
+            );
+        }
+        return $suggest;
+    }
 }

@@ -4,50 +4,58 @@
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
-
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'saltPassword'); ?>
-		<?php echo $form->textField($model,'saltPassword',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'joinDate'); ?>
-		<?php echo $form->textField($model,'joinDate'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'level_id'); ?>
-		<?php echo $form->textField($model,'level_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'avatar'); ?>
-		<?php echo $form->textField($model,'avatar',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'isActive'); ?>
-		<?php echo $form->textField($model,'isActive'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+    
+     <div class="main-box">
+        <header class="main-box-header clearfix">
+            <h2 class="pull-left"><i class="fa fa-bars"></i> Pencarian</h2>
+            <div class="icon-box pull-right">                                       
+                <a class="btn pull-left" href="#">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </header> 
+        <div class="main-box-body clearfix">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Tanggal :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                               <?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">NIM :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo $form->textField($model,'email',array('size'=>50,'maxlength'=>50)); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Jenis Sidang :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo $form->textField($model,'level_id'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <?php
+                            echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
+                        ?>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
 
 <?php $this->endWidget(); ?>
 

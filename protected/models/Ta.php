@@ -72,7 +72,7 @@ class Ta extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->order='IdTa DESC';
         $criteria->compare('IdTa', $this->IdTa);
         $criteria->compare('Tahun', $this->Tahun, true);
         $criteria->compare('Semester', $this->Semester, true);

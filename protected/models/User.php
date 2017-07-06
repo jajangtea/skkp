@@ -139,8 +139,20 @@ class User extends CActiveRecord {
     }
 
     public function getNamaDetil() {
-        $sql = "select * from prd_mahasiswa where idUser=".Yii::app()->user->getId()."";
-        return $data = Yii::app()->db->createCommand($sql)->queryRow();
+        $sql = "select * from prd_mahasiswa where NIM=" . Yii::app()->user->name . "";
+       $data = Yii::app()->db->createCommand($sql)->queryRow();
+        return $data["Nama"];
+    }
+
+    public function getNamaMahasiswa() {
+        $text = 'no title yet';
+
+        if (!empty($this->mahasiswas)) { // if this Author has any related Posts
+            foreach ($this->mahasiswas as $post) {
+                    $text = $post->Nama;
+            }
+        }
+        return $text;
     }
 
 }

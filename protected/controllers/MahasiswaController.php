@@ -32,8 +32,12 @@ class MahasiswaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','suggestMahasiswa'),
 				'expression' => '$user->getLevel()==1',
+			),
+                        array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('suggestMahasiswa'),
+				'expression' => '$user->getLevel()>=3',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -49,6 +53,95 @@ class MahasiswaController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+        public function actions()
+	{
+		return array(
+			'suggestMahasiswa'=>array(
+				'class'=>'ext.actions.XSuggestAction',
+				'modelName'=>'Mahasiswa',
+				'methodName'=>'suggest',
+			),
+			'legacySuggestCountry'=>array(
+				'class'=>'ext.actions.XLegacySuggestAction',
+				'modelName'=>'Country',
+				'methodName'=>'legacySuggest',
+			),
+			'fillTree'=>array(
+				'class'=>'ext.actions.XFillTreeAction',
+				'modelName'=>'Menu',
+				'showRoot'=>false
+			),
+			'treePath'=>array(
+				'class'=>'ext.actions.XAjaxEchoAction',
+				'modelName'=>'Menu',
+				'attributeName'=>'pathText',
+			),
+			'uploadFile'=>array(
+				'class'=>'ext.actions.XHEditorUpload',
+			),
+			'suggestAuPlaces'=>array(
+				'class'=>'ext.actions.XSuggestAction',
+				'modelName'=>'AdminUnit',
+				'methodName'=>'suggestPlaces',
+				'limit'=>30
+			),
+			'suggestAuHierarchy'=>array(
+				'class'=>'ext.actions.XSuggestAction',
+				'modelName'=>'AdminUnit',
+				'methodName'=>'suggestHierarchy',
+				'limit'=>30
+			),
+			'suggestLastname'=>array(
+				'class'=>'ext.actions.XSuggestAction',
+				'modelName'=>'Person',
+				'methodName'=>'suggestLastname',
+				'limit'=>30
+			),
+			'fillAuTree'=>array(
+				'class'=>'ext.actions.XFillTreeAction',
+				'modelName'=>'AdminUnit',
+				'showRoot'=>false,
+			),
+			'viewUnitPath'=>array(
+				'class'=>'ext.actions.XAjaxEchoAction',
+				'modelName'=>'AdminUnit',
+				'attributeName'=>'rootlessPath',
+			),
+			'viewUnitLabel'=>array(
+				'class'=>'ext.actions.XAjaxEchoAction',
+				'modelName'=>'AdminUnit',
+				'attributeName'=>'label',
+			),
+			'initPerson'=>array(
+				'class'=>'ext.actions.XSelect2InitAction',
+				'modelName'=>'Person',
+				'textField'=>'fullname',
+			),
+			'suggestPerson'=>array(
+				'class'=>'ext.actions.XSelect2SuggestAction',
+				'modelName'=>'Person',
+				'methodName'=>'suggestPerson',
+				'limit'=>30
+			),
+			'suggestPersonGroupCountry'=>array(
+				'class'=>'ext.actions.XSelect2SuggestAction',
+				'modelName'=>'Person',
+				'methodName'=>'suggestPersonGroupCountry',
+				'limit'=>30
+			),
+			'addTabularInputs'=>array(
+				'class'=>'ext.actions.XTabularInputAction',
+				'modelName'=>'Person',
+				'viewName'=>'/site/extensions/_tabularInput',
+			),
+			'addTabularInputsAsTable'=>array(
+				'class'=>'ext.actions.XTabularInputAction',
+				'modelName'=>'Person',
+				'viewName'=>'/site/extensions/_tabularInputAsTable',
+			),
+		);
+	}
+        
 	public function actionView($id)
 	{
 		$this->render('view',array(

@@ -85,9 +85,10 @@
                                                 <?php if (Yii::app()->user->isGuest) {
                                                     echo 'Tamu';
                                                 }
-                                                else
+                                                else if (Yii::app()->user->getLevel()==2)
                                                 {
                                                     echo Yii::app()->user->name;
+                                                    echo "(".User::model()->getNamaDetil().")";
                                                 }
                                                 ?>
                                                 <i class="fa fa-angle-down"></i>

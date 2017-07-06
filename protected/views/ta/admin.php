@@ -39,7 +39,16 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
 	'columns'=>array(
-		'IdTa',
+		array(
+                    'header' => "No",
+                    'value' => '($this->grid->dataProvider->pagination->currentPage*
+                                               $this->grid->dataProvider->pagination->pageSize
+                                              )+
+                                              array_search($data,$this->grid->dataProvider->getData())+1',
+                    'htmlOptions' => array(
+                        'style' => 'width: 2%; text-align: center;',
+                    ),
+                ),
 		'Tahun',
 		'Semester',
 		array(

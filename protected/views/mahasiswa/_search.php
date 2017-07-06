@@ -1,40 +1,71 @@
-<?php
-/* @var $this MahasiswaController */
-/* @var $model Mahasiswa */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'NIM'); ?>
-		<?php echo $form->textField($model,'NIM'); ?>
-	</div>
+<div class="main-box">
+        <header class="main-box-header clearfix">
+            <h2 class="pull-left"><i class="fa fa-bars"></i> Pencarian</h2>
+            <div class="icon-box pull-right">                                       
+                <a class="btn pull-left" href="#">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </header> 
+        <div class="main-box-body clearfix">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">NIM :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                               <?php echo $form->textField($model,'NIM'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Nama :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo $form->textField($model,'Nama',array('size'=>60,'maxlength'=>200)); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Handphone :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                               <?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20)); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Prodi :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo $form->textField($model,'KodeJurusan',array('size'=>50,'maxlength'=>50)); ?>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <?php
+                            echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
+                        ?>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'Nama'); ?>
-		<?php echo $form->textField($model,'Nama',array('size'=>60,'maxlength'=>200)); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'Tlp'); ?>
-		<?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'KodeJurusan'); ?>
-		<?php echo $form->textField($model,'KodeJurusan',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

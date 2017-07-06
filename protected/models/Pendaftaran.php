@@ -96,11 +96,11 @@ class Pendaftaran extends CActiveRecord {
      */
     public function search() {
         // @todo Please modify the following code to remove attributes that should not be searched.
-        if(Yii::app()->user->getLevel()==3)
+        if(Yii::app()->user->getLevel()==2)
         {
             $criteria = new CDbCriteria(array(
             'condition'=>'NIM=:NIM',
-            'params'=>array(':NIM'=>Yii::app()->user->getUsername()),
+            'params'=>array(':NIM'=>Yii::app()->user->name),
         ));
         }
         else
@@ -133,6 +133,11 @@ class Pendaftaran extends CActiveRecord {
     public function getNamaSidang() {
         //this function returns the list of categories to use in a dropdown        
         return CHtml::listData(Jenissidang::model()->with('sidangmasters')->findAll('status=1'), 'IDJenisSidang', 'NamaSidang');
+    }
+    
+    public function getJenisSidang() {
+        //this function returns the list of categories to use in a dropdown        
+        return CHtml::listData(Jenissidang::model()->findAll(), 'IDJenisSidang', 'NamaSidang');
     }
     
     public function getPembimbing(){

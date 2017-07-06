@@ -3,7 +3,7 @@
 /* @var $model Dosen */
 
 $this->breadcrumbs=array(
-	'Dosens'=>array('index'),
+	'Dosen'=>array('index'),
 	$model->KodeDosen=>array('view','id'=>$model->KodeDosen),
 	'Update',
 );
@@ -16,6 +16,4 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Dosen <?php echo $model->KodeDosen; ?></h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form_', array('model'=>$model)); ?>

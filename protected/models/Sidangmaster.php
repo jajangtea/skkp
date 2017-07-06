@@ -85,7 +85,7 @@ class Sidangmaster extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->order = 'Tanggal DESC';
         $criteria->compare('IdSidang', $this->IdSidang);
         $criteria->compare('Tanggal', $this->Tanggal, true);
         $criteria->compare('IDJenisSidang', $this->IDJenisSidang);

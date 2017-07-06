@@ -14,7 +14,7 @@ class NilaikpController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+           // 'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -27,31 +27,19 @@ class NilaikpController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==1',
+                'expression' => '$user->getLevel()==1',//admin
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index'),
-                'expression' => '$user->getLevel()==2',
+                'expression' => '$user->getLevel()==2',//mahasiswa
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==3',
+                'actions' => array('index', 'view', 'create', 'update', 'admin'),
+                'expression' => '$user->getLevel()==3',//pembimbing kp
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==4',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==5',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==6',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==7',
+                'actions' => array('index', 'view', 'create', 'update', 'admin'),
+                'expression' => '$user->getLevel()==4',//penguji kp
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -66,11 +54,11 @@ class NilaikpController extends Controller {
     public function actionView($id) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $this->render('view', array(
@@ -85,11 +73,11 @@ class NilaikpController extends Controller {
     public function actionCreate() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = new Nilaikp;
@@ -116,11 +104,11 @@ class NilaikpController extends Controller {
     public function actionUpdate($id) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = $this->loadModel($id);
@@ -145,6 +133,15 @@ class NilaikpController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $this->loadModel($id)->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -158,14 +155,22 @@ class NilaikpController extends Controller {
     public function actionIndex() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
-        $dataProvider = new CActiveDataProvider('Nilaikp');
+
+        $criteria = new CDbCriteria(array(
+            'condition' => 'NIM=:NIM',
+            'params' => array(':NIM' => Yii::app()->user->name)));
+
+        $dataProvider = new CActiveDataProvider('Nilaikp', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 10),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -177,11 +182,11 @@ class NilaikpController extends Controller {
     public function actionAdmin() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = new Nilaikp('search');

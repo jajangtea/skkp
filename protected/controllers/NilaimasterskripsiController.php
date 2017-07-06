@@ -141,7 +141,13 @@ class NilaimasterskripsiController extends Controller {
         } else{
             $this->layout = 'mainHome';
         }
-        $dataProvider = new CActiveDataProvider('Nilaimasterskripsi');
+        $model=new Nilaidetilskirpsi();
+        $criteria=new CDbCriteria();
+        $criteria->join="JOIN prd_pendaftaran p on p.IdPendaftaran=t.IdPendaftaran where p.nim='".Yii::app()->user->name."'";
+        $dataProvider = new CActiveDataProvider('Nilaimasterskripsi', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 10),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

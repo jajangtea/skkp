@@ -10,6 +10,13 @@ class EWebUser extends CWebUser {
         }
         return $this->_model;
     }
+    
+    protected function loadMahasiswa() {
+        if ($this->_model === null) {
+            $this->_model = Mahasiswa::model()->findByPk($this->NIM);
+        }
+        return $this->_model;
+    }
 
     function getLevel() {
         $user = $this->loadUser();
@@ -20,7 +27,20 @@ class EWebUser extends CWebUser {
 
     public function getUsername() {
         $user = $this->loadUser();
+       if ($user)
         return $user->username;
+    }
+    function getNamaMhs() {
+        $mhs = $this->loadMahasiswa();
+        if ($mhs)
+        return $mhs->Nama;
+         return 100;
+    }
+    public function getNamaDosen() {
+        $user = $this->loadUser();
+        if ($user)
+        return $user->dosens->NamaDosen;
+         return 100;
     }
 
 }
