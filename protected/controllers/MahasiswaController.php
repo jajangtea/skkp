@@ -32,7 +32,7 @@ class MahasiswaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','suggestMahasiswa'),
+				'actions'=>array('create','update','suggestMahasiswa','suggestPendaftaranmhs'),
 				'expression' => '$user->getLevel()==1',
 			),
                         array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,6 +60,11 @@ class MahasiswaController extends Controller
 				'class'=>'ext.actions.XSuggestAction',
 				'modelName'=>'Mahasiswa',
 				'methodName'=>'suggest',
+			),
+                        'suggestPendaftaranmhs'=>array(
+				'class'=>'ext.actions.XSuggestAction',
+				'modelName'=>'Mahasiswa',
+				'methodName'=>'suggestpendaftaran',
 			),
 			'legacySuggestCountry'=>array(
 				'class'=>'ext.actions.XLegacySuggestAction',

@@ -36,6 +36,7 @@ $('.search-form form').submit(function(){
     ));
     ?>
 </div><!-- search-form -->
+<hr/>
 <div class="main-box-body clearfix">  
     <div class="table-responsive"></div>
     <?php

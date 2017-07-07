@@ -167,12 +167,12 @@
                                             <ul class="submenu">
                                                 <li>
                                                     <a href="index.php?r=nilaimasterskripsi/admin">
-                                                        Nilai Master
+                                                        Nilai Akhir Skripsi
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="index.php?r=nilaidetilskirpsi/admin">
-                                                        Nilai Detil
+                                                        Nilai Pra/Sidang Skripsi
                                                     </a>
                                                 </li>
                                             </ul>

@@ -12,7 +12,7 @@
         'method' => 'get',
     ));
     ?>
-
+<hr/>
     <div class="main-box">
         <header class="main-box-header clearfix">
             <h2 class="pull-left"><i class="fa fa-search"></i> Pencarian</h2>

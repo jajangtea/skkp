@@ -258,7 +258,7 @@
                         </div>					
                         <footer id="footer-bar" class="row">
                             <p id="footer-copyright" class="col-xs-12">                        
-                                Powered by <a href="https://www.yacanet.com">z.com</a>
+                                Powered by <a href="https://www.sttindonesia.ac.id">STT Indonesia</a>
                             </p>
                         </footer>
                     </div>

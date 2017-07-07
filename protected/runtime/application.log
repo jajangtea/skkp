@@ -2688,3 +2688,607 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/skkp/index.php?r=dosen/lap
 ---
+2017/07/07 10:06:30 [error] [exception.CException] CException: Properti "Nilaimasterskripsi.NIM" tidak didefinisikan. in /mnt/c/xampp/htdocs/core/base/CComponent.php:130
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(145): CComponent->__get('NIM')
+#1 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2729): CActiveRecord->__get('NIM')
+#2 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2452): CHtml::resolveValue(Object(Nilaimasterskripsi), 'NIM')
+#3 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(1534): CHtml::activeInputField('text', Object(Nilaimasterskripsi), 'NIM', Array)
+#4 /mnt/c/xampp/htdocs/core/zii/widgets/jui/CJuiAutoComplete.php(85): CHtml::activeTextField(Object(Nilaimasterskripsi), 'NIM', Array)
+#5 /mnt/c/xampp/htdocs/core/web/CBaseController.php(181): CJuiAutoComplete->run()
+#6 /mnt/c/xampp/htdocs/skkp/protected/views/nilaimasterskripsi/_form.php(44): CBaseController->widget('zii.widgets.jui...', Array)
+#7 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#8 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#9 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#10 /mnt/c/xampp/htdocs/skkp/protected/views/nilaimasterskripsi/create.php(17): CController->renderPartial('_form', Array)
+#11 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#12 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#13 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#14 /mnt/c/xampp/htdocs/core/web/CController.php(782): CController->renderPartial('create', Array, true)
+#15 /mnt/c/xampp/htdocs/skkp/protected/controllers/NilaimasterskripsiController.php(91): CController->render('create', Array)
+#16 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): NilaimasterskripsiController->actionCreate()
+#17 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#18 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#19 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#20 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#21 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#22 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#23 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#24 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#26 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('nilaimasterskri...')
+#27 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#28 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#29 {main}
+REQUEST_URI=/skkp/index.php?r=nilaimasterskripsi/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaimasterskripsi/admin
+---
+2017/07/07 10:21:05 [error] [exception.CException] CException: Properti "Nilaidetilskirpsi.NPraSidang" tidak didefinisikan. in /mnt/c/xampp/htdocs/core/base/CComponent.php:130
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(145): CComponent->__get('NPraSidang')
+#1 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2729): CActiveRecord->__get('NPraSidang')
+#2 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2452): CHtml::resolveValue(Object(Nilaidetilskirpsi), 'NPraSidang')
+#3 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(1534): CHtml::activeInputField('text', Object(Nilaidetilskirpsi), 'NPraSidang', Array)
+#4 /mnt/c/xampp/htdocs/core/web/widgets/CActiveForm.php(792): CHtml::activeTextField(Object(Nilaidetilskirpsi), 'NPraSidang', Array)
+#5 /mnt/c/xampp/htdocs/skkp/protected/views/nilaidetilskirpsi/_form.php(95): CActiveForm->textField(Object(Nilaidetilskirpsi), 'NPraSidang', Array)
+#6 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#7 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#8 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#9 /mnt/c/xampp/htdocs/skkp/protected/views/nilaidetilskirpsi/create.php(17): CController->renderPartial('_form', Array)
+#10 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#11 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#12 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#13 /mnt/c/xampp/htdocs/core/web/CController.php(782): CController->renderPartial('create', Array, true)
+#14 /mnt/c/xampp/htdocs/skkp/protected/controllers/NilaidetilskirpsiController.php(103): CController->render('create', Array)
+#15 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): NilaidetilskirpsiController->actionCreate()
+#16 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#19 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#23 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#25 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('nilaidetilskirp...')
+#26 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#27 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/skkp/index.php?r=nilaidetilskirpsi/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaidetilskirpsi/admin
+---
+2017/07/07 10:24:11 [error] [exception.CException] CException: Properti "Nilaidetilskirpsi.NilaiPenguji2" tidak didefinisikan. in /mnt/c/xampp/htdocs/core/base/CComponent.php:130
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(145): CComponent->__get('NilaiPenguji2')
+#1 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2729): CActiveRecord->__get('NilaiPenguji2')
+#2 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(2452): CHtml::resolveValue(Object(Nilaidetilskirpsi), 'NilaiPenguji2')
+#3 /mnt/c/xampp/htdocs/core/web/helpers/CHtml.php(1534): CHtml::activeInputField('text', Object(Nilaidetilskirpsi), 'NilaiPenguji2', Array)
+#4 /mnt/c/xampp/htdocs/core/web/widgets/CActiveForm.php(792): CHtml::activeTextField(Object(Nilaidetilskirpsi), 'NilaiPenguji2', Array)
+#5 /mnt/c/xampp/htdocs/skkp/protected/views/nilaidetilskirpsi/_form.php(95): CActiveForm->textField(Object(Nilaidetilskirpsi), 'NilaiPenguji2', Array)
+#6 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#7 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#8 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#9 /mnt/c/xampp/htdocs/skkp/protected/views/nilaidetilskirpsi/create.php(17): CController->renderPartial('_form', Array)
+#10 /mnt/c/xampp/htdocs/core/web/CBaseController.php(126): require('/mnt/c/xampp/ht...')
+#11 /mnt/c/xampp/htdocs/core/web/CBaseController.php(95): CBaseController->renderInternal('/mnt/c/xampp/ht...', Array, true)
+#12 /mnt/c/xampp/htdocs/core/web/CController.php(869): CBaseController->renderFile('/mnt/c/xampp/ht...', Array, true)
+#13 /mnt/c/xampp/htdocs/core/web/CController.php(782): CController->renderPartial('create', Array, true)
+#14 /mnt/c/xampp/htdocs/skkp/protected/controllers/NilaidetilskirpsiController.php(103): CController->render('create', Array)
+#15 /mnt/c/xampp/htdocs/core/web/actions/CInlineAction.php(49): NilaidetilskirpsiController->actionCreate()
+#16 /mnt/c/xampp/htdocs/core/web/CController.php(308): CInlineAction->runWithParams(Array)
+#17 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#19 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#20 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#21 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#23 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('create')
+#25 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('nilaidetilskirp...')
+#26 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#27 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#28 {main}
+REQUEST_URI=/skkp/index.php?r=nilaidetilskirpsi/create
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaidetilskirpsi/admin
+---
+2017/07/07 11:18:29 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=s
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaimasterskripsi/create
+---
+2017/07/07 11:18:32 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaimasterskripsi/create
+---
+2017/07/07 11:18:45 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+HTTP_REFERER=http://localhost/skkp/index.php?r=nilaimasterskripsi/create
+---
+2017/07/07 11:18:58 [error] [exception.CHttpException.403] CHttpException: Anda tidak diotorisasi untuk melakukan action ini. in /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php:182
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/auth/CAccessControlFilter.php(145): CAccessControlFilter->accessDenied(Object(EWebUser), 'Anda tidak diot...')
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#7 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#9 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:19:42 [error] [system.db.CDbCommand] CDbCommand::fetchAll() gagal: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidan' at line 1. Statement SQL yang dijalankan: SELECT * FROM `prd_mahasiswa` `t` WHERE INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE :keyword or t.NIM LIKE :kode ORDER BY t.Nama LIMIT 20.
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (139)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:19:42 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidan' at line 1. The SQL statement executed was: SELECT * FROM `prd_mahasiswa` `t` WHERE INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE :keyword or t.NIM LIKE :kode ORDER BY t.Nama LIMIT 20 in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:543
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1356): CDbCommand->queryAll()
+#2 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(1475): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php(139): CActiveRecord->findAll(Array)
+#4 /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php(80): Mahasiswa->suggestpendaftaran('su', 20, Array)
+#5 /mnt/c/xampp/htdocs/core/web/actions/CAction.php(76): XSuggestAction->run()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(308): CAction->runWithParams(Array)
+#7 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(XSuggestAction))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#13 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#14 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#15 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#16 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#17 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:20:44 [error] [exception.CException] CException: Properti "Mahasiswa.idPendaftaran" tidak didefinisikan. in /mnt/c/xampp/htdocs/core/base/CComponent.php:130
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/ar/CActiveRecord.php(145): CComponent->__get('idPendaftaran')
+#1 /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php(145): CActiveRecord->__get('idPendaftaran')
+#2 /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php(80): Mahasiswa->suggestpendaftaran('su', 20, Array)
+#3 /mnt/c/xampp/htdocs/core/web/actions/CAction.php(76): XSuggestAction->run()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(XSuggestAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:24:39 [error] [system.db.CDbCommand] CDbCommand::fetchAll() gagal: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidan' at line 1. Statement SQL yang dijalankan: INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE su or t.NIM LIKE su.
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (135)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:24:39 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidan' at line 1. The SQL statement executed was: INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE su or t.NIM LIKE su in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:543
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php(135): CDbCommand->queryAll()
+#2 /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php(80): Mahasiswa->suggestpendaftaran('su', 20, Array)
+#3 /mnt/c/xampp/htdocs/core/web/actions/CAction.php(76): XSuggestAction->run()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(XSuggestAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:25:18 [error] [system.db.CDbCommand] CDbCommand::fetchAll() gagal: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 't.Nama LIKE su or t.NIM LIKE su' at line 3. Statement SQL yang dijalankan: select * from prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE su or t.NIM LIKE su.
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (135)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:25:18 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 't.Nama LIKE su or t.NIM LIKE su' at line 3. The SQL statement executed was: select * from prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+              INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+              INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang t.Nama LIKE su or t.NIM LIKE su in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:543
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php(135): CDbCommand->queryAll()
+#2 /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php(80): Mahasiswa->suggestpendaftaran('su', 20, Array)
+#3 /mnt/c/xampp/htdocs/core/web/actions/CAction.php(76): XSuggestAction->run()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(XSuggestAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:28:20 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:28:22 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:29:23 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=s
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:29:23 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:29:39 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:30:05 [error] [system.db.CDbCommand] CDbCommand::fetchAll() gagal: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.Namas' in 'where clause'. Statement SQL yang dijalankan: SELECT * FROM prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+            INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+            INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang WHERE t.Namas LIKE '%su%' or t.NIM LIKE '%su%'.
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (136)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:30:05 [error] [exception.CDbException] CDbException: CDbCommand gagal menjalankan statementSQL: SQLSTATE[42S22]: Column not found: 1054 Unknown column 't.Namas' in 'where clause'. The SQL statement executed was: SELECT * FROM prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+            INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+            INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang WHERE t.Namas LIKE '%su%' or t.NIM LIKE '%su%' in /mnt/c/xampp/htdocs/core/db/CDbCommand.php:543
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php(136): CDbCommand->queryAll()
+#2 /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php(80): Mahasiswa->suggestpendaftaran('su', 20, Array)
+#3 /mnt/c/xampp/htdocs/core/web/actions/CAction.php(76): XSuggestAction->run()
+#4 /mnt/c/xampp/htdocs/core/web/CController.php(308): CAction->runWithParams(Array)
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): CController->runAction(Object(XSuggestAction))
+#6 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#11 /mnt/c/xampp/htdocs/core/web/CController.php(265): CController->runActionWithFilters(Object(XSuggestAction), Array)
+#12 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): CController->run('suggestPendafta...')
+#13 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController('mahasiswa/sugge...')
+#14 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#15 /mnt/c/xampp/htdocs/skkp/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+---
+2017/07/07 11:30:47 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:30:52 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:140)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=sul
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (140)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:38:48 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:141)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (141)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:39:32 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:139)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (139)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:39:33 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:139)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (139)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:39:42 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:139)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (139)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:39:52 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:138)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (138)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:40:08 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:141)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (141)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:40:47 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:141)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (141)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:40:48 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:141)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (141)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:40:49 [error] [php] Trying to get property of non-object (/mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php:141)
+Stack trace:
+#0 /mnt/c/xampp/htdocs/core/web/CController.php(308): XSuggestAction->runWithParams()
+#1 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(133): MahasiswaController->runAction()
+#2 /mnt/c/xampp/htdocs/core/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /mnt/c/xampp/htdocs/core/web/CController.php(1145): CAccessControlFilter->filter()
+#4 /mnt/c/xampp/htdocs/core/web/filters/CInlineFilter.php(58): MahasiswaController->filterAccessControl()
+#5 /mnt/c/xampp/htdocs/core/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#6 /mnt/c/xampp/htdocs/core/web/CController.php(291): CFilterChain->run()
+#7 /mnt/c/xampp/htdocs/core/web/CController.php(265): MahasiswaController->runActionWithFilters()
+#8 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(282): MahasiswaController->run()
+#9 /mnt/c/xampp/htdocs/core/web/CWebApplication.php(141): CWebApplication->runController()
+#10 /mnt/c/xampp/htdocs/core/base/CApplication.php(185): CWebApplication->processRequest()
+#11 /mnt/c/xampp/htdocs/skkp/index.php(13): CWebApplication->run()
+REQUEST_URI=/skkp/index.php?r=mahasiswa/suggestPendaftaranmhs&term=su
+in /mnt/c/xampp/htdocs/skkp/protected/models/Mahasiswa.php (141)
+in /mnt/c/xampp/htdocs/skkp/protected/extensions/actions/XSuggestAction.php (80)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)
+2017/07/07 11:57:02 [warning] [application] Gagal mengeset atribut unsafe "idPendaftaran" dari kelas "Nilaidetilskirpsi".
+in /mnt/c/xampp/htdocs/skkp/protected/controllers/NilaidetilskirpsiController.php (97)
+in /mnt/c/xampp/htdocs/skkp/index.php (13)

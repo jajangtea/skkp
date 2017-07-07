@@ -25,8 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Sidang</h1>
-
+<hr/>
 <?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form">
 <?php $this->renderPartial('_search',array(

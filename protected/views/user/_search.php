@@ -4,7 +4,7 @@
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
-    
+    <hr/>
      <div class="main-box">
         <header class="main-box-header clearfix">
             <h2 class="pull-left"><i class="fa fa-bars"></i> Pencarian</h2>

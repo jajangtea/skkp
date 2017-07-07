@@ -3,7 +3,7 @@
 /* @var $model Nilai Master Skripsi */
 
 $this->breadcrumbs=array(
-	'Nilai Master Skripsis'=>array('index'),
+	'Nilai Master Skripsi'=>array('index'),
 	'Create',
 );
 
