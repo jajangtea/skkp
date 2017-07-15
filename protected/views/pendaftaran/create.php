@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Pendaftaran', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('index')),
 );
 ?>
 

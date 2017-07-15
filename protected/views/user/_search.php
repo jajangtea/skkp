@@ -17,11 +17,11 @@
         <div class="main-box-body clearfix">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Tanggal :</label>
+                    <label class="col-lg-2 control-label">Username :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                               <?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
+                               <?php echo $form->textField($model,'username',array('class' => 'form-control', 'style' => 'width:30%')); ?>
                             </div>
                         </div>
                     </div>
@@ -31,17 +31,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo $form->textField($model,'email',array('size'=>50,'maxlength'=>50)); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Jenis Sidang :</label>
-                    <div class="col-lg-10">
-                        <div class="row">
-                            <div class="col-lg-10">        
-                                <?php echo $form->textField($model,'level_id'); ?>
+                                <?php echo $form->textField($model,'email',array('class' => 'form-control', 'style' => 'width:50%')); ?>
                             </div>
                         </div>
                     </div>

@@ -8,8 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Nilai Master Skripsi', 'url'=>array('index')),
-	array('label'=>'Create Nilai Master Skripsi', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,10 +25,8 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Nilai Master Skripsi</h1>
-
 <?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div class="search-form">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
@@ -38,18 +35,22 @@ $('.search-form form').submit(function(){
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'nilaimasterskripsi-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
-		'IdNMSkripsi',
-		'IdPendaftaran',
+                array(
+                    'header' => "No",
+                    'value' => '($this->grid->dataProvider->pagination->currentPage*
+                           $this->grid->dataProvider->pagination->pageSize
+                          )+
+                          array_search($data,$this->grid->dataProvider->getData())+1',
+                ),
+		'idPendaftaran.nIM.Nama',
 		'NKompre',
 		'NPraSidang',
 		'NSidangSkripsi',
 		'NPembimbing',
-		/*
 		'NA',
 		'Index',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

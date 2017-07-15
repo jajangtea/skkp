@@ -7,8 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Mahasiswa', 'url'=>array('create')),
-	array('label'=>'Manage Mahasiswa', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 

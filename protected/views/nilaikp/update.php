@@ -9,13 +9,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaikp', 'url'=>array('index')),
-	array('label'=>'Create Nilaikp', 'url'=>array('create')),
-	array('label'=>'View Nilaikp', 'url'=>array('view', 'id'=>$model->IdNilaiKp)),
-	array('label'=>'Manage Nilaikp', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-eye"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-bars"></i><span>Detil</span>', 'url'=>array('view', 'id'=>$model->IdNilaiKp)),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Nilaikp <?php echo $model->IdNilaiKp; ?></h1>
+<hr/>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

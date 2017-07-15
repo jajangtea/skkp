@@ -8,6 +8,7 @@
  * @property integer $IdPendaftaran
  * @property double $NilaiPenguji1
  * @property double $NIlaiPenguji2
+ * @property double $NPraSidang
  *
  * The followings are the available model relations:
  * @property Pendaftaran $idPendaftaran
@@ -31,10 +32,10 @@ class Nilaidetilskirpsi extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('IdPendaftaran', 'numerical', 'integerOnly'=>true),
-			array('NilaiPenguji1, NIlaiPenguji2', 'numerical'),
+			array('NilaiPenguji1, NIlaiPenguji2, NPraSidang', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idNilaiSkripsi, IdPendaftaran, NilaiPenguji1, NIlaiPenguji2', 'safe', 'on'=>'search'),
+			array('idNilaiSkripsi, IdPendaftaran, NilaiPenguji1, NIlaiPenguji2,NPraSidang', 'safe', 'on'=>'search'),
 		);
 	}
 

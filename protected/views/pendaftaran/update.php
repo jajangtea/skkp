@@ -9,9 +9,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Pendaftaran', 'url'=>array('index')),
-	array('label'=>'Create Pendaftaran', 'url'=>array('create')),
-	array('label'=>'View Pendaftaran', 'url'=>array('view', 'id'=>$model->idPendaftaran)),
+	array('label'=>'<i class="fa fa-bars"></i><span>Daftar</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-eyes"></i><span>view</span>', 'url'=>array('view', 'id'=>$model->idPendaftaran)),
 );
 ?>
 

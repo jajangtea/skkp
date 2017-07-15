@@ -9,12 +9,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilai Master Skripsi', 'url'=>array('create')),
-	array('label'=>'View Nilai Master Skripsi', 'url'=>array('view', 'id'=>$model->IdNMSkripsi)),
-	array('label'=>'Manage Nilai Master Skripsi', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-pencil"></i><span>Lihat</span>', 'url'=>array('view', 'id'=>$model->IdNMSkripsi)),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Nilai Master Skripsi <?php echo $model->IdNMSkripsi; ?></h1>
+<hr/>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -8,10 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Manage Nilai Master Skripsi', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Create Nilai Master Skripsi</h1>
+<hr/>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

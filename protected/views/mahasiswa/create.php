@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Mahasiswa', 'url'=>array('index')),
-	array('label'=>'Manage Mahasiswa', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-paper-plane"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 

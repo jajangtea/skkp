@@ -190,13 +190,12 @@
                                         </li>
                                         <li>
                                             <?php
-                                            $this->beginWidget('zii.widgets.CPortlet', array(
-                                            ));
+                                            
                                             $this->widget('zii.widgets.CMenu', array(
+                                                'encodeLabel'=>false,
                                                 'items' => $this->menu,
                                                 'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
                                             ));
-                                            $this->endWidget();
                                             ?>
                                         </li>
 
@@ -225,11 +224,7 @@
                                 </div>
                             </div>
                         </div>					
-                        <footer id="footer-bar" class="row">
-                            <p id="footer-copyright" class="col-xs-12">                        
-                                Powered by <a href="https://www.yacanet.com">z.com</a>
-                            </p>
-                        </footer>
+                        
                     </div>
                 </div>
             </div>

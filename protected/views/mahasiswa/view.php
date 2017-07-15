@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Mahasiswa', 'url'=>array('index')),
-	array('label'=>'Create Mahasiswa', 'url'=>array('create')),
-	array('label'=>'Update Mahasiswa', 'url'=>array('update', 'id'=>$model->NIM)),
-	array('label'=>'Delete Mahasiswa', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->NIM),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Mahasiswa', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-paper-plane"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-pencil"></i><span>Lihat</span>', 'url'=>array('update', 'id'=>$model->NIM)),
+	array('label'=>'<i class="fa fa-eraser"></i><span>Hapus</span>', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->NIM),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 

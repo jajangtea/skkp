@@ -8,9 +8,9 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => 'List Pendaftaran', 'url' => array('index')),
-    array('label' => 'Update Pendaftaran', 'url' => array('update', 'id' => $model->idPendaftaran)),
-    array('label' => 'Delete Pendaftaran', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idPendaftaran), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label'=>'<i class="fa fa-eye"></i><span>Lihat</span>', 'url' => array('index')),
+    array('label' =>'<i class="fa fa-pencil"></i><span>Ubah</span>', 'url' => array('update', 'id' => $model->idPendaftaran)),
+    array('label' =>'<i class="fa fa-eraser"></i><span>Hapus</span>', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idPendaftaran), 'confirm' => 'Are you sure you want to delete this item?')),
 );
 ?>
 

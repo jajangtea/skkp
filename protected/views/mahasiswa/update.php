@@ -9,10 +9,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Mahasiswa', 'url'=>array('index')),
-	array('label'=>'Create Mahasiswa', 'url'=>array('create')),
-	array('label'=>'View Mahasiswa', 'url'=>array('view', 'id'=>$model->NIM)),
-	array('label'=>'Manage Mahasiswa', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-paper-plane"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-eye"></i><span>Detil</span>', 'url'=>array('view', 'id'=>$model->NIM)),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 

@@ -21,7 +21,7 @@ class UserController extends Controller {
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('admin', 'index', 'delete'),
+                'actions' => array('admin', 'index', 'delete', 'cp'),
                 'expression' => '$user->getLevel()<=1',
             ),
             array('deny',
@@ -118,7 +118,7 @@ class UserController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -164,7 +164,7 @@ class UserController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -183,7 +183,7 @@ class UserController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -219,6 +219,41 @@ class UserController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionCp() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $data = $this->loadModel(Yii::app()->user->id);
+
+        if (isset($_POST['old'], $_POST['baru1'], $_POST['baru2'])) {
+            if ($_POST['baru1'] !== $_POST['baru2']) {
+                $data->addError('username', 'Your New Password Not Match');
+            } else {
+                if (CPasswordHelper::verifyPassword($_POST['old'], $data->password)) {
+                    $dua = $_POST['baru1'];
+                    $data->password = CPasswordHelper::hashPassword($_POST['baru1']);
+                    print_r($data);
+                    exit();
+                    if ($data->save()) {
+                        $this->redirect(array('/site'));
+                    }
+                } else {
+                    $data->addError('username', 'Wrong Password');
+                }
+            }
+        }
+
+        $this->render('cp', array(
+            'data' => $data,
+        ));
     }
 
 }

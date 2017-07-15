@@ -137,7 +137,7 @@ class Mahasiswa extends CActiveRecord {
         foreach ($models as $model) {
             $suggest[] = array(
                 'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan'], // label for dropdown list
-                'value' => $model['NIM'], // value for input field
+                'value' => $model['idPendaftaran'], // value for input field
                 'nim' => $model['NIM'], // return values from autocomplete
                 'namaMhs' => $model['Nama'],
                 'namaProdi' => $model['KodeJurusan'],

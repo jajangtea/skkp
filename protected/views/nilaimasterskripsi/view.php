@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilai Master Skripsi', 'url'=>array('create')),
-	array('label'=>'Update Nilai Master Skripsi', 'url'=>array('update', 'id'=>$model->IdNMSkripsi)),
-	array('label'=>'Delete Nilai Master Skripsi', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdNMSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Nilai Master Skripsi', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-pencil"></i><span>Pencil</span>', 'url'=>array('update', 'id'=>$model->IdNMSkripsi)),
+	array('label'=>'<i class="fa fa-eraser"></i><span>Hapus</span>', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdNMSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 

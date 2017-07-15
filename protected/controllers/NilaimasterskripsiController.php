@@ -14,7 +14,7 @@ class NilaimasterskripsiController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+            //'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -32,14 +32,6 @@ class NilaimasterskripsiController extends Controller {
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index'),
                 'expression' => '$user->getLevel()==2',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==3',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==4',
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
@@ -75,7 +67,15 @@ class NilaimasterskripsiController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = new Nilaimasterskripsi;
 
         // Uncomment the following line if AJAX validation is needed
@@ -98,7 +98,15 @@ class NilaimasterskripsiController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -121,8 +129,21 @@ class NilaimasterskripsiController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $a= Nilaimasterskripsi::model()->ambilNilaiMasterId($id);
+        $b=$a["IdPendaftaran"];
+        $sql = "DELETE FROM prd_nilaidetilskirpsi where IdPendaftaran=$b";
+        $data = Yii::app()->db->createCommand($sql)->execute();
         $this->loadModel($id)->delete();
-
+        
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -157,7 +178,15 @@ class NilaimasterskripsiController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = new Nilaimasterskripsi('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Nilaimasterskripsi']))
@@ -192,5 +221,12 @@ class NilaimasterskripsiController extends Controller {
             Yii::app()->end();
         }
     }
+     public function loadModelMaster($idPendaftaran) {
+        $model = Nilaidetilskirpsi::model()->findAll("IdPendaftran=$idPendaftaran");
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+    
 
 }

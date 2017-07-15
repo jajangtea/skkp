@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 
 if (!Yii::app()->user->getLevel() == 2) {
     $this->menu = array(
-        array('label' => 'Create Nilaikp', 'url' => array('create')),
-        array('label' => 'Manage Nilaikp', 'url' => array('admin')),
+        array('label' =>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
+        array('label' =>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url' => array('admin')),
     );
 }
 ?>

@@ -51,7 +51,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'username',
         'email',
         'joinDate',
-        'level_id',
+        'level.level',
         array(
             'class' => 'CButtonColumn',
         ),

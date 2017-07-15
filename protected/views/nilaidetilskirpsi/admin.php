@@ -2,14 +2,14 @@
 /* @var $this NilaidetilskirpsiController */
 /* @var $model Nilaidetilskirpsi */
 
-$this->breadcrumbs=array(
-	'Nilai Detil Skirpsi'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Nilai Detil Skirpsi' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List ', 'url'=>array('index')),
-	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
+$this->menu = array(
+    array('label' => 'List ', 'url' => array('index')),
+    array('label' => 'Create Nilai Detil Skirpsi', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -28,24 +28,34 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Nilai Detil Skirpsi</h1>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'nilaidetilskirpsi-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'idNilaiSkripsi',
-		'IdPendaftaran',
-		'NilaiPenguji1',
-		'NIlaiPenguji2',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'nilaidetilskirpsi-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        array(
+            'header' => "No",
+            'value' => '($this->grid->dataProvider->pagination->currentPage*
+                                       $this->grid->dataProvider->pagination->pageSize
+                                      )+
+                                      array_search($data,$this->grid->dataProvider->getData())+1',
+        ),
+        'NilaiPenguji1',
+        'NIlaiPenguji2',
+        'NPraSidang',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
+));
+?>

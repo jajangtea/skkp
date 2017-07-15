@@ -1,28 +1,27 @@
 <?php
 /* @var $this NilaidetilskirpsiController */
-/* @var $model Nilaidetilskirpsi */
+/* @var $model idNilaiSkripsi */
 
 $this->breadcrumbs=array(
-	'Nilaidetilskirpsis'=>array('index'),
+	'Nilai Pra Sidang'=>array('index'),
 	$model->idNilaiSkripsi,
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
-	array('label'=>'Update Nilai Detil Skirpsi', 'url'=>array('update', 'id'=>$model->idNilaiSkripsi)),
-	array('label'=>'Delete Nilai Detil Skirpsi', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idNilaiSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-bars"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-pencil"></i><span>Ubah</span>', 'url'=>array('update', 'id'=>$model->idNilaiSkripsi)),
+	array('label'=>'<i class="fa fa-eraser"></i><span>Hapus</span>', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idNilaiSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Tambah</span>', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Nilaidetilskirpsi #<?php echo $model->idNilaiSkripsi; ?></h1>
+<hr/>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'idNilaiSkripsi',
-		'IdPendaftaran',
-		'NilaiPenguji1',
-		'NIlaiPenguji2',
+		'NPraSidang',
 	),
 )); ?>

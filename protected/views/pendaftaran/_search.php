@@ -49,7 +49,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo CHtml::activeDropDownList($model,'IdSidang', $model->getNamaSidang(),array('prompt' => 'Pilih Sidang','class'=>'form-control')); ?>
+                                <?php echo CHtml::activeDropDownList($model,'IdSidang', $model->getJenisSidang(),array('prompt' => 'Pilih Sidang','class'=>'form-control')); ?>
                             </div>
                         </div>
                     </div>

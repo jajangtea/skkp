@@ -38,7 +38,7 @@
                                         <?php
                                         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                                             'model' => $model,
-                                            'attribute' => 'idPendaftaran',
+                                            'attribute' => 'IdPendaftaran',
                                             'source' => $this->createUrl('mahasiswa/suggestPendaftaranmhs'),
                                             'htmlOptions' => array(
                                                 'size' => '40',
@@ -82,7 +82,7 @@
                         }
                         ?>
                         <?php
-                        if (Yii::app()->user->getLevel() == 4 || Yii::app()->user->getLevel() == 1) {
+                        if (Yii::app()->user->getLevel() == 6 || Yii::app()->user->getLevel() == 7 || Yii::app()->user->getLevel() == 1) {
                             echo '<div class="form-group">';
                             echo ' <label class="col-lg-2 control-label">Pra Sidang :</label>';
                             echo '<div class="col-lg-10">';
@@ -114,7 +114,7 @@
                         }
                         ?>
                         <?php
-                        if (Yii::app()->user->getLevel() == 4 || Yii::app()->user->getLevel() == 1) {
+                        if (Yii::app()->user->getLevel() == 5 || Yii::app()->user->getLevel() == 1) {
                             echo '<div class="form-group">';
                             echo ' <label class="col-lg-2 control-label">Pembimbing :</label>';
                             echo '<div class="col-lg-10">';

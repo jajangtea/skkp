@@ -14,7 +14,7 @@ $this->breadcrumbs = array(
         'model' => $model,
     ));
     $this->menu=array(
-	array('label'=>'Daftar Sidang', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
 );
     ?>
     

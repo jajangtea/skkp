@@ -85,6 +85,17 @@
                                     <a href="#"><span class="label label-success"><?php echo CHtml::encode($data->NA); ?></span></a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <a href="#"></a>
+                                </td>
+                                <td>
+                                    <strong><?php echo CHtml::encode($data->getAttributeLabel('Index')); ?></strong>
+                                </td>
+                                <td>
+                                    <a href="#"><span class="label label-danger"><?php echo CHtml::encode($data->Index); ?></span></a>
+                                </td>
+                            </tr>
 
                         </tbody>
                     </table>

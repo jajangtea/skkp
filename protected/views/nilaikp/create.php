@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Manage Nilai KP', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Kelola</span>', 'url'=>array('admin')),
 );
 ?>
 
-
+<hr/>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

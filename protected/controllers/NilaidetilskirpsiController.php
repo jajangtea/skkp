@@ -14,7 +14,7 @@ class NilaidetilskirpsiController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+                // 'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -28,18 +28,6 @@ class NilaidetilskirpsiController extends Controller {
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
                 'expression' => '$user->getLevel()==1',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==3',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==4',
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==5',
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
@@ -62,11 +50,11 @@ class NilaidetilskirpsiController extends Controller {
     public function actionView($id) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $this->render('view', array(
@@ -81,28 +69,65 @@ class NilaidetilskirpsiController extends Controller {
     public function actionCreate() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = new Nilaidetilskirpsi;
 
+        $NilaiMaster = new Nilaimasterskripsi;
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
 
         if (isset($_POST['Nilaidetilskirpsi'])) {
             $model->attributes = $_POST['Nilaidetilskirpsi'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idNilaiSkripsi));
+            $modelNilai = Nilaimasterskripsi::model()->loadModelNilaiMaster($model->IdPendaftaran);
+            $model->NPraSidang=($model->NilaiPenguji1+$model->NIlaiPenguji2)/2;
+            if ($model->save() && $modelNilai==0) {
+
+                    $NilaiMaster->IdPendaftaran = $model->IdPendaftaran;
+                    $NilaiMaster->NPraSidang = $model->NPraSidang;
+                    $NilaiMaster->save();
+                    $this->redirect(array('view', 'id' => $model->idNilaiSkripsi));
+            }
         }
 
         $this->render('create', array(
             'model' => $model,
         ));
     }
+
+//      public function actionCreate() {
+//        if (Yii::app()->user->getLevel() == 1) {
+//            $this->layout = 'main';
+//        } else if (Yii::app()->user->getLevel() == 2){
+//            $this->layout = 'mainHome';
+//        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7){
+//            $this->layout = 'mainNilai';
+//        } else{
+//            $this->layout = 'mainHome';
+//        }
+//        $model = new Nilaidetilskirpsi;
+//        
+//        //$modelNilai = $this->loadModelNilaiMaster($idPendaftaran);
+//        $NilaiMaster = new Nilaimasterskripsi;
+//
+//        // Uncomment the following line if AJAX validation is needed
+//        $this->performAjaxValidation($model);
+//
+//        if (isset($_POST['Nilaidetilskirpsi'])) {
+//            $model->attributes = $_POST['Nilaidetilskirpsi'];
+//            if ($model->save())
+//                $this->redirect(array('view', 'id' => $model->idNilaiSkripsi));
+//        }
+//
+//        $this->render('create', array(
+//            'model' => $model,
+//        ));
+//    }
 
     /**
      * Updates a particular model.
@@ -112,23 +137,30 @@ class NilaidetilskirpsiController extends Controller {
     public function actionUpdate($id) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
-        $this->layout = 'main';
         $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
+        $modelNilai = Nilaimasterskripsi::model()->loadModelNilaiMaster($model->IdPendaftaran);
+        $dataNilai = Nilaimasterskripsi::model()->ambilNilaiMaster($model->IdPendaftaran);
+        $getnp=$dataNilai['NPraSidang'];
         $this->performAjaxValidation($model);
-
         if (isset($_POST['Nilaidetilskirpsi'])) {
             $model->attributes = $_POST['Nilaidetilskirpsi'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idNilaiSkripsi));
+                if ($modelNilai == 1) {
+                    $NilaiMaster->IdPendaftaran = $model->IdPendaftaran;
+                    $np1 = $model->NilaiPenguji1;
+                    $np2 = $model->NIlaiPenguji2;
+                    $npratotal = ($getnp + $np1 + $np2) / 2;
+                    $NilaiMaster->NPraSidang = $npratotal;
+                    $NilaiMaster->save();
+                }
+            $this->redirect(array('view', 'id' => $model->idNilaiSkripsi));
         }
 
         $this->render('update', array(
@@ -142,7 +174,17 @@ class NilaidetilskirpsiController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $this->loadModel($id)->delete();
+       
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -155,11 +197,11 @@ class NilaidetilskirpsiController extends Controller {
     public function actionIndex() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $dataProvider = new CActiveDataProvider('Nilaidetilskirpsi');
@@ -174,11 +216,11 @@ class NilaidetilskirpsiController extends Controller {
     public function actionAdmin() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = new Nilaidetilskirpsi('search');
@@ -204,6 +246,9 @@ class NilaidetilskirpsiController extends Controller {
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
+   
+
+  
 
     /**
      * Performs the AJAX validation.

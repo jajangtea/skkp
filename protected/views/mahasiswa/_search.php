@@ -19,7 +19,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                               <?php echo $form->textField($model,'NIM'); ?>
+                               <?php echo $form->textField($model,'NIM',array('class' => 'form-control', 'style' => 'width:30%'));?>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo $form->textField($model,'Nama',array('size'=>60,'maxlength'=>200)); ?>
+                                <?php echo $form->textField($model,'Nama',array('class' => 'form-control', 'style' => 'width:60%'));?>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                               <?php echo $form->textField($model,'Tlp',array('size'=>20,'maxlength'=>20)); ?>
+                               <?php echo $form->textField($model,'Tlp',array('class' => 'form-control', 'style' => 'width:40%'));?>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo $form->textField($model,'KodeJurusan',array('size'=>50,'maxlength'=>50)); ?>
+                                <?php echo $form->textField($model,'KodeJurusan',array('class' => 'form-control', 'style' => 'width:40%'));?>
                             </div>
                         </div>
                     </div>

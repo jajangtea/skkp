@@ -56,7 +56,7 @@ class NilaikpController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -75,7 +75,7 @@ class NilaikpController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -106,7 +106,7 @@ class NilaikpController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -157,7 +157,7 @@ class NilaikpController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
@@ -184,7 +184,7 @@ class NilaikpController extends Controller {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';

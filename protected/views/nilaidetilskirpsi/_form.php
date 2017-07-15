@@ -42,7 +42,7 @@
                                         <?php
                                         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                                             'model' => $model,
-                                            'attribute' => 'idPendaftaran',
+                                            'attribute' => 'IdPendaftaran',
                                             'source' => $this->createUrl('mahasiswa/suggestPendaftaranmhs'),
                                             'htmlOptions' => array(
                                                 'size' => '40',

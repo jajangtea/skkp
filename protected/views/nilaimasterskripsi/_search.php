@@ -6,55 +6,68 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'action' => Yii::app()->createUrl($this->route),
+        'method' => 'get',
+    ));
+    ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IdNMSkripsi'); ?>
-		<?php echo $form->textField($model,'IdNMSkripsi',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'IdPendaftaran'); ?>
-		<?php echo $form->textField($model,'IdPendaftaran'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NKompre'); ?>
-		<?php echo $form->textField($model,'NKompre'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NPraSidang'); ?>
-		<?php echo $form->textField($model,'NPraSidang'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NSidangSkripsi'); ?>
-		<?php echo $form->textField($model,'NSidangSkripsi'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NPembimbing'); ?>
-		<?php echo $form->textField($model,'NPembimbing'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NA'); ?>
-		<?php echo $form->textField($model,'NA'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'Index'); ?>
-		<?php echo $form->textField($model,'Index',array('size'=>2,'maxlength'=>2)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
+    <hr/>
+    <div class="main-box">
+        <header class="main-box-header clearfix">
+            <h2 class="pull-left"><i class="fa fa-search"></i> Pencarian</h2>
+            <div class="icon-box pull-right">                                       
+                <a class="btn pull-left" href="#">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </header> 
+        <div class="main-box-body clearfix">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">NIM/NAMA :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">     
+                                <?php
+                                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                    'model' => $model,
+                                    'attribute' => 'IdPendaftaran',
+                                    'source' => $this->createUrl('mahasiswa/suggestPendaftaranmhs'),
+                                    'htmlOptions' => array(
+                                        'size' => '40',
+                                        'style' => 'width:30',
+                                        'class' => 'form-control',
+                                    ),
+                                    'options' => array(
+                                        'showAnim' => 'fold',
+                                        'select' => 'js:function(event, ui){'
+                                        . 'document.getElementById("hidden-namaMahasiswa").innerHTML = "Nama Mahasiswa : "+ui.item.namaMhs;'
+                                        . 'document.getElementById("hidden-prodi").innerHTML = "Program Studi : "+ui.item.namaProdi;'
+                                        . 'document.getElementById("hidden-nim").innerHTML = "NIM : "+ui.item.nim;'
+                                        . 'document.getElementById("hidden-namaMahasiswa").focus();  }',
+                                    ),
+                                ));
+                                echo '<br/>';
+                                echo CHtml::label('NIM : -', '', array('type' => 'hidden', 'id' => 'hidden-nim', 'class' => 'label label-info', 'style' => 'width:30%'));
+                                echo CHtml::label('Nama Mahasiswa : -', '', array('type' => 'hidden', 'id' => 'hidden-namaMahasiswa', 'class' => 'label label-success', 'style' => 'width:30%'));
+                                echo CHtml::label('Program Studi : -', '', array('type' => 'hidden', 'id' => 'hidden-prodi', 'class' => 'label label-danger', 'style' => 'width:30%'));
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <?php
+                        echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
+                        ?>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->

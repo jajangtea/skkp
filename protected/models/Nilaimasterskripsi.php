@@ -113,5 +113,22 @@ class Nilaimasterskripsi extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    public function loadModelNilaiMaster($idPendaftaran) {
+        $sql = "SELECT COUNT(*) FROM prd_nilaimasterskripsi where IdPendaftaran=$idPendaftaran";
+        $numClients = Yii::app()->db->createCommand($sql)->queryScalar();
+        return $numClients;
+    }
+    
+    public function ambilNilaiMaster($idPendaftaran) {
+        $sql = "SELECT * FROM prd_nilaimasterskripsi where IdPendaftaran=$idPendaftaran";
+        $data = Yii::app()->db->createCommand($sql)->queryRow();
+        return $data;
+    }
+    public function ambilNilaiMasterId($idpk) {
+        $sql = "SELECT * FROM prd_nilaimasterskripsi where IdNMSkripsi=$idpk";
+        $data = Yii::app()->db->createCommand($sql)->queryRow();
+        return $data;
+    }
 
 }

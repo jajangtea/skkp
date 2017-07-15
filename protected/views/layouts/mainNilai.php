@@ -150,6 +150,7 @@
                                             $this->beginWidget('zii.widgets.CPortlet', array(
                                             ));
                                             $this->widget('zii.widgets.CMenu', array(
+                                                'encodeLabel'=>false,
                                                 'items' => $this->menu,
                                                 'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
                                             ));

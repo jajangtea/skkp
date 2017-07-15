@@ -132,7 +132,7 @@ class Pendaftaran extends CActiveRecord {
 
     public function getNamaSidang() {
         //this function returns the list of categories to use in a dropdown        
-        return CHtml::listData(Jenissidang::model()->with('sidangmasters')->findAll('status=1'), 'IDJenisSidang', 'NamaSidang');
+        return CHtml::listData(Sidangmaster::model()->with('iDJenisSidang')->findAll('status=1'),'IdSidang' , 'iDJenisSidang.NamaSidang');
     }
     
     public function getJenisSidang() {
@@ -168,11 +168,18 @@ class Pendaftaran extends CActiveRecord {
     {
         if($idjenis=="")
             $idjenis=0;
+//        $sql="SELECT COUNT(*) FROM prd_pendaftaran p 
+//            INNER JOIN prd_sidangmaster sm ON p.IdSidang=sm.IdSidang 
+//            INNER JOIN prd_jenissidang js ON sm.IdJenisSidang=js.IdJenisSidang 
+//            WHERE js.IdJenisSidang=".$idjenis." AND sm.tanggal<=(SELECT tanggal 
+//            FROM prd_sidangmaster WHERE STATUS=1 AND IdJenisSidang=".$idjenis.")";
+//            
+        //echo $sql;
+        //exit();
         $sql="SELECT COUNT(*) FROM prd_pendaftaran p 
-            LEFT JOIN prd_sidangmaster sm ON p.IdSidang=sm.IdSidang 
-            LEFT JOIN prd_jenissidang js ON sm.IdJenisSidang=js.IdJenisSidang 
-            WHERE js.IdJenisSidang=".$idjenis." AND sm.tanggal<=(SELECT tanggal 
-            FROM prd_sidangmaster WHERE STATUS=1 AND IdJenisSidang=".$idjenis.")";
+            INNER JOIN prd_sidangmaster sm ON p.IdSidang=sm.IdSidang 
+            INNER JOIN prd_jenissidang js ON sm.IdJenisSidang=js.IdJenisSidang 
+            WHERE js.IdJenisSidang=".$idjenis." AND sm.STATUS=1";
         $command=Yii::app()->db->createCommand($sql)->queryScalar();
         return $command;
     }

@@ -8,15 +8,15 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Nilaikp', 'url'=>array('index')),
-	array('label'=>'Create Nilaikp', 'url'=>array('create')),
-	array('label'=>'Update Nilaikp', 'url'=>array('update', 'id'=>$model->IdNilaiKp)),
-	array('label'=>'Delete Nilaikp', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdNilaiKp),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Nilaikp', 'url'=>array('admin')),
+	array('label'=>'<i class="fa fa-bars"></i><span>Lihat</span>', 'url'=>array('index')),
+	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+	array('label'=>'<i class="fa fa-pencil"></i><span>Ubah</span>', 'url'=>array('update', 'id'=>$model->IdNilaiKp)),
+	array('label'=>'<i class="fa fa-eraser"></i><span>Hapus</span>', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdNilaiKp),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'<i class="fa fa-wrench"></i><span>Tambah</span>', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Nilaikp #<?php echo $model->IdNilaiKp; ?></h1>
+<hr/>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

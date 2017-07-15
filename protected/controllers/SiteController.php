@@ -22,7 +22,7 @@ class SiteController extends Controller {
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete','cp'),
                 'expression' => '$user->getLevel()==1',
             ),
         );
@@ -50,11 +50,11 @@ class SiteController extends Controller {
     public function actionIndex() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         // renders the view file 'protected/views/site/index.php'
@@ -70,27 +70,25 @@ class SiteController extends Controller {
         $dataSidangKompre = Sidangmaster::jenisSidangAktif(4);
 
         if (Yii::app()->user->getLevel() == 1) {
-           // $this->layout = 'main';
+            // $this->layout = 'main';
             $this->render('index', array(
                 'dataPraSidang' => $dataPraSidang,
                 'dataSidangAkhir' => $dataSidangAkhir,
                 'dataSidangKP' => $dataSidangKP,
                 'dataSidangKompre' => $dataSidangKompre,
-                
                 'jumlahPrasidang' => $jumlahPrasidang,
                 'jumlahSidangAkhir' => $jumlahSidangAkhir,
                 'jumlahSidangKP' => $jumlahSidangKP,
                 'jumlahSidangKompre' => $jumlahSidangKompre,
             ));
         } else {
-           // $this->layout = 'mainHome';
+            // $this->layout = 'mainHome';
             $data = Sidangmaster::sidangaktif();
             $this->render('index', array(
                 'dataPraSidang' => $dataPraSidang,
                 'dataSidangAkhir' => $dataSidangAkhir,
                 'dataSidangKP' => $dataSidangKP,
                 'dataSidangKompre' => $dataSidangKompre,
-                
                 'jumlahPrasidang' => $jumlahPrasidang,
                 'jumlahSidangAkhir' => $jumlahSidangAkhir,
                 'jumlahSidangKP' => $jumlahSidangKP,
@@ -184,5 +182,7 @@ class SiteController extends Controller {
             Yii::app()->end();
         }
     }
+
+    
 
 }
