@@ -55,6 +55,7 @@
                                                 . 'document.getElementById("hidden-namaMahasiswa").innerHTML = "Nama Mahasiswa : "+ui.item.namaMhs;'
                                                 . 'document.getElementById("hidden-prodi").innerHTML = "Program Studi : "+ui.item.namaProdi;'
                                                 . 'document.getElementById("hidden-nim").innerHTML = "NIM : "+ui.item.nim;'
+                                                . 'document.getElementById("hidden-namaSidang").innerHTML = ui.item.namaSidang;'
                                                 . 'document.getElementById("hidden-namaMahasiswa").focus();  }',
                                             ),
                                         ));
@@ -62,6 +63,7 @@
                                         echo CHtml::label('NIM : -', '', array('type' => 'hidden', 'id' => 'hidden-nim', 'class' => 'label label-info', 'style' => 'width:30%'));
                                         echo CHtml::label('Nama Mahasiswa : -', '', array('type' => 'hidden', 'id' => 'hidden-namaMahasiswa', 'class' => 'label label-success', 'style' => 'width:30%'));
                                         echo CHtml::label('Program Studi : -', '', array('type' => 'hidden', 'id' => 'hidden-prodi', 'class' => 'label label-danger', 'style' => 'width:30%'));
+                                        echo CHtml::label('Nama Sidang : -', '', array('type' => 'hidden', 'id' => 'hidden-namaSidang', 'class' => 'label label-warning', 'style' => 'width:30%'));
                                         ?>
                                     </div>
                                     <div class="col-lg-10">        

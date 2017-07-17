@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => 'List ', 'url' => array('index')),
-    array('label' => 'Create Nilai Detil Skirpsi', 'url' => array('create')),
+    array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
+    array('label' => '<i class="fa fa-eye"></i><span>Lihat</span>', 'url' => array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
