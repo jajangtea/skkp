@@ -38,7 +38,7 @@ class PendaftaranController extends Controller {
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete','export'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -90,7 +90,10 @@ class PendaftaranController extends Controller {
 
                 $jml = Pendaftaran::cekPendaftaran($nim);
                 $jmlKompre = Pendaftaran::cekKompre($nim);
-                if ($model->IdSidang == 4) {
+                $tes=$model->idSidang->IDJenisSidang;
+                //echo $tes;
+                //exit();
+                if ($tes == 4) {
                     if ($jmlKompre > 0) {
                         $session = new CHttpSession;
                         $session->open();
@@ -99,7 +102,7 @@ class PendaftaranController extends Controller {
                         if ($model->save())
                             $this->redirect(array('view', 'id' => $model->idPendaftaran));
                     }
-                } else if ($model->IdSidang != 4) {
+                } else if ($tes != 4) {
                     if ($jml > 0) {
                         $session = new CHttpSession;
                         $session->open();
@@ -234,6 +237,50 @@ class PendaftaranController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+    public function actionExport() {
+        $model = new Pendaftaran();
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_POST['Pendaftaran']))
+            $model->attributes = $_POST['Pendaftaran'];
+
+        $exportType = 'Excel5';
+        $this->widget('ext.heart.export.EHeartExport', array(
+            'title' => 'Data Pendaftaran',
+            'dataProvider' => $model->search(),
+            'filter' => $model,
+            'grid_mode' => 'export',
+            'exportType' => $exportType,
+            'columns' => array(
+                'Tanggal',
+                'NIM',
+                array(
+                    'name' => 'NIM',
+                    'type' => 'raw',
+                    'header' => 'Mahasiswa',
+                    'value' => 'CHtml::encode($data->nIM->Nama)',
+                    'htmlOptions'=>array('width'=>'40px'),
+                ),
+                array(
+			'name'=>'IdSidang',
+			'type'=>'raw',
+			'header'=>'Nama Sidang',
+			'value'=>'CHtml::encode($data->idSidang->iDJenisSidang->NamaSidang)',
+			'htmlOptions'=>array('width'=>''),
+		),
+                
+                'KodePembimbing1',
+                'KodePembimbing2',
+                array(
+                    'name' => 'Judul',
+                    'type' => 'raw',
+                    'header' => 'Judul',
+                    'value' => '$data->Judul',
+                    'htmlOptions'=>array('width'=>'260px'),
+                ),
+            ),
+        ));
     }
 
 }

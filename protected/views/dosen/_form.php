@@ -24,7 +24,7 @@
 
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-wechat"></i></span>
-                                <?php echo $form->textField($modelDosen, 'NamaDosen', array('size' => 20, 'maxlength' => 20, 'placeholder' => 'Nama Lengkap', 'class' => 'form-control')); ?>
+                                <?php echo $form->textField($modelDosen, 'NamaDosen', array('size' => 200, 'maxlength' => 200, 'placeholder' => 'Nama Lengkap', 'class' => 'form-control')); ?>
                             </div>
 
                             <div class="input-group">

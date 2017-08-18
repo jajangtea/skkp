@@ -33,7 +33,23 @@ $form = $this->beginWidget('CActiveForm', array(
                     <div class="text-danger">
                         <?php echo $form->errorSummary($model); ?>
                     </div>
-                    
+                    <?php
+                    if(Yii::app()->user->getLevel()==1)
+                    {
+                        echo "<div class=\"form-group\">";
+                        echo "<label class=\"col-lg-2 control-label\">Pilih Sidang :</label>";
+                        echo "<div class=\"col-lg-10\">";
+                        echo "<div class=\"row\">";
+                        echo "<div class=\"col-lg-3\">";   
+                        echo CHtml::activeDropDownList($model,'IdSidang', $model->getNamaSidang,array('prompt' => 'Pilih Sidang','class'=>'form-control'));
+                        echo "</div>";
+                        echo "<div class=\"col-lg-10\">";        
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    ?>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Pilih Sidang :</label>
                         <div class="col-lg-10">

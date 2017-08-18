@@ -116,7 +116,7 @@
                                             Navigasi
                                         </li>
                                         <li class="active">
-                                            <a href="index.php?r=site/index">
+                                            <a href="index.php?r=pendaftaran/admin">
                                                 <i class="fa fa-dashboard"></i>
                                                 <span>Dashboard</span>
                                             </a>
@@ -149,6 +149,8 @@
                                             </a>
                                         </li>
                                         
+                                       
+                                        
                                         <?php
                                         if(Yii::app()->user->getLevel()==2)
                                         {
@@ -167,6 +169,19 @@
                                             echo "</li>";
                                         }
                                         ?>
+                                        <?php
+                                        if(Yii::app()->user->getLevel()==2)
+                                        {
+                                            echo "<li>";
+                                            echo "<a href=\"index.php?r=user/cp\">";
+                                            echo "<i class=\"fa fa-key\"></i>";
+                                            echo "<span>Ubah Password</span>";
+                                            echo "</a>";
+                                            echo "</li>";
+                                        }
+                                        ?>
+                                        
+                                        
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
                                         </li>

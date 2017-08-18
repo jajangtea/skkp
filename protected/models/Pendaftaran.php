@@ -40,7 +40,7 @@ class Pendaftaran extends CActiveRecord {
             array('NIM, IdSidang', 'numerical', 'integerOnly' => true),
             array('IdSidang', 'required','message'=>'Sidang harus dipilih.'),
             array('KodePembimbing1', 'required','message'=>'Pembimbing 1 tidak boleh kosong.'),
-            array('KodePembimbing2', 'required','message'=>'Pembimbing 2 tidak boleh kosong.'),
+            array('KodePembimbing2', 'required','message'=>'Pembimbing 2 tidak boleh kosong/Pilih "Tidak Ada" jika hanya 1 Pembimbing.'),
             array('Judul', 'required','message'=>'Judul tidak boleh kosong.'),
             array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
             array('Tanggal, Judul', 'safe'),
@@ -98,14 +98,17 @@ class Pendaftaran extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
         if(Yii::app()->user->getLevel()==2)
         {
-            $criteria = new CDbCriteria(array(
-            'condition'=>'NIM=:NIM',
-            'params'=>array(':NIM'=>Yii::app()->user->name),
-        ));
+            $criteria = new CDbCriteria(array
+            (
+                'condition'=>'NIM=:NIM',
+                'params'=>array(':NIM'=>Yii::app()->user->name),
+            ));
         }
         else
         {
-             $criteria = new CDbCriteria();
+            $criteria = new CDbCriteria();
+            $criteria->join='INNER JOIN prd_sidangmaster sm ON t.IdSidang=sm.IdSidang INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang order by js.NamaSidang';
+            //$criteria->order = 't.NamaSidang ASC';
         }
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
         $criteria->compare('Tanggal', $this->Tanggal, true);

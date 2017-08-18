@@ -23,8 +23,7 @@
  */
 class User extends CActiveRecord {
 
-    public $password2;
-    public $verifyCode;
+  
 
     /**
      * Returns the static model of the specified AR class.
@@ -46,12 +45,13 @@ class User extends CActiveRecord {
      */
     public function rules() {
         return array(
-            array('username, password, email,password2', 'required', 'message' => '{attribute} Tidak Boleh Kosong'),
+            array('username, password, email', 'required', 'message' => '{attribute} Tidak Boleh Kosong'),
             //array('username, password, email,password2,verifyCode', 'required','message'=>'{attribute} Tidak Boleh Kosong'),
             //array('verifyCode', 'captcha', 'allowEmpty'=>!extension_loaded('gd')),
             array('level_id', 'numerical', 'integerOnly' => true),
+            array('username', 'unique'),
             array('username', 'length', 'max' => 20),
-            array('password, saltPassword, email', 'length', 'max' => 50),
+            array('password, saltPassword, email', 'length', 'max' => 255),
             //array('avatar','file', 'types'=>'gif,png,jpg'),
             array('id, username, password, saltPassword, email, joinDate, level_id, avatar, isActive', 'safe', 'on' => 'search'),
         );
@@ -69,6 +69,26 @@ class User extends CActiveRecord {
             'level' => array(self::BELONGS_TO, 'Level', 'level_id'),
         );
     }
+    
+//    public function beforeValidate()
+//	{
+//		if($this->isNewRecord)
+//		{
+//			$this->joinDate=date('Y-m-d h:i:s');
+//		}
+//
+//		return parent::beforeValidate();
+//	}
+//    
+//    public function beforeSave()
+//    {
+//        if($this->isNewRecord)
+//        {    
+//            $pword=$this->password;
+//            $this->password = CPasswordHelper::hashPassword($pword);
+//        }
+//        return parent::beforeSave();
+//    }
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -78,7 +98,7 @@ class User extends CActiveRecord {
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
-            'password2' => 'Password 2',
+            //'password2' => 'Password 2',
             'verifyCode' => 'Kode Verifikasi',
             'saltPassword' => 'Salt Password',
             'email' => 'Email',
@@ -114,6 +134,10 @@ class User extends CActiveRecord {
 
     public function validatePassword($password) {
         return $this->hashPassword($password, $this->saltPassword) === $this->password;
+    }
+    
+    public function validatePasswordcp($password) {
+        return $this->hashPassword($password, $this->saltPassword) === $password;
     }
 
     public function hashPassword($password, $salt) {

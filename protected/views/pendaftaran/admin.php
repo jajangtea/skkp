@@ -25,10 +25,16 @@ $this->breadcrumbs = array(
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left"><i class="fa fa-bars"></i> Data Pendaftaran</h2> 
-                <div class="filter-block pull-right">                                                   
-                    <a id="ctl0_maincontent_btnPrintOut" class="btn btn-primary pull-left" title="Print Out Daftar Matkul" href="#"><i class="fa fa-print fa-lg"></i></a> 	
-                    <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); ?>
-                </div>
+                <?php
+                    if(Yii::app()->user->getLevel()==1)
+                    {
+                        echo "<div class=\"filter-block pull-right\">";                                                   
+                        echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>"; 	
+                        echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); 
+                        echo "</div>";
+                    }
+                ?>
+                
             </header>
             <div class="main-box-body clearfix">  
                 <div class="table-responsive">

@@ -184,6 +184,19 @@
                                                 <span>Tahun Ajaran</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="index.php?r=dosen">
+                                                <i class="fa fa-graduation-cap"></i>
+                                                <span>Dosen</span>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="index.php?r=user/cp">
+                                                <i class="fa fa-key"></i>
+                                                <span>Ubah Password</span>
+                                            </a>
+                                        </li>
 
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
