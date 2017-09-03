@@ -5,10 +5,10 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Console Application',
-
+        
 	// preloading 'log' component
 	'preload'=>array('log'),
-
+        
 	// application components
 	'components'=>array(
 

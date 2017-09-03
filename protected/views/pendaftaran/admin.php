@@ -13,11 +13,11 @@ $this->breadcrumbs = array(
     $this->renderPartial('_search', array(
         'model' => $model,
     ));
-    $this->menu=array(
-	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
-);
+    $this->menu = array(
+        array('label' => '<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
+    );
     ?>
-    
+
 </div><!-- search-form -->
 <hr/>
 <div class="row">
@@ -26,15 +26,14 @@ $this->breadcrumbs = array(
             <header class="main-box-header clearfix">
                 <h2 class="pull-left"><i class="fa fa-bars"></i> Data Pendaftaran</h2> 
                 <?php
-                    if(Yii::app()->user->getLevel()==1)
-                    {
-                        echo "<div class=\"filter-block pull-right\">";                                                   
-                        echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>"; 	
-                        echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); 
-                        echo "</div>";
-                    }
+                if (Yii::app()->user->getLevel() == 1) {
+                    echo "<div class=\"filter-block pull-right\">";
+                    echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>";
+                    echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left'));
+                    echo "</div>";
+                }
                 ?>
-                
+
             </header>
             <div class="main-box-body clearfix">  
                 <div class="table-responsive">
@@ -52,20 +51,26 @@ $this->breadcrumbs = array(
                                       array_search($data,$this->grid->dataProvider->getData())+1',
                             ),
                             array(
+                                'name' => 'idPendaftaran',
+                                'header' => 'Qrcode',
+                                'type' => 'raw',
+                                'value' => 'CHtml::image(Yii::app()->baseUrl . \'/images/qrcode/\' . $data->idPendaftaran . \'.jpg\' ,\'\')',
+                                'htmlOptions' => array('width' => '5%'),
+                            ),
+                            array(
                                 'name' => 'Tanggal',
                                 'type' => 'raw',
                                 'header' => 'Tgl.Daftar',
                                 'value' => '$data->Tanggal',
-                                'htmlOptions'=>array('width'=>'40px'),
+                                'htmlOptions' => array('width' => '40px'),
                             ),
-                            
                             'NIM',
                             array(
                                 'name' => 'NIM',
                                 'type' => 'raw',
                                 'header' => 'Mahasiswa',
                                 'value' => 'CHtml::encode($data->nIM->Nama)',
-                                'htmlOptions'=>array('width'=>'40px'),
+                                'htmlOptions' => array('width' => '40px'),
                             ),
                             'idSidang.iDJenisSidang.NamaSidang',
                             array(
@@ -73,39 +78,47 @@ $this->breadcrumbs = array(
                                 'type' => 'raw',
                                 'header' => 'P1',
                                 'value' => 'CHtml::encode($data->kodePembimbing1->KodeDosen)',
-                                'htmlOptions'=>array('width'=>'40px'),
+                                'htmlOptions' => array('width' => '40px'),
                             ),
-                            array(
-                                'name' => 'KodePembimbing1',
-                                'type' => 'raw',
-                                'header' => 'Nama Dosen',
-                                'value' => 'CHtml::encode($data->kodePembimbing1->NamaDosen)',
-                                'htmlOptions'=>array('width'=>'160px'),
-                            ),
+//                            array(
+//                                'name' => 'KodePembimbing1',
+//                                'type' => 'raw',
+//                                'header' => 'Nama Dosen',
+//                                'value' => 'CHtml::encode($data->kodePembimbing1->NamaDosen)',
+//                                'htmlOptions' => array('width' => '160px'),
+//                            ),
                             array(
                                 'name' => 'KodePembimbing2',
                                 'type' => 'raw',
                                 'header' => 'P2',
                                 'value' => 'CHtml::encode($data->kodePembimbing2->KodeDosen)',
-                                'htmlOptions'=>array('width'=>'40px'),
+                                'htmlOptions' => array('width' => '40px'),
                             ),
-                            array(
-                                'name' => 'KodePembimbing1',
-                                'type' => 'raw',
-                                'header' => 'Nama Dosen',
-                                'value' => 'CHtml::encode($data->kodePembimbing2->NamaDosen)',
-                                'htmlOptions'=>array('width'=>'160px'),
-                            ),
+//                            array(
+//                                'name' => 'KodePembimbing1',
+//                                'type' => 'raw',
+//                                'header' => 'Nama Dosen',
+//                                'value' => 'CHtml::encode($data->kodePembimbing2->NamaDosen)',
+//                                'htmlOptions' => array('width' => '160px'),
+//                            ),
                             array(
                                 'name' => 'Judul',
                                 'type' => 'raw',
                                 'header' => 'Judul',
-                                'value' => '$data->Judul',
-                                'htmlOptions'=>array('width'=>'260px'),
+                                'value' => 'strtoupper($data->Judul)',
+                                'htmlOptions' => array('width' => '260px'),
                             ),
-                           
+                            array(
+                                'type' => 'raw',
+                                'header' => 'Keterangan',
+                                'value' => 'CHtml::encode($data->cekPersyaratan($data->idPendaftaran))',
+                                'htmlOptions' => array('width' => '160px'),
+                                'cssClassExpression' => '$data->cekPersyaratan($data->idPendaftaran) == "Syarat tidak Lengkap" ? "text text-danger" : "text text-info"',
+                            ),
                             array(
                                 'class' => 'CButtonColumn',
+                                'template'=>'{view}{delete}',
+                                 'htmlOptions' => array('width' => '','style'=>'text-align:center'),
                             ),
                         ),
                     ));

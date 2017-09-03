@@ -14,7 +14,8 @@ class SidangmasterController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-           // 'postOnly + delete', // we only allow deletion via POST request
+                // 'postOnly + delete', // we only allow deletion via POST request
+            //'postOnly + getValue', // we only allow deletion via POST request
         );
     }
 
@@ -34,7 +35,7 @@ class SidangmasterController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete', 'getValue'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -165,4 +166,49 @@ class SidangmasterController extends Controller {
         }
     }
 
+    public function actionGetValue() {
+        if(Yii::app()->request->isAjaxRequest){
+        if (isset($_POST['value']))
+            foreach ($_POST['value'] as $id) {
+                $some = Sidangmaster::model()->findByPk($id);
+                if($some->status==1)
+                {
+                    $some->status=0;
+                }
+                else
+                {
+                    $some->status=1;
+                }
+                $some->save();
+        }}
+    }
+
+    public function actionApprove() {
+
+        if (isset($_POST['ApproveButton'])) {
+            if (isset($_POST['selectedIds'])) {
+                foreach ($_POST['selectedIds'] as $id) {
+                    $comment = $this->loadModel($id);
+                    $comment->is_published = 1;
+                    $comment->update(array('is_published'));
+                }
+            }
+        }
+
+        // similar code for delete button goes here
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'is_published = 0';
+        $criteria->order = 'created DESC';
+
+        $dataProvider = new CActiveDataProvider('Comment');
+        $dataProvider->criteria = $criteria;
+
+        $this->render('approve', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
 }
+
+?>

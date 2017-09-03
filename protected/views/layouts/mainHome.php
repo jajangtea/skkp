@@ -143,6 +143,13 @@
                                         ?>
                                         
                                         <li>
+                                            <a href="index.php?r=pengajuan/create">
+                                                <i class="fa fa-calendar"></i>
+                                                <span>Pengajuan KP/Skripsi</span>
+                                            </a>
+                                        </li>   
+                                        
+                                        <li>
                                             <a href="index.php?r=pendaftaran/create">
                                                 <i class="fa fa-pencil"></i>
                                                 <span>Pendaftaran Sidang</span>

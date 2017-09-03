@@ -38,7 +38,7 @@ class PendaftaranController extends Controller {
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete','export'),
+                'actions' => array('admin', 'delete', 'export'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -52,13 +52,19 @@ class PendaftaranController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+
+        $dataProviderUpload = Pendaftaran::model()->tampilUpload($id);
+
+
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else {
             $this->layout = 'mainHome';
         }
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'dataProviderUpload' => $dataProviderUpload,
         ));
     }
 
@@ -80,17 +86,28 @@ class PendaftaranController extends Controller {
             $model->attributes = $_POST['Pendaftaran'];
             $valid = $model->validate();
             if ($valid) {
-                $model->NIM = Yii::app()->user->getUsername();
-                $model->Tanggal = date('Y-m-d H:i:s');
-
-                $nim = Yii::app()->user->getUsername();
-                if ($nim == "") {
-                    $nim = 0;
+                if (Yii::app()->user->getLevel() == 1) {
+                    $this->layout = 'main';
+                    $model->NIM = $model->NIM;
+                    $model->Tanggal = date('Y-m-d H:i:s');
+                } else {
+                    $this->layout = 'mainHome';
+                    $model->NIM = Yii::app()->user->getUsername();
+                    $model->Tanggal = date('Y-m-d H:i:s');
+                    // $model->idPendaftaran=$this->buatBarcode($model->idPendaftaran);
                 }
+                //  $model->NIM = Yii::app()->user->getUsername();
+                //$nim = Yii::app()->user->getUsername();
+//                if ($nim == "") {
+//                    $nim = 0;
+//                }
+//                echo $model->NIM;
+//                echo $model->Tanggal;
+                // exit();
 
-                $jml = Pendaftaran::cekPendaftaran($nim);
-                $jmlKompre = Pendaftaran::cekKompre($nim);
-                $tes=$model->idSidang->IDJenisSidang;
+                $jml = Pendaftaran::cekPendaftaran($model->idPendaftaran);
+                $jmlKompre = Pendaftaran::cekKompre($model->idPendaftaran);
+                $tes = $model->idSidang->IDJenisSidang;
                 //echo $tes;
                 //exit();
                 if ($tes == 4) {
@@ -100,7 +117,9 @@ class PendaftaranController extends Controller {
                         $session['cekpendaftaranKompre'] = "Tidak boleh melakukan pendaftaran kompre lebih dari sekali.";
                     } else {
                         if ($model->save())
-                            $this->redirect(array('view', 'id' => $model->idPendaftaran));
+                           // $this->buatBarcode($model->idPendaftaran);
+                           // $this->buatQrcode($model->idPendaftaran);
+                        $this->redirect(array('view', 'id' => $model->idPendaftaran));
                     }
                 } else if ($tes != 4) {
                     if ($jml > 0) {
@@ -109,12 +128,15 @@ class PendaftaranController extends Controller {
                         $session['cekpendaftaran'] = "Tidak boleh melakukan pendaftaran sidang lebih dari sekali.";  // set session variable 'name3'
                     } else {
                         if ($model->save())
-                            $this->redirect(array('view', 'id' => $model->idPendaftaran));
+                            //$this->buatBarcode($model->idPendaftaran);
+                             //$this->buatQrcode($model->idPendaftaran);
+                        $this->redirect(array('view', 'id' => $model->idPendaftaran));
                     }
                 }
             }
         }
         //$this->layout='mainHome';
+
         $this->render('create', array(
             'model' => $model,
         ));
@@ -165,20 +187,23 @@ class PendaftaranController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-         if (Yii::app()->user->getLevel() == 1) {
+        if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
+
+
         if (isset($_GET['Pendaftaran']))
             $model->attributes = $_GET['Pendaftaran'];
         if (Yii::app()->user->getLevel() == 2) {
+
             $this->render('admin', array(
                 'model' => $model,
             ));
@@ -196,19 +221,23 @@ class PendaftaranController extends Controller {
     public function actionAdmin() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
-        } else if (Yii::app()->user->getLevel() == 2){
+        } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7){
+        } else if (Yii::app()->user->getLevel() == 3 && Yii::app()->user->getLevel() <= 7) {
             $this->layout = 'mainNilai';
-        } else{
+        } else {
             $this->layout = 'mainHome';
         }
 
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
+
+
+
         if (isset($_GET['Pendaftaran']))
             $model->attributes = $_GET['Pendaftaran'];
         //$this->layout='mainHome';
+
         $this->render('admin', array(
             'model' => $model,
         ));
@@ -238,7 +267,7 @@ class PendaftaranController extends Controller {
             Yii::app()->end();
         }
     }
-    
+
     public function actionExport() {
         $model = new Pendaftaran();
         $model->unsetAttributes();  // clear any default values
@@ -260,16 +289,15 @@ class PendaftaranController extends Controller {
                     'type' => 'raw',
                     'header' => 'Mahasiswa',
                     'value' => 'CHtml::encode($data->nIM->Nama)',
-                    'htmlOptions'=>array('width'=>'40px'),
+                    'htmlOptions' => array('width' => '40px'),
                 ),
                 array(
-			'name'=>'IdSidang',
-			'type'=>'raw',
-			'header'=>'Nama Sidang',
-			'value'=>'CHtml::encode($data->idSidang->iDJenisSidang->NamaSidang)',
-			'htmlOptions'=>array('width'=>''),
-		),
-                
+                    'name' => 'IdSidang',
+                    'type' => 'raw',
+                    'header' => 'Nama Sidang',
+                    'value' => 'CHtml::encode($data->idSidang->iDJenisSidang->NamaSidang)',
+                    'htmlOptions' => array('width' => ''),
+                ),
                 'KodePembimbing1',
                 'KodePembimbing2',
                 array(
@@ -277,10 +305,38 @@ class PendaftaranController extends Controller {
                     'type' => 'raw',
                     'header' => 'Judul',
                     'value' => '$data->Judul',
-                    'htmlOptions'=>array('width'=>'260px'),
+                    'htmlOptions' => array('width' => '260px'),
                 ),
             ),
         ));
+    }
+
+    public function findFiles() {
+        return array_diff(scandir(Yii::app()->params['uploadDir']), array('.', '..'));
+    }
+
+    public function buatBarcode($id) {
+
+        $width = 290;
+        $height = 50;
+        $quality = 100;
+        $text = 1;
+        $location = Yii::app()->basePath . '/../images/barcode/' . $id . '.jpg';
+
+        // $location = Yii::getPathOfAlias("webroot") . '/images/barcode/' . $id . '.jpg';
+        Yii::import("application.extensions.barcode.*");
+        barcode::Barcode39($id, $width, $height, $quality, $text, $location);
+    }
+
+    public function buatQrcode($id) {
+
+        Yii::import('ext.qrcode.QRCode');
+        $code = new QRCode("data to encode");
+        $code->create();
+      //  $location = Yii::app()->basePath . '/../images/barcode/' . $id . '.png';
+        $code->create(Yii::app()->basePath . '/../images/barcode/' . $id . '.jpg');
+        //Yii::import("application.extensions.barcode.*");
+        //barcode::Barcode39($id, $width, $height, $quality, $text, $location);
     }
 
 }

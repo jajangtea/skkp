@@ -116,35 +116,56 @@ class Sidangmaster extends CActiveRecord {
         return $data = Yii::app()->db->createCommand($sql)->queryRow();
         ;
     }
-    
+
     public function jenisSidangAktif($idjenis) {
         $sql = "SELECT js.`IDJenisSidang`,js.`NamaSidang`,sm.`Tanggal`,sm.`tglBuka`,sm.`tglTutup`,ta.`Tahun`,ta.`Semester` FROM prd_sidangmaster sm 
                 LEFT JOIN prd_jenissidang js ON js.`IDJenisSidang`=sm.`IDJenisSidang`  
-                LEFT JOIN prd_ta ta ON ta.`IdTa`=sm.`IdTa` WHERE sm.`status`=1 and sm.`IDJenisSidang`=".$idjenis."";
+                LEFT JOIN prd_ta ta ON ta.`IdTa`=sm.`IdTa` WHERE sm.`status`=1 and sm.`IDJenisSidang`=" . $idjenis . "";
         return $data = Yii::app()->db->createCommand($sql)->queryRow();
         ;
     }
-    
+
     public function ubahStatus() {
+        if ($this->status == "1")
+            return true;
+        else
+            return false;
+    }
+    
+    public function kondisiStatus() {
         if ($this->status == "1")
             return "Aktif";
         else
             return "Tidak Aktif";
     }
-    
-    public static function jenisStatus()
-    {
-            return array(
-                    '1' => 'Aktif',
-                    '0' => 'Tidak Aktif',
-            );
+
+    public static function jenisStatus() {
+        return array(
+            '1' => 'Aktif',
+            '0' => 'Tidak Aktif',
+        );
     }
-    public function getComplete()
-    {
-        return Ta::model()->Tahun.' '.Ta::model()->Semester;
+
+    public function getComplete() {
+        return Ta::model()->Tahun . ' ' . Ta::model()->Semester;
     }
+
     public function getTA() {
         return CHtml::listData(Ta::model()->findAll(), 'IdTa', 'complete');
+    }
+
+    public function actionGetValue() {
+
+        $arr = explode(',', $_POST['theIds']);
+        echo $arr;
+//        $criteria = new CDbCriteria;
+//        $criteria->addInCondition('IdSidang', $arr);
+//        $model = Sidangmaster::model()->findAll($criteria);
+//        foreach ($model as $value) {
+//            //update Order`s Status
+//            $value->status = $_POST['status'];
+//            $value->update();
+//        }
     }
 
 }
