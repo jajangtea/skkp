@@ -42,5 +42,12 @@ class EWebUser extends CWebUser {
         return $user->dosens->NamaDosen;
          return 100;
     }
+    
+    public function getuname() {
+        $user = $this->loadUser();
+        if ($user)
+        return $user->username;
+         return 100;
+    }
 
 }

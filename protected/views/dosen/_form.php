@@ -36,10 +36,6 @@
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <?php echo $form->passwordField($model, 'password', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'Password', 'class' => 'form-control')); ?>
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
-                                <?php echo $form->passwordField($model, 'password2', array('size' => 50, 'maxlength' => 50, 'placeholder' => 'Ulangi Password', 'class' => 'form-control')); ?>
-                            </div>
 
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>

@@ -14,7 +14,7 @@ class NilaikpController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-           // 'postOnly + delete', // we only allow deletion via POST request
+                // 'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -27,19 +27,19 @@ class NilaikpController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
-                'expression' => '$user->getLevel()==1',//admin
+                'expression' => '$user->getLevel()==1', //admin
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index'),
-                'expression' => '$user->getLevel()==2',//mahasiswa
+                'expression' => '$user->getLevel()==2', //mahasiswa
+            ),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'adminpembimbing'),
+                'expression' => '$user->getLevel()>=3', //pembimbing kp
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'admin'),
-                'expression' => '$user->getLevel()==3',//pembimbing kp
-            ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin'),
-                'expression' => '$user->getLevel()==4',//penguji kp
+                'expression' => '$user->getLevel()==4', //penguji kp
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -70,7 +70,8 @@ class NilaikpController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($NIM) {
+
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -80,11 +81,11 @@ class NilaikpController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        $model = new Nilaikp;
+        $model = $this->loadModelNIM($NIM);
 
         // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation($model);
-
+        //$this->performAjaxValidation($model);
+        $model->NIM = $NIM;
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
             if ($model->save())
@@ -199,6 +200,27 @@ class NilaikpController extends Controller {
         ));
     }
 
+    public function actionAdminpembimbing() {
+
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+
+        $dataProviderNilaiKp = Nilaikp::model()->tampilNilai(3,Yii::app()->user->getUsername());
+
+        $this->render('adminpembimbing', array(
+            'dataProviderNilaiKp' => $dataProviderNilaiKp,
+            'IDJenisSidang' => 3,
+            'KodePembimbing1' => 'AW',
+        ));
+    }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
@@ -208,6 +230,13 @@ class NilaikpController extends Controller {
      */
     public function loadModel($id) {
         $model = Nilaikp::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+    
+    public function loadModelNIM($NIM) {
+        $model = Nilaikp::model()->find("NIM=$NIM");
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

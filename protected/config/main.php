@@ -17,6 +17,8 @@ return array(
         'ext.bootstrap.components.*',
         'application.extensions.ekeepselection.*',
         'application.extensions.qrcode.*',
+        'application.extensions.tcpdf.*',
+        'application.extensions.mpdf.*',
     ),
     'modules' => array(
         //languange

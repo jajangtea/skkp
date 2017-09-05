@@ -36,31 +36,32 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">NIM :</label>
+                            <!--<label class="col-lg-2 control-label">NIM :</label>-->
                             <div class="col-lg-10">
                                 <div class="row">
                                     <div class="col-lg-5">  
                                         <?php
-                                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                            'model' => $model,
-                                            'attribute' => 'NIM',
-                                            'source' => $this->createUrl('mahasiswa/suggestMahasiswa'),
-                                            'htmlOptions' => array(
-                                                'size' => '40',
-                                                'style' => 'width:30',
-                                                'class'=>'form-control',
-                                            ),
-                                            'options' => array(
-                                                'showAnim' => 'fold',
-                                                'select' => 'js:function(event, ui){'
-                                                . 'document.getElementById("hidden-namaMahasiswa").innerHTML = "Nama Mahasiswa : "+ui.item.namaMhs;'
-                                                . 'document.getElementById("hidden-prodi").innerHTML = "Program Studi : "+ui.item.namaProdi;'
-                                                . 'document.getElementById("hidden-namaMahasiswa").focus();  }',
-                                            ),
-                                        ));
-                                        echo '<br/>';
-                                        echo CHtml::label('Nama Mahasiswa : -', '', array('type' => 'hidden', 'id' => 'hidden-namaMahasiswa', 'class' => 'label label-success', 'style' => 'width:30%'));
-                                        echo CHtml::label('Program Studi : -', '', array('type' => 'hidden', 'id' => 'hidden-prodi', 'class' => 'label label-danger', 'style' => 'width:30%'));
+                                           
+//                                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+//                                            'model' => $model,
+//                                            'attribute' => 'NIM',
+//                                            'source' => $this->createUrl('mahasiswa/suggestMahasiswa'),
+//                                            'htmlOptions' => array(
+//                                                'size' => '40',
+//                                                'style' => 'width:30',
+//                                                'class'=>'form-control',
+//                                            ),
+//                                            'options' => array(
+//                                                'showAnim' => 'fold',
+//                                                'select' => 'js:function(event, ui){'
+//                                                . 'document.getElementById("hidden-namaMahasiswa").innerHTML = "Nama Mahasiswa : "+ui.item.namaMhs;'
+//                                                . 'document.getElementById("hidden-prodi").innerHTML = "Program Studi : "+ui.item.namaProdi;'
+//                                                . 'document.getElementById("hidden-namaMahasiswa").focus();  }',
+//                                            ),
+//                                        ));
+//                                        echo '<br/>';
+//                                        echo CHtml::label('Nama Mahasiswa : -', '', array('type' => 'hidden', 'id' => 'hidden-namaMahasiswa', 'class' => 'label label-success', 'style' => 'width:30%'));
+//                                        echo CHtml::label('Program Studi : -', '', array('type' => 'hidden', 'id' => 'hidden-prodi', 'class' => 'label label-danger', 'style' => 'width:30%'));
                                         ?>
                                     </div>
                                     <div class="col-lg-10">        
@@ -69,7 +70,7 @@
                             </div>
                         </div>
                         <?php
-                        if (Yii::app()->user->getLevel() == 3 || Yii::app()->user->getLevel() == 1) {
+                        if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <=7) {
                             echo '<div class="form-group">';
                             echo ' <label class="col-lg-2 control-label">Nilai Pembimbing :</label>';
                             echo '<div class="col-lg-10">';
@@ -154,7 +155,7 @@
                                 if ($model->isNewRecord) {
                                     echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-save"></i> Simpan');
                                 } else {
-                                    echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-success'), '<i class="fa fa-save"></i> Ubah');
+                                    echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-success'), '<i class="fa fa-save"></i> Simpan');
                                 }
                                 ?>
                             </div>

@@ -106,17 +106,42 @@
                                 <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
                                     <ul class="nav nav-pills nav-stacked">
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
-                                            NAVIGASI
+                                            Penilaian Pembimbing
                                         </li>
-                                        <li>
-                                            <a href="index.php?r=site/index">
-                                                <i class="fa fa-dashboard"></i>
-                                                <span>Dashboard</span>											
-                                            </a>                                        
-                                        </li> 
 
                                         <li>
-                                            <a href="index.php?r=nilaikp/admin">
+                                            <a href="index.php?r=nilaikp/adminpembimbing">
+                                                <i class="fa fa-book"></i>
+                                                <span>Nilai KP</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-envelope"></i>
+                                                <span>Nilai Skripsi</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="index.php?r=nilaimasterskripsi/admin">
+                                                        Nilai Master
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.php?r=nilaidetilskirpsi/admin">
+                                                        Nilai Detil
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li class="nav-header nav-header-first hidden-sm hidden-xs">
+                                            Penilaian Penguji
+                                        </li>
+
+                                        <li>
+                                            <a href="index.php?r=nilaikp/adminpembimbing">
                                                 <i class="fa fa-book"></i>
                                                 <span>Nilai KP</span>
                                             </a>
