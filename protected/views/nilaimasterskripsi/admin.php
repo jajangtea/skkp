@@ -44,7 +44,8 @@ $('.search-form form').submit(function(){
                           )+
                           array_search($data,$this->grid->dataProvider->getData())+1',
                 ),
-		'idPendaftaran.nIM.Nama',
+                'NIM',
+		'nIM.Nama',
 		'NKompre',
 		'NPraSidang',
 		'NSidangSkripsi',

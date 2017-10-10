@@ -31,11 +31,7 @@ class SidangmasterController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'expression' => '$user->getLevel()==1',
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'getValue'),
+                'actions' => array('create', 'update','admin', 'delete', 'getValue'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -63,14 +59,14 @@ class SidangmasterController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($idPeriode) {
         $model = new Sidangmaster;
 
-        // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
         $this->layout = 'main';
         if (isset($_POST['Sidangmaster'])) {
             $model->attributes = $_POST['Sidangmaster'];
+            $model->idPeriode=$idPeriode;
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->IdSidang));
         }

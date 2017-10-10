@@ -12,7 +12,7 @@
         <h2 class="pull-left"><i class="fa fa-bars"></i> Upload Persyaratan</h2> 
         <div class="filter-block pull-right">                                                   
             <?php //echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('pengajuan/view', 'IDPengajuan' => $IDPengajuan, 'IDJenisSidang' => $IDJenisSidang), array('class' => 'btn btn-primary pull-left')); ?>
-            <?php echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('pengajuan/create'), array('class' => 'btn btn-primary pull-left')); ?>
+            <?php //echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('pengajuan/create'), array('class' => 'btn btn-primary pull-left')); ?>
         </div>
     </header>
     <div class="main-box-body clearfix"> 

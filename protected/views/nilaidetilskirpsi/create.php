@@ -12,6 +12,4 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Nilai detil Skirpsi</h1>
-
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

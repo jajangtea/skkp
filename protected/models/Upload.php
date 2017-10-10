@@ -33,7 +33,7 @@ class Upload extends CActiveRecord
 		// will receive user inputs.
 		return array(
                         array('namaFile','required'),
-                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg','maxSize'=>1000000,'tooLarge'=>'Ukuran File Maksimal 1MB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
+                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg','maxSize'=>300000,'tooLarge'=>'Ukuran File Maksimal 300KB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
 			array('idPendaftaran, idPersyaratan', 'numerical', 'integerOnly'=>true),
 			array('namaFile, ukuranFIle', 'length', 'max'=>300),
 			// The following rule is used by search().

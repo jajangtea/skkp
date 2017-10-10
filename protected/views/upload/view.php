@@ -8,22 +8,20 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => 'List Upload', 'url' => array('index')),
-    array('label' => 'Create Upload', 'url' => array('create')),
-    array('label' => 'Update Upload', 'url' => array('update', 'id' => $model->idUpload)),
-    array('label' => 'Delete Upload', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idUpload), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage Upload', 'url' => array('admin')),
+    array('label' => '<span class="label label-danger">Hapus Upload</span>', 'url' => "index.php?r=upload/deleted&id=$model->idUpload",'confirm' => 'Are you sure you want to delete this item?'),
 );
 ?>
 
 <div class="main-box clearfix">
     <header class="main-box-header clearfix">
-        <h2 class="pull-left"><i class="fa fa-bars"></i> Detil Gambar</h2> 
+        <h2 class="pull-left"><i class="fa fa-bars"></i> Detil Gambar </h2>
         <div class="filter-block pull-right">                                                   
             <?php echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('pendaftaran/view', 'id' => $model->idPendaftaran), array('class' => 'btn btn-primary pull-left')); ?>
         </div>
     </header>
     <div class="main-box-body clearfix"> 
+         <small><span class="label label-primary">Keterangan : Jika gambar tidak muncul tekan tombol hapus kemudian upload ulang</span></small>
+         <br/><br/>
         <?php
         $this->widget('zii.widgets.CDetailView', array(
             'data' => $model,

@@ -112,59 +112,39 @@
                                         <li>
                                             <a href="index.php?r=nilaikp/adminpembimbing">
                                                 <i class="fa fa-book"></i>
-                                                <span>Nilai KP</span>
+                                                <span>Nilai Pembimbing KP</span>
                                             </a>
                                         </li>
 
                                         <li>
-                                            <a href="#" class="dropdown-toggle">
+                                            <a href="index.php?r=nilaimasterskripsi/adminpembimbingskripsi">
                                                 <i class="fa fa-envelope"></i>
-                                                <span>Nilai Skripsi</span>
-                                                <i class="fa fa-angle-right drop-icon"></i>
+                                                <span>Nilai Pembimbing Skripsi</span>
                                             </a>
-                                            <ul class="submenu">
-                                                <li>
-                                                    <a href="index.php?r=nilaimasterskripsi/admin">
-                                                        Nilai Master
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="index.php?r=nilaidetilskirpsi/admin">
-                                                        Nilai Detil
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </li>
-                                        
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             Penilaian Penguji
                                         </li>
 
                                         <li>
-                                            <a href="index.php?r=nilaikp/adminpembimbing">
+                                            <a href="index.php?r=nilaikp/adminpenguji">
                                                 <i class="fa fa-book"></i>
-                                                <span>Nilai KP</span>
+                                                <span>Nilai Penguji KP</span>
                                             </a>
                                         </li>
 
                                         <li>
-                                            <a href="#" class="dropdown-toggle">
+                                            <a href="index.php?r=nilaidetilskirpsi/adminpengujiskripsi">
                                                 <i class="fa fa-envelope"></i>
-                                                <span>Nilai Skripsi</span>
-                                                <i class="fa fa-angle-right drop-icon"></i>
+                                                <span>Nilai Penguji Skripsi</span>
                                             </a>
-                                            <ul class="submenu">
-                                                <li>
-                                                    <a href="index.php?r=nilaimasterskripsi/admin">
-                                                        Nilai Master
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="index.php?r=nilaidetilskirpsi/admin">
-                                                        Nilai Detil
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="index.php?r=user/cp">
+                                                <i class="fa fa-key"></i>
+                                                <span>Ubah Password</span>
+                                            </a>
                                         </li>
                                         
                                         <li class="nav-header hidden-sm hidden-xs">
@@ -208,11 +188,11 @@
                                 </div>
                             </div>
                         </div>					
-                        <footer id="footer-bar" class="row">
+<!--                        <footer id="footer-bar" class="row">
                             <p id="footer-copyright" class="col-xs-12">                        
                                 Powered by <a href="https://www.yacanet.com">z.com</a>
                             </p>
-                        </footer>
+                        </footer>-->
                     </div>
                 </div>
             </div>

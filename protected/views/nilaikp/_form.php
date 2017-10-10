@@ -70,7 +70,9 @@
                             </div>
                         </div>
                         <?php
-                        if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <=7) {
+                       
+                        if (Pengujikp::model()->cekPembimbingKP(Yii::app()->user->getUsername(),$model->NIM)!=0 || Yii::app()->user->getLevel() == 1 )
+                        {
                             echo '<div class="form-group">';
                             echo ' <label class="col-lg-2 control-label">Nilai Pembimbing :</label>';
                             echo '<div class="col-lg-10">';
@@ -86,7 +88,9 @@
                         }
                         ?>
                         <?php
-                        if (Yii::app()->user->getLevel() == 4 || Yii::app()->user->getLevel() == 1) {
+                        //echo "coba".Pengujikp::model()->cekPengujiKP(Yii::app()->user->getUserid(),$model->NIM);
+                        //exit();
+                        if (Pengujikp::model()->cekPengujiKP(Yii::app()->user->getUserid(),$model->NIM)!=0 || Yii::app()->user->getLevel() == 1) {
                             echo '<div class="form-group">';
                             echo ' <label class="col-lg-2 control-label">Penguji Kerja Praktek :</label>';
                             echo '<div class="col-lg-10">';
@@ -124,7 +128,7 @@
                             echo '<div class="col-lg-10">';
                             echo '<div class="row">';
                             echo '<div class="col-lg-5"> ';
-                            echo $form->textField($model, 'NA', array('class' => 'form-control', 'style' => 'width:30%')); 
+                            echo $form->textField($model, 'NA', array('class' => 'form-control','readonly' => true, 'style' => 'width:30%')); 
                             echo '</div>';
                             echo ' <div class="col-lg-10">';
                             echo '</div>';
@@ -140,7 +144,7 @@
                             echo '<div class="col-lg-10">';
                             echo '<div class="row">';
                             echo '<div class="col-lg-5"> ';
-                            echo $form->textField($model, 'Index', array('class' => 'form-control', 'style' => 'width:30%')); 
+                            echo $form->textField($model, 'Index', array('class' => 'form-control', 'readonly' => true,'style' => 'width:30%')); 
                             echo '</div>';
                             echo ' <div class="col-lg-10">';
                             echo '</div>';

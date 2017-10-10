@@ -26,7 +26,7 @@ class NilaikpController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin', 'reset'),
                 'expression' => '$user->getLevel()==1', //admin
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
@@ -34,13 +34,10 @@ class NilaikpController extends Controller {
                 'expression' => '$user->getLevel()==2', //mahasiswa
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'adminpembimbing'),
-                'expression' => '$user->getLevel()>=3', //pembimbing kp
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'adminpembimbing', 'adminpenguji', 'adminpembimbingskripsi'),
+                'expression' => '$user->getLevel()==3', //pembimbing kp
             ),
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin'),
-                'expression' => '$user->getLevel()==4', //penguji kp
-            ),
+           
             array('deny', // deny all users
                 'users' => array('*'),
             ),
@@ -51,7 +48,7 @@ class NilaikpController extends Controller {
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id) {
+    public function actionView($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -62,7 +59,7 @@ class NilaikpController extends Controller {
             $this->layout = 'mainHome';
         }
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $this->loadModel($NIM),
         ));
     }
 
@@ -71,25 +68,23 @@ class NilaikpController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate($NIM) {
-
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() == 3) {
             $this->layout = 'mainNilai';
-        } else {
-            $this->layout = 'mainHome';
-        }
+        } 
         $model = $this->loadModelNIM($NIM);
-
-        // Uncomment the following line if AJAX validation is needed
-        //$this->performAjaxValidation($model);
         $model->NIM = $NIM;
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->IdNilaiKp));
+            {
+               $this->loadReset($NIM);
+               $this->redirect(array('view', 'NIM' => $model->NIM));
+            }
+             
         }
 
         $this->render('create', array(
@@ -102,7 +97,7 @@ class NilaikpController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -112,7 +107,7 @@ class NilaikpController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        $model = $this->loadModel($id);
+        $model = $this->loadModel($NIM);
 
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
@@ -120,9 +115,10 @@ class NilaikpController extends Controller {
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->IdNilaiKp));
+                 $this->loadReset($NIM);
+                 $this->redirect(array('view', '$NIM' => $model->IdNilaiKp));
         }
-
+       
         $this->render('update', array(
             'model' => $model,
         ));
@@ -133,17 +129,17 @@ class NilaikpController extends Controller {
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionDelete($id) {
+    public function actionDelete($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+        } else if (Yii::app()->user->getLevel() == 3) {
             $this->layout = 'mainNilai';
         } else {
             $this->layout = 'mainHome';
         }
-        $this->loadModel($id)->delete();
+        $this->loadModel($NIM)->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -191,12 +187,34 @@ class NilaikpController extends Controller {
             $this->layout = 'mainHome';
         }
         $model = new Nilaikp('search');
+
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Nilaikp']))
             $model->attributes = $_GET['Nilaikp'];
 
         $this->render('admin', array(
             'model' => $model,
+        ));
+    }
+
+    public function actionAdminpenguji() {
+
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+
+        $dataProviderNilaiPengujiKp = Nilaikp::model()->tampilNilaiPengujiKp(3, Yii::app()->user->getUsername());
+
+        $this->render('adminpenguji', array(
+            'dataProviderNilaiPengujiKp' => $dataProviderNilaiPengujiKp,
+            'IDJenisSidang' => 3,
+            'KodePenguji' => Yii::app()->user->getUsername(),
         ));
     }
 
@@ -212,12 +230,12 @@ class NilaikpController extends Controller {
             $this->layout = 'mainHome';
         }
 
-        $dataProviderNilaiKp = Nilaikp::model()->tampilNilai(3,Yii::app()->user->getUsername());
+        $dataProviderNilaiKp = Nilaikp::model()->tampilNilai(3, Yii::app()->user->getUsername());
 
         $this->render('adminpembimbing', array(
             'dataProviderNilaiKp' => $dataProviderNilaiKp,
             'IDJenisSidang' => 3,
-            'KodePembimbing1' => 'AW',
+            'KodePembimbing1' => Yii::app()->user->getUsername(),
         ));
     }
 
@@ -228,13 +246,13 @@ class NilaikpController extends Controller {
      * @return Nilaikp the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id) {
-        $model = Nilaikp::model()->findByPk($id);
+    public function loadModel($NIM) {
+        $model = Nilaikp::model()->find("NIM=$NIM");
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
-    
+
     public function loadModelNIM($NIM) {
         $model = Nilaikp::model()->find("NIM=$NIM");
         if ($model === null)
@@ -251,6 +269,80 @@ class NilaikpController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionReset($NIM) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $model = $this->loadModel($NIM);
+        $nPembimbing = $model->NilaiPembimbing;
+        $nPenguji = $model->NilaiPenguji;
+        $nperusahaan = $model->NilaiPerusahaan;
+        $na = ($nPenguji * 0.3) + ($nPembimbing * 0.5) + ($nperusahaan * 0.2);
+        $model->NA = $na;
+        if($na <=50)
+        {
+            $model->Index='D';
+        }
+        else if($na >=50 && $na<=69)
+        {
+            $model->Index='C';
+        }
+        else if($na >=70 && $na<=79)
+        {
+            $model->Index='B';
+        }
+        else if($na >=80 && $na<=100)
+        {
+            $model->Index='A';
+        }
+        $model->save();
+        $model->unsetAttributes();  // clear any default values
+        $this->redirect(Yii::app()->request->getUrlReferrer());
+    }
+    
+    public function loadReset($NIM) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $model = $this->loadModel($NIM);
+        $nPembimbing = $model->NilaiPembimbing;
+        $nPenguji = $model->NilaiPenguji;
+        $nperusahaan = $model->NilaiPerusahaan;
+        $na = ($nPenguji * 0.3) + ($nPembimbing * 0.5) + ($nperusahaan * 0.2);
+        $model->NA = $na;
+        if($na <=50)
+        {
+            $model->Index='D';
+        }
+        else if($na >=50 && $na<=69)
+        {
+            $model->Index='C';
+        }
+        else if($na >=70 && $na<=79)
+        {
+            $model->Index='B';
+        }
+        else if($na >=80 && $na<=100)
+        {
+            $model->Index='A';
+        }
+        $model->save();
+        //$model->unsetAttributes();  // clear any default values
+        //$this->redirect(Yii::app()->request->getUrlReferrer());
     }
 
 }

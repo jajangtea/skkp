@@ -37,7 +37,7 @@ class Sidangmaster extends CActiveRecord {
             array('Tanggal, tglBuka, tglTutup', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IdSidang, Tanggal, IDJenisSidang, IdTa, status, tglBuka, tglTutup', 'safe', 'on' => 'search'),
+            array('IdSidang, Tanggal, IDJenisSidang, IdTa, status, tglBuka, idPeriode, tglTutup', 'safe', 'on' => 'search'),
         );
     }
 
@@ -51,6 +51,8 @@ class Sidangmaster extends CActiveRecord {
             'pendaftarans' => array(self::HAS_MANY, 'Pendaftaran', 'IdSidang'),
             'iDJenisSidang' => array(self::BELONGS_TO, 'Jenissidang', 'IDJenisSidang'),
             'idTa' => array(self::BELONGS_TO, 'Ta', 'IdTa'),
+            'idPeriode0' => array(self::BELONGS_TO, 'Periode', 'idPeriode'),
+            'pendaftarans' => array(self::HAS_MANY, 'Pendaftaran', 'IdSidang'),
         );
     }
 
@@ -66,6 +68,7 @@ class Sidangmaster extends CActiveRecord {
             'status' => 'Status',
             'tglBuka' => 'Tgl Buka',
             'tglTutup' => 'Tgl Tutup',
+            'idPeriode' => 'Id Periode',
         );
     }
 
@@ -158,14 +161,6 @@ class Sidangmaster extends CActiveRecord {
 
         $arr = explode(',', $_POST['theIds']);
         echo $arr;
-//        $criteria = new CDbCriteria;
-//        $criteria->addInCondition('IdSidang', $arr);
-//        $model = Sidangmaster::model()->findAll($criteria);
-//        foreach ($model as $value) {
-//            //update Order`s Status
-//            $value->status = $_POST['status'];
-//            $value->update();
-//        }
     }
 
 }

@@ -6,13 +6,10 @@ $this->breadcrumbs=array(
 	'Pendaftarans',
 );
 
-$this->menu=array(
-	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
-	array('label'=>'<i class="fa fa-wrench"></i><span>Tambah</span>', 'url'=>array('admin')),
-);
+
 ?>
 
-<h1>Pendaftarans</h1>
+<h1>Pendaftaran</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

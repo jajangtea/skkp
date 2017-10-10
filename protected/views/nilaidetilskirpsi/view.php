@@ -21,7 +21,11 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idNilaiSkripsi',
+                'idPendaftaran.NIM',
+                'idPendaftaran.nIM.Nama',
+		'idPendaftaran.Judul',
+                'NilaiPenguji1',
+                'NIlaiPenguji2',
 		'NPraSidang',
 	),
 )); ?>

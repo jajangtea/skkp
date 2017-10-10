@@ -9,7 +9,7 @@
     <?php
     $form = $this->beginWidget('CActiveForm', array(
         'action' => Yii::app()->createUrl($this->route),
-        'method' => 'get',
+    'method' => 'get',
     ));
     ?>
 
@@ -33,7 +33,7 @@
                                 <?php
                                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                                     'model' => $model,
-                                    'attribute' => 'IdPendaftaran',
+                                    'attribute' => 'NIM',
                                     'source' => $this->createUrl('mahasiswa/suggestPendaftaranmhs'),
                                     'htmlOptions' => array(
                                         'size' => '40',
@@ -58,6 +58,29 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Periode [Bulan] :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo CHtml::activeDropDownList($model, 'bulan', Pendaftaran::model()->getBulan(), array('prompt' => 'Pilih Bulan', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Periode [Tahun] :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo CHtml::activeDropDownList($model, 'tahun', Pendaftaran::model()->getTahun(), array('prompt' => 'Pilih Tahun', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <?php

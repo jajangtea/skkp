@@ -17,21 +17,11 @@
         <div class="main-box-body clearfix">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Username :</label>
+                    <label class="col-lg-2 control-label">Username/NIM :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                               <?php echo $form->textField($model,'username',array('class' => 'form-control', 'style' => 'width:30%')); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">NIM :</label>
-                    <div class="col-lg-10">
-                        <div class="row">
-                            <div class="col-lg-10">        
-                                <?php echo $form->textField($model,'email',array('class' => 'form-control', 'style' => 'width:50%')); ?>
+                               <?php echo $form->textField($model,'username',array('class' => 'form-control', 'style' => 'width:50%')); ?>
                             </div>
                         </div>
                     </div>

@@ -20,6 +20,7 @@ class Nilaikp extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
+    public $bulan,$tahun;
     public function tableName() {
         return 'prd_nilaikp';
     }
@@ -37,7 +38,7 @@ class Nilaikp extends CActiveRecord {
             array('Index', 'length', 'max' => 2),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IdNilaiKp, NIM, NilaiPembimbing, NilaiPenguji, NilaiPerusahaan, NA, Index', 'safe', 'on' => 'search'),
+            array('IdNilaiKp, NIM, NilaiPembimbing, NilaiPenguji, NilaiPerusahaan,bulan,tahun, NA, Index', 'safe', 'on' => 'search'),
         );
     }
 
@@ -89,15 +90,14 @@ class Nilaikp extends CActiveRecord {
             ));
         } else {
             $criteria = new CDbCriteria();
+            $criteria->join='INNER JOIN prd_pendaftaran pp ON t.idPendaftaran=pp.idPendaftaran '
+                    . 'INNER JOIN prd_sidangmaster ps ON pp.IdSidang=ps.IdSidang '
+                    . 'INNER JOIN prd_periode pr ON ps.idPeriode=pr.idPeriode';
         }
-
-        $criteria->compare('IdNilaiKp', $this->IdNilaiKp);
-        $criteria->compare('NIM', $this->NIM);
-        $criteria->compare('NilaiPembimbing', $this->NilaiPembimbing);
-        $criteria->compare('NilaiPenguji', $this->NilaiPenguji);
-        $criteria->compare('NilaiPerusahaan', $this->NilaiPerusahaan);
-        $criteria->compare('NA', $this->NA);
-        $criteria->compare('Index', $this->Index, true);
+        
+        $criteria->compare('pr.bulan', $this->bulan);
+        $criteria->compare('pr.tahun', $this->tahun);
+        $criteria->compare('t.NIM', $this->NIM);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -112,6 +112,42 @@ class Nilaikp extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+    
+    public function tampilNilaiPengujiKp($IDJenisSidang,$KodePembimbing)
+    {
+        $sqlPengujiKp="SELECT
+        prd_pengujikp.idPengujiKp,
+        prd_pengujikp.idPendaftaran,
+        prd_pengujikp.idUser,
+        prd_pendaftaran.NIM,
+        prd_pendaftaran.Judul,
+        prd_sidangmaster.IDJenisSidang,
+        prd_jenissidang.NamaSidang,
+        prd_user.username,
+        prd_mahasiswa.Nama,
+        prd_nilaikp.NilaiPembimbing,
+        prd_nilaikp.NilaiPenguji,
+        prd_nilaikp.NilaiPerusahaan,
+        prd_nilaikp.NA,
+        prd_nilaikp.Index
+        FROM
+        prd_pengujikp
+        INNER JOIN prd_pendaftaran ON prd_pengujikp.idPendaftaran = prd_pendaftaran.idPendaftaran
+        INNER JOIN prd_sidangmaster ON prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang
+        INNER JOIN prd_jenissidang ON prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang
+        INNER JOIN prd_user ON prd_pengujikp.idUser = prd_user.id
+        INNER JOIN prd_mahasiswa ON prd_mahasiswa.IdUser = prd_user.id OR prd_pendaftaran.NIM = prd_mahasiswa.NIM
+        INNER JOIN prd_nilaikp ON prd_nilaikp.NIM = prd_mahasiswa.NIM WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_user.username = '$KodePembimbing'
+        ORDER BY prd_sidangmaster.Tanggal ASC";
+       
+        $dataProviderNilaiPengujiKp = new CSqlDataProvider($sqlPengujiKp, array(
+            'keyField' => 'NIM',
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+        return $dataProviderNilaiPengujiKp;
     }
 
     public function tampilNilai($IDJenisSidang,$KodePembimbing1) {
@@ -134,12 +170,52 @@ class Nilaikp extends CActiveRecord {
         prd_nilaikp.NilaiPerusahaan,
         prd_nilaikp.NA,
         prd_nilaikp.Index
-        FROM dbsidang.prd_sidangmaster
-        INNER JOIN dbsidang.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
-        INNER JOIN dbsidang.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
-        INNER JOIN dbsidang.prd_mahasiswa ON ( prd_pendaftaran.NIM = prd_mahasiswa.NIM)
-        LEFT JOIN dbsidang.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
-        LEFT JOIN dbsidang.prd_nilaikp ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
+        FROM sttitpi_skkp.prd_sidangmaster
+        INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
+        INNER JOIN sttitpi_skkp.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
+        INNER JOIN sttitpi_skkp.prd_mahasiswa ON ( prd_pendaftaran.NIM = prd_mahasiswa.NIM)
+        LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
+        LEFT JOIN sttitpi_skkp.prd_nilaikp ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
+        WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
+        ORDER BY prd_sidangmaster.Tanggal ASC";
+       
+        $dataProviderNilaiKp = new CSqlDataProvider($sqlNilaiKp, array(
+            'keyField' => 'NIM',
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dataProviderNilaiKp;
+        
+    }
+    
+    public function tampilNilaiPembimbingSkripsi($IDJenisSidang,$KodePembimbing1) {
+        $sqlNilaiKp = "SELECT
+        prd_mahasiswa.NIM,
+        prd_mahasiswa.Nama,
+        prd_pendaftaran.KodePembimbing1,
+        prd_pendaftaran.KodePembimbing2,
+        prd_pendaftaran.Judul,
+        prd_pendaftaran.NIM,
+        prd_pendaftaran.IdPendaftaran,
+        prd_sidangmaster.Tanggal,
+        prd_jenissidang.NamaSidang,
+        prd_sidangmaster.status,
+        prd_dosen.NamaDosen,
+        prd_dosen.IdUser,
+        prd_sidangmaster.Tanggal,
+        prd_sidangmaster.IDJenisSidang,
+        prd_nilaimasterskripsi.NPembimbing,
+        prd_nilaimasterskripsi.IdNMSkripsi
+        
+        
+        FROM sttitpi_skkp.prd_sidangmaster
+        INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
+        INNER JOIN sttitpi_skkp.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
+        INNER JOIN sttitpi_skkp.prd_mahasiswa ON ( prd_pendaftaran.NIM = prd_mahasiswa.NIM)
+        LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
+        LEFT JOIN sttitpi_skkp.prd_nilaimasterskripsi ON (prd_nilaimasterskripsi.NIM = prd_pendaftaran.NIM)
         WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
         ORDER BY prd_sidangmaster.Tanggal ASC";
        

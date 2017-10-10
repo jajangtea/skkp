@@ -13,7 +13,7 @@ $form = $this->beginWidget('CActiveForm', array(
     // There is a call to performAjaxValidation() commented in generated controller code.
     // See class documentation of CActiveForm for details on this.
     'enableAjaxValidation' => false,
-      'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    'htmlOptions' => array('enctype' => 'multipart/form-data'),
         ));
 ?>
 <?php echo CHtml::form($this->createUrl('upload'), 'post', array('enctype' => 'multipart/form-data')); ?>
@@ -42,7 +42,8 @@ $form = $this->beginWidget('CActiveForm', array(
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-                                        <?php echo $form->textField($model, 'idPendaftaran', array('size' => 60,
+                                        <?php
+                                        echo $form->textField($model, 'idPendaftaran', array('size' => 60,
                                             'maxlength' => 255, 'value' => (($model->isNewRecord) ? $model->generateKode_Pendaftaran() : $model->idPendaftaran), 'readonly' => true, 'class' => 'form-control'));
                                         ?>
                                     </div>
@@ -53,12 +54,44 @@ $form = $this->beginWidget('CActiveForm', array(
                         </div>
                         <?php
                         if (Yii::app()->user->getLevel() == 1) {
+//                            echo "<div class=\"form-group\">";
+//                            echo "<label class=\"col-lg-4 control-label\">Pilih Mahasiswa :</label>";
+//                            echo "<div class=\"col-lg-8\">";
+//                            echo "<div class=\"row\">";
+//                            echo "<div class=\"col-lg-12\">";
+//                            echo CHtml::activeDropDownList($model, 'NIM', Pendaftaran::model()->getMahasiswa(), array('prompt' => 'Pilih Mahasiswa', 'class' => 'form-control'));
+//                            echo "</div>";
+//                            echo "<div class=\"col-lg-10\">";
+//                            echo "</div>";
+//                            echo "</div>";
+//                            echo "</div>";
+//                            echo "</div>";
                             echo "<div class=\"form-group\">";
                             echo "<label class=\"col-lg-4 control-label\">Pilih Mahasiswa :</label>";
                             echo "<div class=\"col-lg-8\">";
                             echo "<div class=\"row\">";
                             echo "<div class=\"col-lg-12\">";
-                            echo CHtml::activeDropDownList($model, 'NIM', Pendaftaran::model()->getMahasiswa(), array('prompt' => 'Pilih Mahasiswa', 'class' => 'form-control'));
+
+                            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                'model' => $model,
+                                'attribute' => 'NIM',
+                                'source' => $this->createUrl('mahasiswa/suggestMahasiswa'),
+                                'htmlOptions' => array(
+                                    'size' => '40',
+                                    'style' => 'width:30',
+                                    'class' => 'form-control',
+                                ),
+                                'options' => array(
+                                    'showAnim' => 'fold',
+                                    'select' => 'js:function(event, ui){'
+                                    . 'document.getElementById("hidden-namaMahasiswa").innerHTML = "Nama Mahasiswa : "+ui.item.namaMhs;'
+                                    . 'document.getElementById("hidden-prodi").innerHTML = "Program Studi : "+ui.item.namaProdi;'
+                                    . 'document.getElementById("hidden-namaMahasiswa").focus();  }',
+                                ),
+                            ));
+                            echo '<br/>';
+                            echo CHtml::label('Nama Mahasiswa : -', '', array('type' => 'hidden', 'id' => 'hidden-namaMahasiswa', 'class' => 'label label-success', 'style' => 'width:30%'));
+                            echo CHtml::label('Program Studi : -', '', array('type' => 'hidden', 'id' => 'hidden-prodi', 'class' => 'label label-danger', 'style' => 'width:30%'));
                             echo "</div>";
                             echo "<div class=\"col-lg-10\">";
                             echo "</div>";
@@ -72,7 +105,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-<?php echo CHtml::activeDropDownList($model, 'IdSidang', $model->getNamaSidang(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control')); ?>
+                                        <?php echo CHtml::activeDropDownList($model, 'IdSidang', $model->getNamaSidang(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control')); ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
@@ -84,7 +117,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">  
-<?php echo CHtml::activeDropDownList($model, 'KodePembimbing1', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
+                                        <?php echo CHtml::activeDropDownList($model, 'KodePembimbing1', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
@@ -96,7 +129,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-<?php echo CHtml::activeDropDownList($model, 'KodePembimbing2', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
+                                        <?php echo CHtml::activeDropDownList($model, 'KodePembimbing2', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
@@ -108,7 +141,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-<?php echo $form->textArea($model, 'Judul', array('rows' => 6, 'style' => 'width:420px', 'class' => 'form-control')); ?>
+                                        <?php echo $form->textArea($model, 'Judul', array('rows' => 6, 'style' => 'width:420px', 'class' => 'form-control')); ?>
 
                                     </div>
                                     <div class="col-lg-10">        

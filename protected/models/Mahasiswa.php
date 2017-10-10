@@ -137,11 +137,32 @@ class Mahasiswa extends CActiveRecord {
         foreach ($models as $model) {
             $suggest[] = array(
                 'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan']. ' - ' . $model['NamaSidang'], // label for dropdown list
-                'value' => $model['idPendaftaran'], // value for input field
+                'value' => $model['NIM'], // value for input field
                 'nim' => $model['NIM'], // return values from autocomplete
                 'namaMhs' => $model['Nama'],
                 'namaProdi' => $model['KodeJurusan'],
                 'namaSidang' => $model['NamaSidang'],
+                'namaSidang' => $model['idPendaftaran'],
+            );
+        }
+        return $suggest;
+    }
+    
+    public function suggestnilai($keyword, $limit = 20) {
+        $sql="SELECT * FROM prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+            INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
+            INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang WHERE t.Nama LIKE '%$keyword%' or t.NIM LIKE '%$keyword%'";
+        $models= Yii::app()->db->createCommand($sql)->queryAll();
+        $suggest = array();
+        foreach ($models as $model) {
+            $suggest[] = array(
+                'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan']. ' - ' . $model['NamaSidang'], // label for dropdown list
+                'value' => $model['NIM'], // value for input field
+                'nim' => $model['NIM'], // return values from autocomplete
+                'namaMhs' => $model['Nama'],
+                'namaProdi' => $model['KodeJurusan'],
+                'namaSidang' => $model['NamaSidang'],
+                'namaSidang' => $model['idPendaftaran'],
             );
         }
         return $suggest;

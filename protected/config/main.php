@@ -7,6 +7,7 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'SISTEM INFROMASI KP DAN SKRIPSI',
+    // 'defaultController' => 'pendaftaran', 
     'timeZone' => 'Asia/Jakarta',
     // preloading 'log' component
     'preload' => array('log'),
@@ -121,7 +122,6 @@ return array(
           ),
           ),
          */
-
         // database settings are configured in database.php
         'db' => require(dirname(__FILE__) . '/database.php'),
         'errorHandler' => array(

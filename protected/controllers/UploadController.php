@@ -25,11 +25,11 @@ class UploadController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'admin', 'delete','createProposal'),
+                'actions' => array('index', 'view', 'admin', 'delete', 'createProposal'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
+                'actions' => array('create', 'update', 'delete', 'deleted'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -59,29 +59,35 @@ class UploadController extends Controller {
     public function actionCreate($id, $idsyarat) {
         $model = new Upload;
         if (isset($_POST['Upload'])) {
-            $model->attributes = $_POST['Upload'];
-            $model->idPendaftaran = $id;
-            $model->idPersyaratan = $idsyarat;
-
-            if (strlen(trim(CUploadedFile::getInstance($model, 'namaFile'))) > 0) {
-                $sss = CUploadedFile::getInstance($model, 'namaFile');
-                $model->namaFile = $id . '_' . $model->idPendaftaran0->nIM->Nama . '_' . $model->idPersyaratan0->namaPersyaratan . '.' . $sss->extensionName;
-                $model->ukuranFIle = $sss->size . 'kb';
-            }
-            if ($model->save()) {
-                if (strlen(trim($model->namaFile)) > 0) {
-                    $sss->saveAs(Yii::app()->basePath . '/../persyaratan/' . $model->namaFile);
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $model->attributes = $_POST['Upload'];
+                $model->idPendaftaran = $id;
+                $model->idPersyaratan = $idsyarat;
+                if (strlen(trim(CUploadedFile::getInstance($model, 'namaFile'))) > 0) {
+                    $sss = CUploadedFile::getInstance($model, 'namaFile');
+                    $model->namaFile = $id . '_' . $model->idPendaftaran0->nIM->Nama . '_' . $model->idPersyaratan0->namaPersyaratan . '.' . $sss->extensionName;
+                    $model->ukuranFIle = $sss->size . 'kb';
                 }
-                $this->redirect(array('view', 'id' => $model->idUpload));
+                if ($model->save()) {
+                   
+                    if (strlen(trim($model->namaFile)) > 0) {
+                        $sss->saveAs(Yii::app()->basePath . '/../persyaratan/' . $model->namaFile);
+                       
+                    }
+                    $transaction->commit();
+                    $this->redirect(array('view', 'id' => $model->idUpload));
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
             }
         }
+
 
         $this->render('create', array(
             'model' => $model,
         ));
     }
-
-    
 
     /**
      * Updates a particular model.
@@ -131,6 +137,12 @@ class UploadController extends Controller {
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pendaftaran/view', 'id' => $idDaftar));
+    }
+
+    public function actionDeleted($id) {
+        $this->loadModel($id)->delete();
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pendaftaran/admin'));
     }
 
     /**

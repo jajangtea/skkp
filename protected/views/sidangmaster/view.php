@@ -6,14 +6,6 @@ $this->breadcrumbs=array(
 	'Sidangmasters'=>array('index'),
 	$model->IdSidang,
 );
-
-$this->menu=array(
-	array('label'=>'List Sidangmaster', 'url'=>array('index')),
-	array('label'=>'Create Sidangmaster', 'url'=>array('create')),
-	array('label'=>'Update Sidangmaster', 'url'=>array('update', 'id'=>$model->IdSidang)),
-	array('label'=>'Delete Sidangmaster', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IdSidang),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Sidangmaster', 'url'=>array('admin')),
-);
 ?>
 
 <div class="row">
@@ -23,8 +15,7 @@ $this->menu=array(
             <header class="main-box-header clearfix">
                 <h2 class="pull-left"><i class="fa fa-bars"></i> Detil Sidang #<?php echo $model->Tanggal; ?></h2> 
                 <div class="filter-block pull-right">                                                   
-                    <a id="ctl0_maincontent_btnPrintOut" class="btn btn-primary pull-left" title="Print Out Daftar Matkul" href="#"><i class="fa fa-print fa-lg"></i></a> 	
-                    <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); ?>
+                    <?php echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('admin'), array('class' => 'btn btn-primary pull-left')); ?>
                 </div>
             </header>
             <div class="main-box-body clearfix">  

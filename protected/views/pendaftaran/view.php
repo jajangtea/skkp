@@ -7,11 +7,6 @@ $this->breadcrumbs = array(
     $model->idPendaftaran,
 );
 
-$this->menu = array(
-    array('label' => '<i class="fa fa-eye"></i><span>Lihat</span>', 'url' => array('index')),
-    array('label' => '<i class="fa fa-pencil"></i><span>Ubah</span>', 'url' => array('update', 'id' => $model->idPendaftaran)),
-    array('label' => '<i class="fa fa-eraser"></i><span>Hapus</span>', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idPendaftaran), 'confirm' => 'Are you sure you want to delete this item?')),
-);
 ?>
 
 <div class="row">
@@ -47,11 +42,11 @@ $this->menu = array(
                             'value' => CHtml::image(Yii::app()->baseUrl . "/images/qrcode/" . $model->idPendaftaran . '.jpg', 'alt', array("width" => "100px", "height" => "100")),
                             'htmlOptions' => array('width' => '5%'),
                         ),
-//                        array(
-//                            'name' => 'Nomor Pendaftaran',
-//                            'type' => 'raw',
-//                            'value' => $model->idPendaftaran,
-//                        ),
+                        array(
+                            'name' => 'NIM',
+                            'type' => 'raw',
+                            'value' => $model->NIM,
+                        ),
                         array(
                             'name' => 'Mahasiswa',
                             'value' => $model->nIM->Nama,
@@ -133,4 +128,55 @@ $this->menu = array(
         </div>
     </div>
 </div>   
+
+<div class="row">
+    <div class="col-lg-12">
+        <br/>
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-bars"></i> Persetujuan 
+            </header>
+            <div class="main-box-body clearfix"> 
+
+                <?php
+                $this->widget('zii.widgets.grid.CGridView', array(
+                    'id' => 'persetujuan-grid',
+                    'dataProvider' => $dataProviderPersetujuan,
+                    'summaryText' => '',
+                    'columns' => array(
+                        array(
+                            'header' => "No",
+                            'value' => '($this->grid->dataProvider->pagination->currentPage*
+                                       $this->grid->dataProvider->pagination->pageSize
+                                      )+
+                                      array_search($data,$this->grid->dataProvider->getData())+1',
+                            'htmlOptions' => array('width' => '2%'),
+                        ),
+                        array(
+                            'type' => 'raw',
+                            'header' => 'Upload Dokumen',
+                            //'headerHtmlOptions' => array('style' => 'display:none'),
+                            'htmlOptions' => array('width' => '30%'),
+                            'value' => '$data["namaPersyaratan"]',
+                        ),
+                        array(
+                            'type' => 'raw',
+                            'header' => 'Dosen/Pegawai',
+                            'htmlOptions' => array('width' => '30%'),
+                            'value' => '$data["kodeDosen"]',
+                        ),
+                        
+                        array(
+                            'type' => 'raw',
+                            'header' => 'Status',
+                            'htmlOptions' => array('width' => '30%'),
+                            'value' => '$data["status"]==null ? "Belum Disetujui" : "Telah Disetujui"',
+                        ),
+                    ),
+                ));
+                ?>
+            </div>
+        </div>
+    </div>
+</div> 
 

@@ -26,7 +26,7 @@ class UploadProposalController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'delete','admin'),
+                'actions' => array('index', 'view', 'delete', 'admin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -61,29 +61,54 @@ class UploadProposalController extends Controller {
         $model = new UploadProposal;
 
         if (isset($_POST['UploadProposal'])) {
-            $model->attributes = $_POST['UploadProposal'];
-            $model->idPengajuan = $IDPengajuan;
-            $model->idPersyaratan = $idsyarat;
-//          
-            if (strlen(trim(CUploadedFile::getInstance($model, 'namaFile'))) > 0) {
-                $sss = CUploadedFile::getInstance($model, 'namaFile');
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $messageType = 'warning';
+                $message = "There are some errors ";
+                $model->attributes = $_POST['UploadProposal'];
+                $model->idPengajuan = $IDPengajuan;
+                $model->idPersyaratan = $idsyarat;
+                $uploadFile = CUploadedFile::getInstance($model, 'namaFile');
+//                if (strlen(trim(CUploadedFile::getInstance($model, 'namaFile'))) > 0) {
+//                    $sss = CUploadedFile::getInstance($model, 'namaFile');
+//
+//                    $model->namaFile = $IDPengajuan . '_' . $model->idPengajuan0->nIM->Nama . '_' . $model->idPersyaratan0->namaPersyaratan . '.' . $sss->extensionName;
+//                    $model->ukuranFIle = $sss->size . 'kb';
+//                    // $model->recipe_file_url->getExtensionName()
+//                }
 
-                $model->namaFile = $IDPengajuan . '_' . $model->idPengajuan0->nIM->Nama . '_' . $model->idPersyaratan0->namaPersyaratan . '.' . $sss->extensionName;
-                $model->ukuranFIle = $sss->size . 'kb';
-               // $model->recipe_file_url->getExtensionName()
-            }
-
-            if ($model->save()) {
-                if (strlen(trim($model->namaFile)) > 0) {
-                    $sss->saveAs(Yii::app()->basePath . '/../persyaratan/' . $model->namaFile);
+                if ($model->save()) {
+                    $messageType = 'success';
+                    $message = "<strong>Well done!</strong> You successfully create data ";
+                    $model2 = Pendaftaran::model()->findByPk($model->idPendaftaran);
+                    if (!empty($uploadFile)) {
+                        $extUploadFile = substr($uploadFile, strrpos($uploadFile, '.') + 1);
+                        if (!empty($uploadFile)) {
+                            if ($uploadFile->saveAs(Yii::app()->basePath . DIRECTORY_SEPARATOR . 'persyaratan' . DIRECTORY_SEPARATOR  . $model2->idPengajuan0->nIM->Nama . DIRECTORY_SEPARATOR . $model2->idPersyaratan0->namaPersyaratan . '.' . $extUploadFile)) {
+                                $model2->filename = $model2->idPendaftaran . '.' . $extUploadFile;
+                                $model2->save();
+                                $message .= 'and file uploded';
+                            } else {
+                                $messageType = 'warning';
+                                $message .= 'but file not uploded';
+                            }
+                        }
+                    }
+                    $transaction->commit();
+                    Yii::app()->user->setFlash($messageType, $message);
+                    $this->redirect(array('view', 'id' => $model->idUpload));
                 }
-                $this->redirect(array('view', 'id' => $model->idUpload));
+                $this->render('create', array(
+                    'model' => $model,
+                ));
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                Yii::app()->user->setFlash('error', "{$e->getMessage()}");
+                //$this->refresh();
             }
         }
 
-        $this->render('create', array(
-            'model' => $model,
-        ));
+//          
     }
 
     /**

@@ -9,12 +9,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
-	array('label'=>'View Nilai Detil Skirpsi', 'url'=>array('view', 'id'=>$model->idNilaiSkripsi)),
-	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
+//	array('label'=>'Create Nilai Detil Skirpsi', 'url'=>array('create')),
+//	array('label'=>'View Nilai Detil Skirpsi', 'url'=>array('view', 'id'=>$model->idNilaiSkripsi)),
+//	array('label'=>'Manage Nilai Detil Skirpsi', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Update Nilai Detil Skirpsi <?php echo $model->idNilaiSkripsi; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

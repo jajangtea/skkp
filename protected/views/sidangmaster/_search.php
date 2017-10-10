@@ -60,11 +60,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Status :</label>
+                    <label class="col-lg-2 control-label">Periode [Bulan] :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo CHtml::activeDropDownList($model, 'status', $model->jenisStatus(), array('prompt' => 'Pilih', 'class' => 'form-control'))?>
+                                <?php echo CHtml::activeDropDownList($model, 'bulan', Pendaftaran::model()->getBulan(), array('prompt' => 'Pilih Bulan', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Periode [Tahun] :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo CHtml::activeDropDownList($model, 'tahun', Pendaftaran::model()->getTahun(), array('prompt' => 'Pilih Tahun', 'class' => 'form-control', 'style' => 'width:30%')); ?>
                             </div>
                         </div>
                     </div>

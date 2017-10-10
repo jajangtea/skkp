@@ -143,10 +143,30 @@
                                                 <i class="fa fa-star"></i>
                                                 <span>Kelola Pendaftaran</span>
                                             </a>
-                                        </li>  
+                                        </li> 
+                                        <li>
+                                            <a href="index.php?r=pengujiskripsi/admin">
+                                                <i class="fa fa-magic"></i>
+                                                <span>Setting Penguji Skripsi</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="index.php?r=pengujikp/admin">
+                                                <i class="fa fa-magic"></i>
+                                                <span>Setting Penguji KP</span>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="index.php?r=periode/admin">
+                                                <i class="fa fa-clipboard"></i>
+                                                <span>Periode</span>
+                                            </a>
+                                        </li>
+                                        
                                         <li>
                                             <a href="index.php?r=sidangmaster/admin">
-                                                <i class="fa fa-medkit"></i>
+                                                <i class="fa fa-graduation-cap"></i>
                                                 <span>Kelola Sidang</span>
                                             </a>
                                         </li>
@@ -166,31 +186,25 @@
                                             </a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="index.php?r=nilaimasterskripsi/admin">
-                                                        Nilai Akhir Skripsi
-                                                    </a>
-                                                </li>
-                                                <li>
                                                     <a href="index.php?r=nilaidetilskirpsi/admin">
                                                         Nilai Pra/Sidang Skripsi
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a href="index.php?r=nilaimasterskripsi/admin">
+                                                        Nilai Akhir Skripsi
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="index.php?r=ta/admin">
                                                 <i class="fa fa-windows"></i>
                                                 <span>Tahun Ajaran</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="index.php?r=dosen">
-                                                <i class="fa fa-graduation-cap"></i>
-                                                <span>Dosen</span>
-                                            </a>
-                                        </li>
-                                        
+
                                         <li>
                                             <a href="index.php?r=user/cp">
                                                 <i class="fa fa-key"></i>
@@ -203,9 +217,8 @@
                                         </li>
                                         <li>
                                             <?php
-                                            
                                             $this->widget('zii.widgets.CMenu', array(
-                                                'encodeLabel'=>false,
+                                                'encodeLabel' => false,
                                                 'items' => $this->menu,
                                                 'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
                                             ));
@@ -237,7 +250,7 @@
                                 </div>
                             </div>
                         </div>					
-                        
+
                     </div>
                 </div>
             </div>

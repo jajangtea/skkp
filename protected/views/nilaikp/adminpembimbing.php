@@ -8,7 +8,7 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => '<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
+    //array('label' => '<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
 );
 ?>
 
@@ -20,7 +20,7 @@ $this->menu = array(
     <div class="col-lg-12">
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
-                <h2 class="pull-left"><i class="fa fa-bars"></i> Penilaian Pembimbing</h2> 
+                <h2 class="pull-left"><i class="fa fa-bars"></i> Penilaian Pembimbing KP</h2> 
                 <div class="filter-block pull-right">                                                   
                     <a id="ctl0_maincontent_btnPrintOut" class="btn btn-primary pull-left" title="Print Out Daftar Matkul" href="#"><i class="fa fa-print fa-lg"></i></a> 	
                     <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); ?>

@@ -8,11 +8,6 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'<i class="fa fa-bars"></i><span>Daftar</span>', 'url'=>array('index')),
-	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
-	array('label'=>'<i class="fa fa-eyes"></i><span>view</span>', 'url'=>array('view', 'id'=>$model->idPendaftaran)),
-);
 ?>
 
 <h1>Update Pendaftaran <?php echo $model->idPendaftaran; ?></h1>

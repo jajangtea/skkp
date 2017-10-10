@@ -59,16 +59,16 @@ class SiteController extends Controller {
         }
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
-        $jumlahPrasidang = Pendaftaran::hitungjmlsidang(1);
-        $jumlahSidangAkhir = Pendaftaran::hitungjmlsidang(2);
-        $jumlahSidangKP = Pendaftaran::hitungjmlsidang(3);
-        $jumlahSidangKompre = Pendaftaran::hitungjmlsidang(4);
+        $jumlahPrasidang = Pendaftaran::model()->hitungjmlsidang(1);
+        $jumlahSidangAkhir = Pendaftaran::model()->hitungjmlsidang(2);
+        $jumlahSidangKP = Pendaftaran::model()->hitungjmlsidang(3);
+        $jumlahSidangKompre = Pendaftaran::model()->hitungjmlsidang(4);
 
-        $dataPraSidang = Sidangmaster::jenisSidangAktif(1);
-        $dataSidangAkhir = Sidangmaster::jenisSidangAktif(2);
-        $dataSidangKP = Sidangmaster::jenisSidangAktif(3);
-        $dataSidangKompre = Sidangmaster::jenisSidangAktif(4);
-
+        $dataPraSidang = Sidangmaster::model()->jenisSidangAktif(1);
+        $dataSidangAkhir = Sidangmaster::model()->jenisSidangAktif(2);
+        $dataSidangKP = Sidangmaster::model()->jenisSidangAktif(3);
+        $dataSidangKompre = Sidangmaster::model()->jenisSidangAktif(4);
+       
         if (Yii::app()->user->getLevel() == 1) {
             // $this->layout = 'main';
             $this->render('index', array(
@@ -83,7 +83,7 @@ class SiteController extends Controller {
             ));
         } else {
             // $this->layout = 'mainHome';
-            $data = Sidangmaster::sidangaktif();
+            $data = Sidangmaster::model()->sidangaktif();
             $this->render('index', array(
                 'dataPraSidang' => $dataPraSidang,
                 'dataSidangAkhir' => $dataSidangAkhir,

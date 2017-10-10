@@ -7,34 +7,27 @@ $this->breadcrumbs = array(
     'Manage',
 );
 
-$this->menu = array(
-    array('label' =>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#nilaikp-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+//$this->menu = array(
+//    array('label' =>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
+//);
+Yii::app()->clientScript->registerScript('down', "
+jQuery('#nilaikp-grid a.down').live('click',function() {
+        if(!confirm('Are you sure you want to mark this commission as PAID?')) return false;
+        
+        var url = $(this).attr('href');
+        //  do your post request here
+        $.post(url,function(res){
+             alert(res);
+         });
+        return false;
 });
 ");
+
+$this->renderPartial('_search', array(
+    'model' => $model,
+));
 ?>
 
-<hr/>
-
-<?php //echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php
-    $this->renderPartial('_search', array(
-        'model' => $model,
-    ));
-    ?>
-</div><!-- search-form -->
 <div class="row">
     <div class="col-lg-12">
         <div class="main-box clearfix">
@@ -66,11 +59,40 @@ $('.search-form form').submit(function(){
                             'NilaiPenguji',
                             'NilaiPerusahaan',
                             'NA',
-                            /*
-                              'Index',
-                             */
-                            array(
+                            'Index',
+//                            array(
+//                                'class' => 'CButtonColumn',
+//                            ),
+                            array
+                                (
                                 'class' => 'CButtonColumn',
+                                'template' => '{down}{update}{delete}',
+                                'buttons' => array
+                                    (
+                                    'down' => array
+                                        (
+                                        'label' => 'Nilai Huruf',
+                                        'imageUrl' => Yii::app()->request->baseUrl . '/images/sync.png',
+                                        'options'=>array('class'=>'down'),
+                                        'url' => ' Yii::app()->createUrl("nilaikp/reset", array("NIM"=>$data["NIM"]))',
+                                        //'click' => 'function(){return confirm("Password akan direset menjadi 1234 ?");}',
+                                    ),
+                                    'update' => array
+                                        (
+                                        'label' => 'Ubah',
+                                        'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
+                                        'options'=>array('class'=>'down'),
+                                        'url' => ' Yii::app()->createUrl("nilaikp/update", array("NIM"=>$data["NIM"]))',
+                                    ),
+                                    'delete' => array
+                                        (
+                                        'label' => 'Hapus',
+                                        'imageUrl' => Yii::app()->request->baseUrl . '/images/delete.png',
+                                        'options'=>array('class'=>'down'),
+                                        'url' => ' Yii::app()->createUrl("nilaikp/delete", array("NIM"=>$data["NIM"]))',
+                                        //'click' => 'function(){return confirm("Password akan direset menjadi 1234 ?");}',
+                                    ),
+                                ),
                             ),
                         ),
                     ));
@@ -80,3 +102,4 @@ $('.search-form form').submit(function(){
         </div>
     </div>   
 </div>
+

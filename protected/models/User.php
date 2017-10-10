@@ -67,6 +67,8 @@ class User extends CActiveRecord {
             'dosens' => array(self::HAS_MANY, 'Dosen', 'IdUser'),
             'mahasiswas' => array(self::HAS_MANY, 'Mahasiswa', 'IdUser'),
             'level' => array(self::BELONGS_TO, 'Level', 'level_id'),
+            'pengujikps' => array(self::HAS_MANY, 'Pengujikp', 'idUser'),
+            'pengujiskripsis' => array(self::HAS_MANY, 'Pengujiskripsi', 'idUser'),
         );
     }
     

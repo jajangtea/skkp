@@ -17,16 +17,16 @@ SELECT
     , prd_nilaikp.NA
     , prd_nilaikp.Index
 FROM
-    dbsidang.prd_sidangmaster
-    INNER JOIN dbsidang.prd_jenissidang 
+    sttitpi_skkp.prd_sidangmaster
+    INNER JOIN sttitpi_skkp.prd_jenissidang 
         ON (prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
-    INNER JOIN dbsidang.prd_pendaftaran 
+    INNER JOIN sttitpi_skkp.prd_pendaftaran 
         ON (prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
-    INNER JOIN dbsidang.prd_mahasiswa 
+    INNER JOIN sttitpi_skkp.prd_mahasiswa 
         ON (prd_pendaftaran.NIM = prd_mahasiswa.NIM)
-    LEFT JOIN dbsidang.prd_dosen 
+    LEFT JOIN sttitpi_skkp.prd_dosen 
         ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen) 
-    LEFT JOIN dbsidang.prd_nilaikp  ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
+    LEFT JOIN sttitpi_skkp.prd_nilaikp  ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
        
 
 WHERE  prd_sidangmaster.IDJenisSidang='1' AND prd_pendaftaran.KodePembimbing1='AW' 

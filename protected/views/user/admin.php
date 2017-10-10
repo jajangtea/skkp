@@ -52,8 +52,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'email',
         'joinDate',
         'level.level',
-        array(
+        array
+            (
             'class' => 'CButtonColumn',
+            'template' => '{down}{update}{delete}',
+            'buttons' => array
+            (
+                'down' => array
+                    (
+                    'label' => 'Reset Password',
+                    'imageUrl' => Yii::app()->request->baseUrl . '/images/sync.png',
+                    'url' => ' Yii::app()->createUrl("user/reset", array("id"=>$data["id"]))',
+                    'click' => 'function(){return confirm("Password akan direset menjadi 1234 ?");}',
+                ),
+            ),
         ),
     ),
 ));

@@ -30,16 +30,12 @@ class MahasiswaController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'suggestMahasiswa', 'suggestPendaftaranmhs'),
+                'actions' => array('create', 'update', 'suggestMahasiswa','suggestpendaftaran','admin','delete', 'suggestPendaftaranmhs','suggestNilaiDetil'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('suggestMahasiswa', 'suggestPendaftaranmhs'),
-                'expression' => '$user->getLevel()>=3',
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'expression' => '$user->getLevel()==1',
+                'expression' => '$user->getLevel()==3',
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -62,6 +58,16 @@ class MahasiswaController extends Controller {
                 'class' => 'ext.actions.XSuggestAction',
                 'modelName' => 'Mahasiswa',
                 'methodName' => 'suggestpendaftaran',
+            ),
+            'suggestNilaiDetil' => array(
+                'class' => 'ext.actions.XSuggestAction',
+                'modelName' => 'Mahasiswa',
+                'methodName' => 'suggestnilai',
+            ),
+            'suggestpendaftaran' => array(
+                'class' => 'ext.actions.XSuggestAction',
+                'modelName' => 'Pendaftaran',
+                'methodName' => 'suggest',
             ),
             'legacySuggestCountry' => array(
                 'class' => 'ext.actions.XLegacySuggestAction',

@@ -13,20 +13,20 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create', 'captcha'),
-                'users' => array('*'),
-            ),
-            array('allow',
-                'actions' => array('update', 'view', 'aktif'),
-                'users' => array('@'),
+                'actions' => array('admin', 'index','create', 'delete','view','update', 'cp', 'reset'),
+                'expression' => '$user->getLevel()==1',
             ),
             array('allow',
                 'actions' => array('admin', 'index', 'delete', 'cp'),
-                'expression' => '$user->getLevel()<=1',
+                'expression' => '$user->getLevel()==3',
             ),
             array('allow',
                 'actions' => array('cp'),
                 'expression' => '$user->getLevel()==2',
+            ),
+            array('allow',
+                'actions' => array('create'),
+                'users' => array('*'),
             ),
             array('deny',
                 'users' => array('*'),
@@ -77,7 +77,7 @@ class UserController extends Controller {
             if ($model->save()) {
                 $modelMhs->NIM = $modelMhs->NIM;
                 $modelMhs->kodeJurusan = $modelMhs->KodeJurusan;
-                $modelMhs->Nama = $modelMhs->Nama;
+                $modelMhs->Nama = strtoupper($modelMhs->Nama);
                 $modelMhs->Tlp = $modelMhs->Tlp;
                 $modelMhs->IdUser = $model->id;
                 $modelMhs->save();
@@ -225,8 +225,7 @@ class UserController extends Controller {
         }
     }
 
-    public function actionCp()
-    {
+    public function actionCp() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -236,73 +235,81 @@ class UserController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
-        $data=$this->loadModel(Yii::app()->user->id);
 
-        if(isset($_POST['old'],$_POST['baru1'],$_POST['baru2'])) 
-        {
-            if($_POST['baru1']!==$_POST['baru2'])
-            {
-                $data->addError('username','Your New Password Not Match'); 
-            }
-            else
-            {
-                $data=$this->loadModel(Yii::app()->user->id);//get current user that active now
+        $data = $this->loadModel(Yii::app()->user->id);
+
+        if (isset($_POST['old'], $_POST['baru1'], $_POST['baru2'])) {
+            if ($_POST['baru1'] !== $_POST['baru2']) {
+                $data->addError('username', 'Your New Password Not Match');
+            } else {
+                $data = $this->loadModel(Yii::app()->user->id); //get current user that active now
                 $user = User::model()->find('LOWER(username)=?', array($data->username));
                 $dua = $_POST['baru1'];
-                 
-                if($user->validatePassword($_POST['old']))
-                {
+
+                if ($user->validatePassword($_POST['old'])) {
                     $dua = $_POST['baru1'];
                     $data->saltPassword = $data->generateSalt();
                     $data->password = $data->hashPassword($dua, $data->saltPassword);
-                    if($data->save())
-                    {
-                        $this->redirect(array('/site'));    
+                    if ($data->save()) {
+                        $this->redirect(array('/site'));
                     }
-                }
-                else
-                {
-                    $data->addError('username','Wrong Password');
+                } else {
+                    $data->addError('username', 'Wrong Password');
                 }
             }
         }
 
-        $this->render('cp',array(
-            'data'=>$data,
+        $this->render('cp', array(
+            'data' => $data,
         ));
     }
-    
-    public function actionChangepassword()
-    {
-        $data=$this->loadModel(Yii::app()->user->id);//get current user that active now
 
-        if(isset($_POST['old'],$_POST['baru1'],$_POST['baru2'])) // if user post to change password
-        {
-            if($_POST['baru1']!==$_POST['baru2']) // check if it have same password for validation?
-            {
-                $data->addError('username','Your New Password Not Match'); // if not same, show error
-            }
-            else // if same, next
-            {
-                if(CPasswordHelper::verifyPassword($_POST['old'], $data->pass)) // check the old password that user input same with old password?
-                {
-                    $dua=$_POST['baru1'];
-                    $data->pass=CPasswordHelper::hashPassword($_POST['baru1']);// encryp that
-                    if($data->save()) // save to tabel
-                    {
-                        $this->redirect(array('/site'));    
+    public function actionChangepassword() {
+        $data = $this->loadModel(Yii::app()->user->id); //get current user that active now
+
+        if (isset($_POST['old'], $_POST['baru1'], $_POST['baru2'])) { // if user post to change password
+            if ($_POST['baru1'] !== $_POST['baru2']) { // check if it have same password for validation?
+                $data->addError('username', 'Your New Password Not Match'); // if not same, show error
+            } else { // if same, next
+                if (CPasswordHelper::verifyPassword($_POST['old'], $data->pass)) { // check the old password that user input same with old password?
+                    $dua = $_POST['baru1'];
+                    $data->pass = CPasswordHelper::hashPassword($_POST['baru1']); // encryp that
+                    if ($data->save()) { // save to tabel
+                        $this->redirect(array('/site'));
                     }
-                }
-                else //if password not match with old password, show error
-                {
-                    $data->addError('username','Wrong Password');
+                } else { //if password not match with old password, show error
+                    $data->addError('username', 'Wrong Password');
                 }
             }
         }
 
-        $this->render('cp',array( //call "cp" view
-            'data'=>$data,
+        $this->render('cp', array(//call "cp" view
+            'data' => $data,
+        ));
+    }
+
+    public function actionReset($id) {
+        $model = $this->loadModel($id);
+        $model->password = "9b167bfe2e0ebb3e213c23fede513d4d";
+        $model->saltPassword = "595e826f4ae2f3.86169799";
+        $model->save();
+
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $modeladmin = new User('search');
+        $modeladmin->unsetAttributes();  // clear any default values
+        if (isset($_GET['User']))
+            $modeladmin->attributes = $_GET['User'];
+
+        $this->render('admin', array(
+            'model' => $modeladmin,
         ));
     }
 

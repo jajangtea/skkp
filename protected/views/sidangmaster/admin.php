@@ -6,14 +6,10 @@ $this->breadcrumbs = array(
     'Sidangmaster' => array('index'),
     'Manage',
 );
-
-$this->menu = array(
-    array('label' => 'Create Sidang', 'url' => array('create')),
-);
 ?>
 
 <hr/>
-<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button'));  ?>
+<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button'));   ?>
 <div class="search-form">
     <?php
     $this->renderPartial('_search', array(
@@ -22,72 +18,64 @@ $this->menu = array(
     ?>
 </div><!-- search-form -->
 
-
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'sidangmaster-grid',
-    'selectableRows'=>2,  
-    'dataProvider' => $model->search(),
-    //'filter'=>$model,
-    'columns' => array(
-        array(
-            'header' => "No",
-            'value' => '($this->grid->dataProvider->pagination->currentPage*
+<div class="row">
+    <div class="col-lg-12">
+        <br/>
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-bars"></i> Detil Sidang #<?php echo $model->Tanggal; ?></h2> 
+                <div class="filter-block pull-right">    
+                    <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('periode/admin'), array('class' => 'btn btn-primary pull-left')); ?>
+                    <?php echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('admin'), array('class' => 'btn btn-primary pull-left')); ?>
+                </div>
+            </header>
+            <div class="main-box-body clearfix">  
+                <?php
+                $this->widget('zii.widgets.grid.CGridView', array(
+                    'id' => 'sidangmaster-grid',
+                    'selectableRows' => 2,
+                    'dataProvider' => $model->search(),
+                    //'filter'=>$model,
+                    'columns' => array(
+                        array(
+                            'header' => "No",
+                            'value' => '($this->grid->dataProvider->pagination->currentPage*
                                                $this->grid->dataProvider->pagination->pageSize
                                               )+
                                               array_search($data,$this->grid->dataProvider->getData())+1',
-            'htmlOptions' => array(
-                'style' => 'width: 2%; text-align: center;',
-            ),
-        ),
-       array(
-            'class' => 'CCheckBoxColumn',
-            'selectableRows' => 2,
-            'checked' =>'CHtml::encode($data->ubahStatus())',
-            'id' => 'idsidang',
-            'name'=>'IdSidang',
-        ),
-        'Tanggal',
-        'iDJenisSidang.NamaSidang',
-        array(
-            'name' => 'status',
-            //'filter' => CHtml::activeDropDownList($model, 'status', $model->jenisStatus(), array('prompt' => 'Pilih', 'class' => 'form-control')),
-            'type' => 'raw',
-            'header' => 'Status',
-            'value' => 'CHtml::encode($data->kondisiStatus())',
-            'htmlOptions' => array('width' => ''),
-        ),
-        'tglBuka',
-        'tglTutup',
-        array(
-            'class' => 'CButtonColumn',
-        ),
-    ),
-));
+                            'htmlOptions' => array(
+                                'style' => 'width: 2%; text-align: center;',
+                            ),
+                        ),
+                        array(
+                            'class' => 'CCheckBoxColumn',
+                            'selectableRows' => 2,
+                            'checked' => 'CHtml::encode($data->ubahStatus())',
+                            'id' => 'idsidang',
+                            'name' => 'IdSidang',
+                        ),
+                        'Tanggal',
+                        'iDJenisSidang.NamaSidang',
+                        array(
+                            'name' => 'status',
+                            //'filter' => CHtml::activeDropDownList($model, 'status', $model->jenisStatus(), array('prompt' => 'Pilih', 'class' => 'form-control')),
+                            'type' => 'raw',
+                            'header' => 'Status',
+                            'value' => 'CHtml::encode($data->kondisiStatus())',
+                            'htmlOptions' => array('width' => ''),
+                        ),
+                        'tglBuka',
+                        'tglTutup',
+                        array(
+                            'class' => 'CButtonColumn',
+                        ),
+                    ),
+                ));
+                ?>
+            </div>
+        </div>
+    </div>
+</div> 
 
 
-
-?>
-<?php
-Yii::app()->clientScript->registerCoreScript('bbq');
-echo CHtml::ajaxButton('Confirm', array('sidangmaster/getValue'), array(
-    'type' => 'POST',
-    'data' => 'js:{value : $.fn.yiiGridView.getChecked("sidangmaster-grid","idsidang")}',
-     'success'=>'js:function(data){
-                 $.fn.yiiGridView.update("sidangmaster-grid");
-    }'
-    
-));
-?>
-<div id="hasil">..</div>
-<script>
-  function allFine(data)
-  {
-      $("#hasil").html(data);
-      $.fn.yiiGridView().update('sidangmaster-grid');
-  }
-</script>
-<?php
-echo CHtml::ajaxButton('Confirm Ajax', yii::app()->createUrl('sidangmaster/getValue'), array('success'=> 'allFine'));
-?>
 
