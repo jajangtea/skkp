@@ -60,6 +60,7 @@ $this->menu = array(
                             'header' => 'Nama',
                             'htmlOptions' => array('width' => '15%'),
                             'value' => 'CHtml::encode(strtoupper($data->idPendaftaran->nIM->Nama))',
+                            'value' => 'CHtml::link(strtoupper($data->idPendaftaran->nIM->Nama), array("pengujiskripsi/create","id"=> $data["IdPendaftaran"]))',
                         ),
                         array(
                             'type' => 'raw',

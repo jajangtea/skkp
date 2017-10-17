@@ -35,7 +35,7 @@ class Nilaidetilskirpsi extends CActiveRecord {
         return array(
             array('IdPendaftaran', 'numerical', 'integerOnly' => true),
             array('NilaiPenguji1, NIlaiPenguji2, NPraSidang', 'numerical'),
-            array('idNilaiSkripsi, IdPendaftaran,NIM, NilaiPenguji1,bulan,tahun NIlaiPenguji2,NPraSidang', 'safe', 'on' => 'search'),
+            array('idNilaiSkripsi, IdPendaftaran,NIM, NilaiPenguji1,bulan,tahun NIlaiPenguji2,NPraSidang,idjenisSidang', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,6 +86,7 @@ class Nilaidetilskirpsi extends CActiveRecord {
             
             $criteria->compare('pr.bulan', $this->bulan);
             $criteria->compare('pr.tahun', $this->tahun);
+            $criteria->compare('pj.IDJenisSidang',$this->idjenisSidang);
             $criteria->compare('NIlaiPenguji1', $this->NilaiPenguji1);
             $criteria->compare('NIlaiPenguji2', $this->NIlaiPenguji2, true);
             $criteria->compare('idNilaiSkripsi', $this->idNilaiSkripsi);

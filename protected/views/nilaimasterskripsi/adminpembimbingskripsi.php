@@ -53,7 +53,7 @@ $this->menu = array(
                                 'header' => 'Nama',
                                 //'headerHtmlOptions' => array('style' => 'display:none'),
                                 'htmlOptions' => array('width' => '30%'),
-                                'value'=>'CHtml::link($data["Nama"], array("nilaimasterskripsi/create","NIM"=>$data["NIM"]))',
+                                'value'=>'CHtml::link($data["Nama"], array("nilaimasterskripsi/update","id"=> $data["IdNMSkripsi"]))',
                             ),
                             array(
                                 'type' => 'raw',
