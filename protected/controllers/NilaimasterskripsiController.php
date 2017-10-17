@@ -118,7 +118,11 @@ class NilaimasterskripsiController extends Controller {
             $model->NA=$na;
             $model->Index=$nh;
             if ($model->save())
+            {
+                Nilaimasterskripsi::model()->tuntasorno($model->NIM);
                 $this->redirect(array('view', 'id' => $model->IdNMSkripsi));
+            }
+               
         }
         $this->render('update', array(
             'model' => $model,

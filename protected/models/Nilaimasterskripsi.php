@@ -12,6 +12,7 @@
  * @property double $NPembimbing
  * @property double $NA
  * @property string $Index
+ * @property string $status 
  *
  * The followings are the available model relations:
  * @property Pendaftaran $idPendaftaran
@@ -21,7 +22,8 @@ class Nilaimasterskripsi extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
-    public $bulan,$tahun;
+    public $bulan, $tahun;
+
     public function tableName() {
         return 'prd_nilaimasterskripsi';
     }
@@ -38,7 +40,7 @@ class Nilaimasterskripsi extends CActiveRecord {
             array('Index', 'length', 'max' => 2),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IdNMSkripsi, NIM, NKompre, NPraSidang, NSidangSkripsi,idPendaftaran,bulan,tahun, NPembimbing, NA, Index', 'safe', 'on' => 'search'),
+            array('IdNMSkripsi, NIM, NKompre, NPraSidang, NSidangSkripsi,idPendaftaran,status,bulan,tahun, NPembimbing, NA, Index', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,7 +69,8 @@ class Nilaimasterskripsi extends CActiveRecord {
             'NPembimbing' => 'Nilai pembimbing',
             'NA' => 'Nilai Akhir',
             'Index' => 'Index',
-            'idPendaftaran'=>'idPendaftaran',
+            'idPendaftaran' => 'idPendaftaran',
+            'status' => 'Status',
         );
     }
 
@@ -89,8 +92,8 @@ class Nilaimasterskripsi extends CActiveRecord {
         if (Yii::app()->user->getLevel() == 2) {
             $criteria = new CDbCriteria();
         } else {
-             $criteria = new CDbCriteria();
-            $criteria->join ="INNER JOIN prd_pendaftaran p ON p.IdPendaftaran=t.idPendaftaran "
+            $criteria = new CDbCriteria();
+            $criteria->join = "INNER JOIN prd_pendaftaran p ON p.IdPendaftaran=t.idPendaftaran "
                     . "INNER JOIN prd_sidangmaster ps ON p.IdSidang=ps.IdSidang "
                     . "INNER JOIN prd_periode pp ON ps.idPeriode=pp.idPeriode";
         }
@@ -98,19 +101,20 @@ class Nilaimasterskripsi extends CActiveRecord {
         $criteria->compare('pp.bulan', $this->bulan);
         $criteria->compare('pp.tahun', $this->tahun);
         $criteria->compare('IdNMSkripsi', $this->IdNMSkripsi, true);
-        $criteria->compare('NIM', $this->NIM);
+        $criteria->compare('p.NIM', $this->NIM);
         $criteria->compare('NKompre', $this->NKompre);
         $criteria->compare('NPraSidang', $this->NPraSidang);
         $criteria->compare('NSidangSkripsi', $this->NSidangSkripsi);
         $criteria->compare('NPembimbing', $this->NPembimbing);
         $criteria->compare('NA', $this->NA);
+        $criteria->compare('t.status', $this->status);
         $criteria->compare('Index', $this->Index, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
-    
+
     public function searchNIM($mhsNim) {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -127,7 +131,7 @@ class Nilaimasterskripsi extends CActiveRecord {
         $criteria->compare('NPembimbing', $this->NPembimbing);
         $criteria->compare('NA', $this->NA);
         $criteria->compare('Index', $this->Index, true);
-        $criteria->compare('idPendaftaran',$this->idPendaftaran);
+        $criteria->compare('idPendaftaran', $this->idPendaftaran);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -166,20 +170,27 @@ class Nilaimasterskripsi extends CActiveRecord {
         $na = (0.25 * $npembimbing25) + (0.25 * $nprasidang25) + (0.2 * $nsidangkompre20) + (0.3 * $sidngta30);
         return $na;
     }
-    
-     public function nilai_khuruf($na) {
-        if($na >0 && $na <70)
-        {
+
+    public function nilai_khuruf($na) {
+        if ($na > 0 && $na < 70) {
             return 'C';
-        }
-        elseif($na >=70 && $na <80)
-        {
+        } elseif ($na >= 70 && $na < 80) {
             return 'B';
-        }
-        elseif($na >=80 && $na <=100)
-        {
+        } elseif ($na >= 80 && $na <= 100) {
             return 'A';
         }
     }
 
+    public function tuntasorno($nim) {
+        $model = Nilaimasterskripsi::model()->find("NIM=$nim");
+        if ($model->NKompre == 0 || $model->NPraSidang == 0 || $model->NSidangSkripsi == 0 || $model->NPembimbing == 0) {
+            $commandTuntas = Yii::app()->db->createCommand();
+            $commandTuntas->update('prd_nilaimasterskripsi', array(
+                'status' => "Tidak Tuntas"), 'NIM=:NIM', array(':NIM' => $nim));
+        } else {
+            $commandTuntas = Yii::app()->db->createCommand();
+            $commandTuntas->update('prd_nilaimasterskripsi', array(
+                'status' => "Tuntas"), 'NIM=:NIM', array(':NIM' => $nim));
+        }
+    }
 }

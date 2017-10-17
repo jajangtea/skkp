@@ -7,9 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'<i class="fa fa-plus"></i><span>Tambah</span>', 'url'=>array('create')),
-);
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -52,6 +50,7 @@ $('.search-form form').submit(function(){
 		'NPembimbing',
 		'NA',
 		'Index',
+                'status',
 		array(
 			'class'=>'CButtonColumn',
 		),

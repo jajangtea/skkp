@@ -82,6 +82,17 @@
                 </div>
                 
                 <div class="form-group">
+                    <label class="col-lg-2 control-label">Status :</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-10">        
+                                <?php echo CHtml::activeDropDownList($model, 'status', array('Tuntas'=>'Tuntas','Tidak Tuntas'=>'Tidak Tuntas'), array('prompt' => 'Pilih Status', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <?php
                         echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
