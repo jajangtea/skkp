@@ -35,50 +35,6 @@
                                     <a href="#">1</a>
                                 </td>
                                 <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Komprehensif')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-success"><?php echo CHtml::encode($data->NKompre); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">2</a>
-                                </td>
-                                <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Sidang Pra Sidang')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-warning"><?php echo CHtml::encode($data->NPraSidang); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">3</a>
-                                </td>
-                                <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Sidang Skripsi')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-info"><?php echo CHtml::encode($data->NSidangSkripsi); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">4</a>
-                                </td>
-                                <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Pembimbing')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-danger"><?php echo CHtml::encode($data->NPembimbing); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">5</a>
-                                </td>
-                                <td>
                                     <?php echo CHtml::encode($data->getAttributeLabel('Jumlah')); ?>
                                 </td>
                                 <td>
@@ -87,7 +43,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="#"></a>
+                                    <a href="#">2</a>
                                 </td>
                                 <td>
                                     <strong><?php echo CHtml::encode($data->getAttributeLabel('Index')); ?></strong>

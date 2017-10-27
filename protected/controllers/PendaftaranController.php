@@ -60,9 +60,6 @@ class PendaftaranController extends Controller {
         $dataProviderPersetujuan = Pendaftaran::model()->tampilPersetujuan($id);
         
         $modelPenguji = new Pengujikp;
-
-
-
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else {
@@ -161,9 +158,6 @@ class PendaftaranController extends Controller {
                     } else {
                         $model->Judul = strtoupper($model->Judul);
                         if ($model->save()) {
-                            $command = Yii::app()->db->createCommand();
-                            $command->insert('prd_nilaidetilskirpsi', array(
-                                'IdPendaftaran' => $model->idPendaftaran));
                             if ($jmlBarisNilai == 0) {
                                 $commandNilaiMaster = Yii::app()->db->createCommand();
                                 $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(

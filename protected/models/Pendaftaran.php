@@ -41,9 +41,9 @@ class Pendaftaran extends CActiveRecord {
         return array(
             array('NIM,idPendaftaran, IdSidang,IDJenisSidang', 'numerical', 'integerOnly' => true),
             array('IdSidang', 'required', 'message' => 'Sidang harus dipilih.'),
-            //array('KodePembimbing1', 'required', 'message' => 'Pembimbing 1 tidak boleh kosong.'),
-            //array('KodePembimbing2', 'required', 'message' => 'Pembimbing 2 tidak boleh kosong/Pilih "Tidak Ada" jika hanya 1 Pembimbing.'),
-            //array('Judul', 'required', 'message' => 'Judul tidak boleh kosong.'),
+            array('KodePembimbing1', 'required', 'message' => 'Pembimbing 1 tidak boleh kosong.'),
+            array('KodePembimbing2', 'required', 'message' => 'Pembimbing 2 tidak boleh kosong/Pilih "Tidak Ada" jika hanya 1 Pembimbing.'),
+            array('Judul', 'required', 'message' => 'Judul tidak boleh kosong.'),
             array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
             array('Tanggal, Judul', 'safe'),
             // The following rule is used by search().

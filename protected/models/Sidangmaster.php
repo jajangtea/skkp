@@ -22,6 +22,7 @@ class Sidangmaster extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
+      public $bulan, $tahun;
     public function tableName() {
         return 'prd_sidangmaster';
     }
@@ -37,7 +38,7 @@ class Sidangmaster extends CActiveRecord {
             array('Tanggal, tglBuka, tglTutup', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IdSidang, Tanggal, IDJenisSidang, IdTa, status, tglBuka, idPeriode, tglTutup', 'safe', 'on' => 'search'),
+            array('IdSidang, Tanggal, IDJenisSidang, IdTa, status, tglBuka, idPeriode,bulan,tahun, tglTutup', 'safe', 'on' => 'search'),
         );
     }
 
@@ -88,6 +89,8 @@ class Sidangmaster extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->join = 'INNER JOIN prd_periode pr ON t.idPeriode=pr.idPeriode';
+        $criteria->order = 'js.NamaSidang';
         $criteria->order = 'Tanggal DESC';
         $criteria->compare('IdSidang', $this->IdSidang);
         $criteria->compare('Tanggal', $this->Tanggal, true);
@@ -96,6 +99,8 @@ class Sidangmaster extends CActiveRecord {
         $criteria->compare('status', $this->status);
         $criteria->compare('tglBuka', $this->tglBuka, true);
         $criteria->compare('tglTutup', $this->tglTutup, true);
+        $criteria->compare('pr.bulan', $this->bulan);
+        $criteria->compare('pr.tahun', $this->tahun);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

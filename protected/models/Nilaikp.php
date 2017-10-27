@@ -139,12 +139,25 @@ class Nilaikp extends CActiveRecord {
         INNER JOIN prd_user ON prd_pengujikp.idUser = prd_user.id
         INNER JOIN prd_mahasiswa ON prd_mahasiswa.IdUser = prd_user.id OR prd_pendaftaran.NIM = prd_mahasiswa.NIM
         INNER JOIN prd_nilaikp ON prd_nilaikp.NIM = prd_mahasiswa.NIM WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_user.username = '$KodePembimbing'
-        ORDER BY prd_sidangmaster.Tanggal ASC";
-       
+        ORDER BY prd_sidangmaster.Tanggal DESC";
+        
+        $sqlCount="SELECT COUNT(*)
+        FROM
+        prd_pengujikp
+        INNER JOIN prd_pendaftaran ON prd_pengujikp.idPendaftaran = prd_pendaftaran.idPendaftaran
+        INNER JOIN prd_sidangmaster ON prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang
+        INNER JOIN prd_jenissidang ON prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang
+        INNER JOIN prd_user ON prd_pengujikp.idUser = prd_user.id
+        INNER JOIN prd_mahasiswa ON prd_mahasiswa.IdUser = prd_user.id OR prd_pendaftaran.NIM = prd_mahasiswa.NIM
+        INNER JOIN prd_nilaikp ON prd_nilaikp.NIM = prd_mahasiswa.NIM WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_user.username = '$KodePembimbing'
+        ORDER BY prd_sidangmaster.Tanggal DESC";
+        
+        $count = Yii::app()->db->createCommand($sqlCount)->queryScalar();
         $dataProviderNilaiPengujiKp = new CSqlDataProvider($sqlPengujiKp, array(
             'keyField' => 'NIM',
+            'totalItemCount' => $count,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 20,
             ),
         ));
         return $dataProviderNilaiPengujiKp;
@@ -177,12 +190,24 @@ class Nilaikp extends CActiveRecord {
         LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
         LEFT JOIN sttitpi_skkp.prd_nilaikp ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
         WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
-        ORDER BY prd_sidangmaster.Tanggal ASC";
+        ORDER BY prd_sidangmaster.Tanggal DESC";
+        
+        $sqlCount = "SELECT COUNT(*)
+        FROM sttitpi_skkp.prd_sidangmaster
+        INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
+        INNER JOIN sttitpi_skkp.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
+        INNER JOIN sttitpi_skkp.prd_mahasiswa ON ( prd_pendaftaran.NIM = prd_mahasiswa.NIM)
+        LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
+        LEFT JOIN sttitpi_skkp.prd_nilaikp ON (prd_nilaikp.NIM = prd_mahasiswa.NIM)
+        WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
+        ORDER BY prd_sidangmaster.Tanggal DESC";
        
+        $count = Yii::app()->db->createCommand($sqlCount)->queryScalar();
         $dataProviderNilaiKp = new CSqlDataProvider($sqlNilaiKp, array(
             'keyField' => 'NIM',
+            'totalItemCount' => $count,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 20,
             ),
         ));
 
@@ -217,10 +242,22 @@ class Nilaikp extends CActiveRecord {
         LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
         LEFT JOIN sttitpi_skkp.prd_nilaimasterskripsi ON (prd_nilaimasterskripsi.NIM = prd_pendaftaran.NIM)
         WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
-        ORDER BY prd_sidangmaster.Tanggal ASC";
-       
+        ORDER BY prd_sidangmaster.Tanggal DESC";
+        
+        $sqlCount = "SELECT COUNT(*)
+        FROM sttitpi_skkp.prd_sidangmaster
+        INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
+        INNER JOIN sttitpi_skkp.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
+        INNER JOIN sttitpi_skkp.prd_mahasiswa ON ( prd_pendaftaran.NIM = prd_mahasiswa.NIM)
+        LEFT JOIN sttitpi_skkp.prd_dosen ON (prd_pendaftaran.KodePembimbing1 = prd_dosen.KodeDosen)
+        LEFT JOIN sttitpi_skkp.prd_nilaimasterskripsi ON (prd_nilaimasterskripsi.NIM = prd_pendaftaran.NIM)
+        WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
+        ORDER BY prd_sidangmaster.Tanggal DESC";
+        
+        $count = Yii::app()->db->createCommand($sqlCount)->queryScalar();
         $dataProviderNilaiKp = new CSqlDataProvider($sqlNilaiKp, array(
             'keyField' => 'NIM',
+            'totalItemCount' => $count,
             'pagination' => array(
                 'pageSize' => 10,
             ),

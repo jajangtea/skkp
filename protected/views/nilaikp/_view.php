@@ -25,39 +25,6 @@
                                     <a href="#">1</a>
                                 </td>
                                 <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Pembimbing')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-success"><?php echo CHtml::encode($data->NilaiPembimbing); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">2</a>
-                                </td>
-                                <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Penguji')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-info"><?php echo CHtml::encode($data->NilaiPenguji); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">3</a>
-                                </td>
-                                <td>
-                                    <?php echo CHtml::encode($data->getAttributeLabel('Perusahaan')); ?>
-                                </td>
-                                <td>
-                                    <a href="#"><span class="label label-warning"><?php echo CHtml::encode($data->NilaiPerusahaan); ?></span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">4</a>
-                                </td>
-                                <td>
                                     <?php echo CHtml::encode($data->getAttributeLabel('NA')); ?>
                                 </td>
                                 <td>
@@ -67,7 +34,7 @@
                             
                             <tr>
                                 <td>
-                                    <a href="#">5</a>
+                                    <a href="#">2</a>
                                 </td>
                                 <td>
                                     <?php echo CHtml::encode($data->getAttributeLabel('Index')); ?>

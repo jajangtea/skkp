@@ -177,6 +177,13 @@
                                                 <span>Nilai KP</span>
                                             </a>
                                         </li>
+                                        
+                                        <li>
+                                            <a href="index.php?r=nilaimasterkompre/admin">
+                                                <i class="fa fa-book"></i>
+                                                <span>Nilai Kompre</span>
+                                            </a>
+                                        </li>
 
                                         <li>
                                             <a href="#" class="dropdown-toggle">
