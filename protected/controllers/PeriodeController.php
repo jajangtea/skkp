@@ -26,7 +26,7 @@ class PeriodeController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('admin', 'index', 'create','view', 'delete','update', 'cp', 'reset'),
+                'actions' => array('admin', 'index', 'create', 'view', 'delete', 'update', 'cp', 'reset'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny',
@@ -59,9 +59,9 @@ class PeriodeController extends Controller {
 
         if (isset($_POST['Periode'])) {
             $model->attributes = $_POST['Periode'];
-            $model->tgl= date('d');
-            $model->tglPeriode=date('Y-m-d');
-            $model->statusVakasi='Proses';
+            $model->tgl = date('d');
+            $model->tglPeriode = date('Y-m-d');
+            $model->statusVakasi = 'Proses';
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->idPeriode));
         }

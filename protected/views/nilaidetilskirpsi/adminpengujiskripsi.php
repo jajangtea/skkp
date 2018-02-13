@@ -1,14 +1,13 @@
 <?php
-/* @var $this NilaikpController */
-/* @var $model Nilaikp */
+
 
 $this->breadcrumbs = array(
-    'Nilai KP' => array('index'),
+    'Nilai Skripsi' => array('index'),
     'Manage',
 );
 
 $this->menu = array(
-    //array('label' => '<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
+        //array('label' => '<i class="fa fa-plus"></i><span>Tambah</span>', 'url' => array('create')),
 );
 ?>
 
@@ -22,6 +21,10 @@ $this->menu = array(
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left"><i class="fa fa-bars"></i> Penilaian Penguji Pra/Sidang Skripsi</h2> 
+                <?php
+                // echo Nilaidetilskirpsi::model()->getTotalSkripsi();
+                //  exit();
+                ?>
                 <div class="filter-block pull-right">                                                   
                     <a id="ctl0_maincontent_btnPrintOut" class="btn btn-primary pull-left" title="Print Out Daftar Matkul" href="#"><i class="fa fa-print fa-lg"></i></a> 	
                     <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); ?>
@@ -54,34 +57,37 @@ $this->menu = array(
                                 'header' => 'Nama',
                                 //'headerHtmlOptions' => array('style' => 'display:none'),
                                 'htmlOptions' => array('width' => '15%'),
-                                'value'=>'$data["Nama"]',
+                                'value' => '$data["Nama"]',
                             ),
                             array(
                                 'type' => 'raw',
                                 'header' => 'Sidang',
                                 //'headerHtmlOptions' => array('style' => 'display:none'),
                                 'htmlOptions' => array('width' => '10%'),
-                                'value'=>'$data["NamaSidang"]',
+                                'value' => '$data["NamaSidang"]',
                             ),
                             array(
                                 'type' => 'raw',
                                 'header' => 'Judul',
                                 'htmlOptions' => array('width' => '40%'),
-                                'value'=>'$data["Judul"]',
+                                'value' => '$data["Judul"]',
                             ),
                             array(
                                 'type' => 'raw',
-                                'header' => 'Penguji 1',
+                                'header' => 'Nilai Penguji',
                                 'htmlOptions' => array('width' => '15%'),
-                                'value'=>'CHtml::link($data["NilaiPenguji1"]==null?0:$data["NilaiPenguji1"], array("nilaidetilskirpsi/create","idNilaiSkripsi"=> $data["idNilaiSkripsi"],"NIM"=> $data["NIM"]))',
+                                'value' => 'CHtml::link($data["nilaiSkripsi"]==null?0:$data["nilaiSkripsi"], array("nilaiPenguji/create","idPengujiSkripsi"=> $data["idPengujiSkripsi"]))',
                             ),
                             array(
                                 'type' => 'raw',
-                                'header' => 'Penguji 2',
-                                'htmlOptions' => array('width' => '25%'),
-                                'value'=>'CHtml::link($data["NIlaiPenguji2"]==null?0:$data["NIlaiPenguji2"], array("nilaidetilskirpsi/create","idNilaiSkripsi"=> $data["idNilaiSkripsi"],"NIM"=> $data["NIM"]))',
+                                'header' => 'Vakasi',
+                                'value' => '$data["nilaiSkripsi"] == null ? 0:number_format($data["NominalVakasi"], 2)',
+                               // 'footer' => $model->getTotals($model->search()->getKeys()),
+                                'footer' => Nilaidetilskirpsi::model()->getTotalSkripsi(Yii::app()->user->id),
+                                'htmlOptions' => array(
+                                    'style' => 'width: 20%; text-align: left;',
+                                ),
                             ),
-                            
                         ),
                     ));
                     ?>

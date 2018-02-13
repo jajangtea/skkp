@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /**
  * This is the model class for table "prd_pengajuan".
@@ -9,10 +9,15 @@
  * @property integer $NIM
  * @property string $TanggalDaftar
  * @property string $Judul
+ * @property integer $idstatusProposal
+ * @property string $keterangan
  *
  * The followings are the available model relations:
+ * @property Pembimbing[] $pembimbings
  * @property Jenissidang $iDJenisSidang
  * @property Mahasiswa $nIM
+ * @property StatusProposal $idstatusProposal0
+ * @property UploadProposal[] $uploadProposals
  */
 class Pengajuan extends CActiveRecord {
 
@@ -31,11 +36,11 @@ class Pengajuan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('IDJenisSidang', 'required', 'message' => 'Jenis proposal tidak boleh kosong.'),
-            array('IDJenisSidang, NIM', 'numerical', 'integerOnly' => true),
-            array('TanggalDaftar, Judul', 'safe'),
+            array('IDJenisSidang, NIM,idstatusProposal', 'numerical', 'integerOnly' => true),
+            array('TanggalDaftar, Judul,keterangan,idstatusProposal', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IDPengajuan, IDJenisSidang, NIM, TanggalDaftar, Judul', 'safe', 'on' => 'search'),
+            array('IDPengajuan, IDJenisSidang, NIM, TanggalDaftar,idstatusProposal,keterangan, Judul', 'safe', 'on' => 'search'),
         );
     }
 
@@ -48,6 +53,8 @@ class Pengajuan extends CActiveRecord {
         return array(
             'iDJenisSidang' => array(self::BELONGS_TO, 'Jenissidang', 'IDJenisSidang'),
             'nIM' => array(self::BELONGS_TO, 'Mahasiswa', 'NIM'),
+            'idstatusProposal0' => array(self::BELONGS_TO, 'StatusProposal', 'idstatusProposal'),
+            'uploadProposals' => array(self::HAS_MANY, 'UploadProposal', 'idPengajuan'),
         );
     }
 
@@ -57,10 +64,12 @@ class Pengajuan extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'IDPengajuan' => 'Idpengajuan',
-            'IDJenisSidang' => 'Idjenis Sidang',
-            'NIM' => 'Nim',
+            'IDJenisSidang' => 'Proposal',
+            'NIM' => 'NIM',
             'TanggalDaftar' => 'Tanggal Daftar',
             'Judul' => 'Judul',
+            'idstatusProposal' => 'Status',
+            'keterangan' => 'Keterangan'
         );
     }
 
@@ -94,7 +103,8 @@ class Pengajuan extends CActiveRecord {
         $criteria->compare('NIM', $this->NIM);
         $criteria->compare('TanggalDaftar', $this->TanggalDaftar, true);
         $criteria->compare('Judul', $this->Judul, true);
-
+        $criteria->compare('idstatusProposal', $this->idstatusProposal);
+       
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
@@ -108,6 +118,33 @@ class Pengajuan extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function suggest($keyword, $limit = 20) {
+        $sql = "SELECT * FROM prd_mahasiswa t 
+            INNER JOIN prd_pengajuan pp ON pp.NIM=t.NIM 
+            INNER JOIN prd_jenissidang ps ON pp.IDJenisSidang=ps.IDJenisSidang 
+            WHERE t.Nama LIKE '%$keyword%' or t.NIM LIKE '%$keyword%'";
+//        echo $sql;
+//        exit();
+        $models = Yii::app()->db->createCommand($sql)->queryAll();
+        $suggest = array();
+        foreach ($models as $model) {
+            $suggest[] = array(
+                'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan'] . ' - ' . $model['NamaSidang'], // label for dropdown list
+                'value' => $model['IDPengajuan'], // value for input field
+                'nim' => $model['NIM'], // return values from autocomplete
+                'namaMhs' => $model['Nama'],
+                'judul' => $model['Judul'],
+                'idPengajuan' => $model['IDPengajuan'],
+            );
+        }
+        return $suggest;
+    }
+
+    public function status() {
+        //this function returns the list of categories to use in a dropdown        
+        return CHtml::listData(StatusProposal::model()->findAll(), 'idstatusProposal', 'statusProposal');
     }
 
 }

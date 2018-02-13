@@ -9,6 +9,16 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
+        
+        <!-- blueprint CSS framework -->
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+	<!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+	<![endif]-->
+
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body class="theme-turquoise fixed-header">
@@ -200,6 +210,46 @@
                                                 <li>
                                                     <a href="index.php?r=nilaimasterskripsi/admin">
                                                         Nilai Akhir Skripsi
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-envelope"></i>
+                                                <span>Pengajuan Proposal</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="index.php?r=pengajuan/admin">
+                                                        Proposal
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.php?r=pembimbing/admin">
+                                                        Pembimbing
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-envelope"></i>
+                                                <span>Kelola Persyaratan</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="index.php?r=persyaratan/admin">
+                                                        Persyaratan
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.php?r=persyaratanJenis/admin">
+                                                        Persyaratan Jenis
                                                     </a>
                                                 </li>
                                             </ul>

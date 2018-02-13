@@ -2,25 +2,25 @@
 /* @var $this UploadProposalController */
 /* @var $model UploadProposal */
 
-$this->breadcrumbs=array(
-	'Upload Proposals'=>array('index'),
-	$model->idUpload,
+$this->breadcrumbs = array(
+    'Upload Proposals' => array('index'),
+    $model->idUpload,
 );
 
-$this->menu=array(
-	array('label'=>'List UploadProposal', 'url'=>array('index')),
-	array('label'=>'Create UploadProposal', 'url'=>array('create')),
-	array('label'=>'Update UploadProposal', 'url'=>array('update', 'id'=>$model->idUpload)),
-	array('label'=>'Delete UploadProposal', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idUpload),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage UploadProposal', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List UploadProposal', 'url' => array('index')),
+    array('label' => 'Create UploadProposal', 'url' => array('create')),
+    array('label' => 'Update UploadProposal', 'url' => array('update', 'id' => $model->idUpload)),
+    array('label' => 'Delete UploadProposal', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idUpload), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => 'Manage UploadProposal', 'url' => array('admin')),
 );
 ?>
 
 <div class="main-box clearfix">
     <header class="main-box-header clearfix">
-        <h2 class="pull-left"><i class="fa fa-bars"></i> View File Upload # <?php echo $model->namaFile; ?></h2> 
-        <div class="filter-block pull-right">                                                   
-            <?php echo CHtml::link('<i class="fa  fa-times-circle fa-lg"></i>', array('pengajuan/view', 'IDPengajuan' => $model->idPengajuan,'IDJenisSidang' => $model->idPengajuan0->IDJenisSidang), array('class' => 'btn btn-primary pull-left')); ?>
+        <strong class="pull-right"><i class="fa fa-anchor"></i> View File Upload # <?php echo $model->namaFile; ?></strong> 
+        <div class="filter-block pull-left">                                                   
+            <?php echo CHtml::link('<i class="fa  fa-arrow-left fa-lg"></i> Kembali ', array('pengajuan/view', 'IDPengajuan' => $model->idPengajuan, 'IDJenisSidang' => $model->idPengajuan0->IDJenisSidang), array('class' => 'btn btn-primary pull-right')); ?>
         </div>
     </header>
     <div class="main-box-body clearfix"> 
@@ -34,16 +34,8 @@ $this->menu=array(
                 ),
                 'namaFile',
                 'ukuranFIle',
-                array(
-                    'label' => 'Gambar',
-                    'type' => 'raw',
-                    // 'value' => $model->namaFile),
-                    'value' => CHtml::image(Yii::app()->baseUrl . "/persyaratan/" . $model->namaFile, 'alt', array("width" => "595px", "height" => "842px"))
-//            'value' => '$data["namaFile"]==null ? Chtml::link("Upload",
-//				array("upload/create","id"=>$data["idPendaftaran"],"idsyarat"=>$data["idPersyaratan"])) : Chtml::link("Lihat",
-//				array("upload/view","id"=>$data["idPersyaratan"]))',
-                ),
             ),
         ));
+        echo CHtml::image(Yii::app()->baseUrl . "/persyaratan/" . $model->namaFile, 'alt', array("width" => "1000px", "height" => "600px"))
         ?>
     </div></div>

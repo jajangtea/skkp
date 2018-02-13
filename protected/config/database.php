@@ -8,7 +8,7 @@ return array(
 	'connectionString' => 'mysql:host=localhost;dbname=sttitpi_skkp',
 	'emulatePrepare' => true,
 	'username' => 'root',
-	'password' => 'toor',
+	'password' => '',
 	'charset' => 'utf8',
 	
 );

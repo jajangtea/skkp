@@ -30,7 +30,7 @@ class NilaidetilskirpsiController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin', 'adminpengujiskripsi'),
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin', 'adminpengujiskripsi','vakasi'),
                 'expression' => '$user->getLevel()==3',
             ),
             array('deny', // deny all users
@@ -58,8 +58,8 @@ class NilaidetilskirpsiController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate($idNilaiSkripsi,$NIM) {
-         
+    public function actionCreate($idNilaiSkripsi, $NIM) {
+
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -69,11 +69,11 @@ class NilaidetilskirpsiController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $model = $this->loadModel($idNilaiSkripsi);
         $modelNilai = Nilaimasterskripsi::model()->loadModelNilaiMaster($NIM);
         $dataNilaiMaster = $this->loadModelMasterNilai($NIM);
-       
+
         $dataNilai = $this->loadModel($idNilaiSkripsi);
         $this->performAjaxValidation($model);
         if (isset($_POST['Nilaidetilskirpsi'])) {
@@ -82,19 +82,19 @@ class NilaidetilskirpsiController extends Controller {
             $np2 = $model->NIlaiPenguji2;
             $npra = ($np1 + $np2) / 2;
             $model->NPraSidang = $npra;
-            $na= Nilaimasterskripsi::model()->hitung_na($dataNilaiMaster->NPembimbing, $dataNilaiMaster->NPraSidang, $dataNilaiMaster->NKompre, $dataNilaiMaster->NSidangSkripsi);
-            $nh= Nilaimasterskripsi::model()->nilai_khuruf($na);
+            $na = Nilaimasterskripsi::model()->hitung_na($dataNilaiMaster->NPembimbing, $dataNilaiMaster->NPraSidang, $dataNilaiMaster->NKompre, $dataNilaiMaster->NSidangSkripsi);
+            $nh = Nilaimasterskripsi::model()->nilai_khuruf($na);
             if ($model->save())
                 if ($modelNilai == 1) {
                     $nama = $dataNilai->idPendaftaran->idSidang->IDJenisSidang;
                     if ($nama == 1) {
-                        $dataNilaiMaster->NA=$na;
-                        $dataNilaiMaster->Index=$nh;
+                        $dataNilaiMaster->NA = $na;
+                        $dataNilaiMaster->Index = $nh;
                         $dataNilaiMaster->NPraSidang = $npra;
                         $dataNilaiMaster->save();
                     } else {
-                        $dataNilaiMaster->NA=$na;
-                        $dataNilaiMaster->Index=$nh;
+                        $dataNilaiMaster->NA = $na;
+                        $dataNilaiMaster->Index = $nh;
                         $dataNilaiMaster->NSidangSkripsi = $npra;
                         $dataNilaiMaster->save();
                     }
@@ -123,8 +123,8 @@ class NilaidetilskirpsiController extends Controller {
         $this->performAjaxValidation($model);
         if (isset($_POST['Nilaidetilskirpsi'])) {
             $model->attributes = $_POST['Nilaidetilskirpsi'];
-            $na= Nilaimasterskripsi::model()->hitung_na($dataNilai->NPembimbing, $dataNilai->NPraSidang, $dataNilai->NKompre, $dataNilai->NSidangSkripsi);
-            $nh= Nilaimasterskripsi::model()->nilai_khuruf($na);
+            $na = Nilaimasterskripsi::model()->hitung_na($dataNilai->NPembimbing, $dataNilai->NPraSidang, $dataNilai->NKompre, $dataNilai->NSidangSkripsi);
+            $nh = Nilaimasterskripsi::model()->nilai_khuruf($na);
             $np1 = $model->NilaiPenguji1;
             $np2 = $model->NIlaiPenguji2;
             $npra = ($np1 + $np2) / 2;
@@ -133,13 +133,13 @@ class NilaidetilskirpsiController extends Controller {
                 if ($modelNilai == 1) {
                     $nama = $dataNilai->idPendaftaran->idSidang->IDJenisSidang;
                     if ($nama == 1) {
-                        $dataNilai->NA=$na;
-                        $dataNilai->Index=$nh;
+                        $dataNilai->NA = $na;
+                        $dataNilai->Index = $nh;
                         $dataNilai->NPraSidang = $npra;
                         $dataNilai->save();
                     } else {
-                        $dataNilai->NA=$na;
-                        $dataNilai->Index=$nh;
+                        $dataNilai->NA = $na;
+                        $dataNilai->Index = $nh;
                         $dataNilai->NSidangSkripsi = $npra;
                         $dataNilai->save();
                     }
@@ -207,17 +207,16 @@ class NilaidetilskirpsiController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        $model=new Nilaidetilskirpsi('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Nilaidetilskirpsi']))
-			$model->attributes=$_GET['Nilaidetilskirpsi'];
+        $model = new Nilaidetilskirpsi('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Nilaidetilskirpsi']))
+            $model->attributes = $_GET['Nilaidetilskirpsi'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-
+        $this->render('admin', array(
+            'model' => $model,
+        ));
     }
-    
+
     public function actionAdminMhsNim($MhsNim) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -228,15 +227,14 @@ class NilaidetilskirpsiController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        $model=new Nilaidetilskirpsi('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Nilaidetilskirpsi']))
-			$model->attributes=$_GET['Nilaidetilskirpsi'];
+        $model = new Nilaidetilskirpsi('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Nilaidetilskirpsi']))
+            $model->attributes = $_GET['Nilaidetilskirpsi'];
 
-		$this->render('admin_id',array(
-			'model'=>$model,
-		));
-
+        $this->render('admin_id', array(
+            'model' => $model,
+        ));
     }
 
     public function loadModel($id) {
@@ -281,6 +279,27 @@ class NilaidetilskirpsiController extends Controller {
             'IDJenisSidang' => 1,
             'KodePenguji' => Yii::app()->user->getUsername(),
         ));
+    }
+
+    public function actionVakasi() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $model = new Nilaidetilskirpsi('searchVakasi');
+        $model->unsetAttributes();  // clear any default values
+        
+        if (isset($_GET['Nilaidetilskirpsi']))
+            $model->attributes = $_GET['Nilaidetilskirpsi'];
+        $this->render('adminpengujiVakasi', array(
+            'model' => $model,
+        ));
+        
     }
 
 }

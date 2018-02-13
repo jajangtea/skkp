@@ -34,7 +34,7 @@ class UploadProposal extends CActiveRecord
 		return array(
                         array('namaFile','required'),
 			array('idPengajuan, idPersyaratan', 'numerical', 'integerOnly'=>true),
-                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg','maxSize'=>1000000,'tooLarge'=>'Ukuran File Maksimal 1MB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
+                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg,doc,docx','maxSize'=>1000000,'tooLarge'=>'Ukuran File Maksimal 1MB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
                         //array('yourfile','file', 'types'=>'mp3,mp4,3gp', 'maxSize'=>2097152, 'tooLarge'=>'File has to be smaller than 80MB') .	
                         array('namaFile, ukuranFIle', 'length', 'max'=>300),
 			// The following rule is used by search().
@@ -93,6 +93,19 @@ class UploadProposal extends CActiveRecord
 		$criteria->compare('namaFile',$this->namaFile,true);
 		$criteria->compare('ukuranFIle',$this->ukuranFIle,true);
 		$criteria->compare('idPersyaratan',$this->idPersyaratan);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+        
+        public function searchUpload($idPengajuan)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('idPengajuan',$idPengajuan);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

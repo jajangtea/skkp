@@ -12,32 +12,17 @@
 )); ?>
 
 	<div class="form-group">
-		<?php echo $form->label($model,'IDPengajuan'); ?>
-		<?php echo $form->textField($model,'IDPengajuan', array('class'=>'form-control','style'=>'width:30%')); ?>
-	</div>
-
-	<div class="form-group">
 		<?php echo $form->label($model,'IDJenisSidang'); ?>
-		<?php echo $form->textField($model,'IDJenisSidang', array('class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisSidangProposal(), array('prompt' => 'Pilih Proposal', 'class' => 'form-control','style'=>'width:30%'));  ?>
 	</div>
 
 	<div class="form-group">
 		<?php echo $form->label($model,'NIM'); ?>
-		<?php echo $form->textField($model,'NIM', array('class'=>'form-control','style'=>'width:30%')); ?>
+		<?php echo $form->textField($model,'NIM', array('class'=>'form-control','style'=>'width:35%')); ?>
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->label($model,'TanggalDaftar'); ?>
-		<?php echo $form->textField($model,'TanggalDaftar', array('class'=>'form-control','style'=>'width:30%')); ?>
-	</div>
-
-	<div class="form-group">
-		<?php echo $form->label($model,'Judul'); ?>
-		<?php echo $form->textArea($model,'Judul',array('rows'=>6, 'cols'=>50, 'class'=>'form-control')); ?>
-	</div>
-
-	<div class="form-group">
-		<?php echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-info'),'<i class="fa fa-search"></i> Save');?>
+		<?php echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-info'),'<i class="fa fa-search"></i> Pencarian');?>
 	</div>
 
 <?php $this->endWidget(); ?>

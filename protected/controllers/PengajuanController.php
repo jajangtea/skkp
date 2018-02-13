@@ -11,10 +11,20 @@ class PengajuanController extends Controller {
     /**
      * @return array action filters
      */
+    public function actions() {
+        return array(
+            'suggestPengajuan' => array(
+                'class' => 'ext.actions.XSuggestAction',
+                'modelName' => 'Pengajuan',
+                'methodName' => 'suggest',
+            ),
+        );
+    }
+
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+                //  'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -23,37 +33,57 @@ class PengajuanController extends Controller {
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
      */
+    
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view','admin'),
-                'users' => array('*'),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view'),
+                'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'users' => array('@'),
+                'actions' => array('create', 'update', 'index', 'view'),
+                'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
+                  'actions' => array('create', 'update','admin', 'viewlengkap', 'delete', 'suggestPengajuan', 'verifikasi', 'laporanMahasiswa'),
+                'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
         );
     }
-
+    
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($IDPengajuan,$IDJenisSidang) {
-     
-        $dataProviderUpload = Pendaftaran::model()->tampilUploadPengajuan($IDPengajuan,$IDJenisSidang);
+    public function actionView($IDPengajuan, $IDJenisSidang) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
+        $dataProviderUpload = Pendaftaran::model()->tampilUploadPengajuan($IDPengajuan, $IDJenisSidang);
         $this->render('view', array(
-            'dataProviderUpload'=>$dataProviderUpload,
-            'IDPengajuan'=>$IDPengajuan,
-            'IDJenisSidang'=>$IDJenisSidang,
+            'dataProviderUpload' => $dataProviderUpload,
+            'IDPengajuan' => $IDPengajuan,
+            'IDJenisSidang' => $IDJenisSidang,
+        ));
+    }
+
+    public function actionViewlengkap($NIM) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
+        $dataProviderUpload = Pendaftaran::model()->tampilStatusPengajuan($NIM);
+        $this->render('viewlengkap', array(
+            'dataProviderUpload' => $dataProviderUpload,
+            'NIM' => $NIM,
         ));
     }
 
@@ -62,43 +92,82 @@ class PengajuanController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
         $model = new Pengajuan;
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        $model->NIM=Yii::app()->user->name;
+
+        $model->NIM = Yii::app()->user->name;
         $model->TanggalDaftar = date('Y-m-d H:i:s');
+        $model->idstatusProposal=3;
+        $model->Judul = strtoupper($model->Judul);
         if (isset($_POST['Pengajuan'])) {
             $model->attributes = $_POST['Pengajuan'];
             if ($model->save())
-                $this->redirect(array('view','IDPengajuan'=>$model->IDPengajuan,'IDJenisSidang' => $model->IDJenisSidang));
+                $this->redirect(array('view', 'IDPengajuan' => $model->IDPengajuan, 'IDJenisSidang' => $model->IDJenisSidang));
         }
-
+        $IDPengajuan = 0;
+        $IDJenisSidang = 0;
         $this->render('create', array(
             'model' => $model,
+            'IDPengajuan' => $IDPengajuan,
+            'IDJenisSidang' => $IDJenisSidang,
         ));
     }
-    
-    
 
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
-        $model = $this->loadModel($id);
-
+    public function actionUpdate($IDPengajuan, $IDJenisSidang) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
+        $model = $this->loadModel($IDPengajuan);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pengajuan'])) {
             $model->attributes = $_POST['Pengajuan'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->IDPengajuan));
+                $this->redirect(array('viewlengkap', 'NIM' => $model->NIM));
         }
 
+
         $this->render('update', array(
+            'model' => $model,
+            'IDPengajuan' => $IDPengajuan,
+            'IDJenisSidang' => $IDJenisSidang,
+        ));
+    }
+
+    public function actionVerifikasi($id) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
+        $model = $this->loadModel($id);
+
+        if (isset($_POST['Pengajuan'])) {
+            $model->attributes = $_POST['Pengajuan'];
+            $model->idstatusProposal = $model->idstatusProposal;
+            $model->keterangan = strtoupper($model->keterangan);
+            if ($model->save())
+                $this->redirect(array('admin'));
+        }
+        
+        $this->render('updatever', array(
             'model' => $model,
         ));
     }
@@ -111,15 +180,23 @@ class PengajuanController extends Controller {
     public function actionDelete($id) {
         $this->loadModel($id)->delete();
 
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        //if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//        $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('viewlengkap', 'IDPengajuan' => $model->NIM));
+//        $this->redirect(array('viewlengkap', 'IDPengajuan' => $model->NIM));
+            $this->redirect(Yii::app()->request->getUrlReferrer());
     }
 
     /**
      * Lists all models.
      */
     public function actionIndex() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
         $dataProvider = new CActiveDataProvider('Pengajuan');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -130,6 +207,12 @@ class PengajuanController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        
         $model = new Pengajuan('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pengajuan']))
@@ -163,6 +246,46 @@ class PengajuanController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionLaporanMahasiswa() {
+        $model = new Pengajuan();
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_POST['Pengajuan']))
+            $model->attributes = $_POST['Pengajuan'];
+
+        $exportType = 'Excel5';
+        $this->widget('ext.heart.export.EHeartExport', array(
+            'title' => 'Laporan Pengajuan',
+            'dataProvider' => $model->search(),
+            'filter' => $model,
+            'grid_mode' => 'export',
+            'exportType' => $exportType,
+            'columns' => array(
+                'iDJenisSidang.NamaSidang',
+                'nIM.Nama',
+                'NIM',
+                'TanggalDaftar',
+                'Judul',
+                array(
+                    'name' => 'Judul',
+                    'type' => 'raw',
+                    'header' => 'Judul',
+                    'value' => 'strtoupper($data->Judul)',
+                    // 'value' => '$data->idstatusProposal0->statusProposal',
+                    'htmlOptions' => array('width' => '200px'),
+                ),
+                array(
+                    'name' => 'idstatusProposal',
+                    'type' => 'raw',
+                    'header' => 'Status',
+                    'value' => '$data->idstatusProposal==1?strtoupper("Diterima"):strtoupper("Ditolak")',
+                    // 'value' => '$data->idstatusProposal0->statusProposal',
+                    'htmlOptions' => array('width' => '40px'),
+                ),
+                'keterangan',
+            ),
+        ));
     }
 
 }

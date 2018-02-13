@@ -46,8 +46,6 @@ class Pendaftaran extends CActiveRecord {
             array('Judul', 'required', 'message' => 'Judul tidak boleh kosong.'),
             array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
             array('Tanggal, Judul', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array('idPendaftaran, Tanggal, NIM, IdSidang,status,bulan,tahun, KodePembimbing1, KodePembimbing2, Judul', 'safe', 'on' => 'search'),
         );
     }
@@ -131,7 +129,7 @@ class Pendaftaran extends CActiveRecord {
 //            'criteria' => $criteria,
 //        ));
 //    }
-    
+
     public function search() {
         // @todo Please modify the following code to remove attributes that should not be searched.
         if (Yii::app()->user->getLevel() == 2) {
@@ -143,13 +141,11 @@ class Pendaftaran extends CActiveRecord {
         } else {
             $criteria = new CDbCriteria();
             $criteria->join = 'INNER JOIN prd_sidangmaster sm ON t.IdSidang=sm.IdSidang '
-                            . 'INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang '
-                            . 'INNER JOIN prd_periode pr ON sm.idPeriode=pr.idPeriode';
+                    . 'INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang '
+                    . 'INNER JOIN prd_periode pr ON sm.idPeriode=pr.idPeriode';
             $criteria->order = 'js.NamaSidang';
-           // exit();
         }
         $criteria->compare('js.IDJenisSidang', $this->IDJenisSidang);
-        //$criteria->compare('sm.status', $this->status);
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
         $criteria->compare('Tanggal', $this->Tanggal, true);
         $criteria->compare('NIM', $this->NIM);
@@ -158,7 +154,6 @@ class Pendaftaran extends CActiveRecord {
         $criteria->compare('js.IDJenisSidang', $this->IDJenisSidang);
         $criteria->compare('KodePembimbing1', $this->KodePembimbing1, true);
         $criteria->compare('KodePembimbing2', $this->KodePembimbing2, true);
-        // $criteria->compare('IdSidang', $this->IdSidang, true);
         $criteria->compare('Judul', $this->Judul, true);
 
         return new CActiveDataProvider($this, array(
@@ -166,7 +161,7 @@ class Pendaftaran extends CActiveRecord {
         ));
     }
 
-    public function searchaktif($bulan,$tahun) {
+    public function searchaktif($bulan, $tahun) {
         // @todo Please modify the following code to remove attributes that should not be searched.
         if (Yii::app()->user->getLevel() == 2) {
             $criteria = new CDbCriteria(array
@@ -180,8 +175,8 @@ class Pendaftaran extends CActiveRecord {
                 'condition' => "pr.bulan=$bulan and pr.tahun=$tahun",
             ));
             $criteria->join = 'INNER JOIN prd_sidangmaster sm ON t.IdSidang=sm.IdSidang '
-                            . 'INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang '
-                            . 'INNER JOIN prd_periode pr ON sm.idPeriode=pr.idPeriode';
+                    . 'INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang '
+                    . 'INNER JOIN prd_periode pr ON sm.idPeriode=pr.idPeriode';
             $criteria->order = 'js.NamaSidang';
         }
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
@@ -204,16 +199,15 @@ class Pendaftaran extends CActiveRecord {
      * @param string $className active record class name.
      * @return Pendaftaran the static model class
      */
-    
     public function suggest($keyword, $limit = 20) {
-        $sql="SELECT * FROM prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
+        $sql = "SELECT * FROM prd_mahasiswa t INNER JOIN prd_pendaftaran pp ON pp.NIM=t.NIM
             INNER JOIN prd_sidangmaster ps ON ps.IdSidang=pp.IdSidang
             INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang WHERE t.Nama LIKE '%$keyword%' or t.NIM LIKE '%$keyword%'";
-        $models= Yii::app()->db->createCommand($sql)->queryAll();
+        $models = Yii::app()->db->createCommand($sql)->queryAll();
         $suggest = array();
         foreach ($models as $model) {
             $suggest[] = array(
-                'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan']. ' - ' . $model['NamaSidang'], // label for dropdown list
+                'label' => $model['NIM'] . ' - ' . $model['Nama'] . ' - ' . $model['KodeJurusan'] . ' - ' . $model['NamaSidang'], // label for dropdown list
                 'value' => $model['idPendaftaran'], // value for input field
                 'nim' => $model['NIM'], // return values from autocomplete
                 'namaMhs' => $model['Nama'],
@@ -224,7 +218,7 @@ class Pendaftaran extends CActiveRecord {
         }
         return $suggest;
     }
-    
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
@@ -265,7 +259,7 @@ class Pendaftaran extends CActiveRecord {
     public function getDosen() {
         return CHtml::listData(Dosen::model()->findAll(), 'IdUser', 'KodeDosen');
     }
-    
+
     public function getDosenPenguji() {
         return CHtml::listData(Dosen::model()->findAll("IdUser <> '--'"), 'IdUser', 'KodeDosen');
     }
@@ -332,7 +326,7 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
 
         return $dataProviderUpload;
     }
-    
+
     public function tampilPersetujuan($id) {
         $sqlUpload = "SELECT
     `prd_pendaftaran`.`idPendaftaran`
@@ -350,7 +344,7 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
     INNER JOIN `sttitpi_skkp`.`prd_persetujuan` ON (`prd_persetujuan`.`kodeDosen` = `prd_dosen`.`KodeDosen`) AND (`prd_persetujuan`.`idPersyaratanPersetujuan` = `prd_persyaratan_persetujuan`.`idPersyaratanPersetujuan`)
     LEFT JOIN `sttitpi_skkp`.`prd_persetujuan_pendaftaran` ON (`prd_persetujuan_pendaftaran`.`idPendaftaran` = `prd_pendaftaran`.`idPendaftaran`) AND (`prd_persetujuan_pendaftaran`.`idPersetujuan` = `prd_persetujuan`.`idPersetujuan`)
     WHERE prd_pendaftaran.idPendaftaran=$id";
-       
+
         $dataProviderUpload = new CSqlDataProvider($sqlUpload, array(
             'keyField' => 'idPendaftaran',
             'pagination' => array(
@@ -446,7 +440,7 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
         INNER JOIN prd_sidangmaster ps ON pp.idsidang=ps.idsidang
         INNER JOIN prd_jenissidang pj ON ps.idjenissidang=pj.idjenissidang
         WHERE pp.idPendaftaran=$id")->queryRow();
-        
+
         if ($syarat["IDJenisSidang"] == "4") {
             return false;
         } else {
@@ -480,27 +474,49 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
 
         return $no;
     }
-    
+
     public function getBulan() {
         return array(
-            '01'=>'Januari',
-            '02'=>'Februari',
-            '03'=>'Maret',
-            '04'=>'April',
-            '05'=>'Mei',
-            '06'=>'Juni',
-            '07'=>'Juli',
-            '08'=>'Agustus',
-            '09'=>'September',
-            '10'=>'Oktober',
-            '11'=>'November',
-            '12'=>'Desember',
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
         );
     }
-    
+
     public function getTahun() {
-       return CHtml::listData(Periode::model()->findAll(), 'tahun', 'tahun');
+        return CHtml::listData(Periode::model()->findAll(), 'tahun', 'tahun');
     }
-    
-   
+
+    public function tampilStatusPengajuan($NIM) {
+        $sqlUpload = " SELECT `prd_pengajuan`.`IDJenisSidang`
+    , `prd_pengajuan`.`IDPengajuan`
+    , `prd_pengajuan`.`keterangan`
+    , `prd_pengajuan`.`Judul`
+    , `prd_pengajuan`.`TanggalDaftar`
+    , `prd_statusproposal`.`statusProposal`
+    , `prd_jenissidang`.`NamaSidang`
+    FROM `prd_pengajuan`
+    INNER JOIN `prd_jenissidang` ON (`prd_pengajuan`.`IDJenisSidang` = `prd_jenissidang`.`IDJenisSidang`)
+    LEFT JOIN `prd_statusproposal` ON (`prd_pengajuan`.`idstatusProposal` = `prd_statusproposal`.`idstatusProposal`)
+    where `prd_pengajuan`.`NIM`=$NIM";
+
+        $dataProviderUpload = new CSqlDataProvider($sqlUpload, array(
+            'keyField' => 'IDPengajuan',
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dataProviderUpload;
+    }
+
 }

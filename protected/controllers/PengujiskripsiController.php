@@ -69,6 +69,10 @@ class PengujiskripsiController extends Controller {
                 $model2->idPendaftaran=$id;
                 $model2->idUser=$model->idUser[$i];
                 $model2->save();
+                
+                $model3 = new NilaiPenguji();
+                $model3->idPengujiSkripsi=$model2->idPengujiSkripsi;
+                $model3->save();
             }
             $model->unsetAttributes();  // clear any default values
             $this->redirect(Yii::app()->request->getUrlReferrer());
@@ -93,8 +97,16 @@ class PengujiskripsiController extends Controller {
 
         if (isset($_POST['Pengujiskripsi'])) {
             $model->attributes = $_POST['Pengujiskripsi'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idPengujiSkripsi));
+            for ($i=0;$i<count($model->idUser);$i++) 
+            {
+                $model2 = $this->loadModel($id);
+                $model2->idPendaftaran=$id;
+                $model2->idUser=$model->idUser[$i];
+                $model2->save();
+            }
+            $model->unsetAttributes();  // clear any default values
+            $this->redirect(Yii::app()->request->getUrlReferrer());
+           
         }
 
         $this->render('update', array(
@@ -150,6 +162,13 @@ class PengujiskripsiController extends Controller {
      */
     public function loadModel($id) {
         $model = Pengujiskripsi::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+    
+    public function loadModelNilaiPenguji($id) {
+        $model = NilaiPenguji::model()->find("idPengujiSkripsi=$id");
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

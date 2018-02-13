@@ -1,6 +1,9 @@
 <?php
 
 class LaporanController extends Controller {
+    private static $_isInitialized = false;
+    private static $libPathPHPExcel = 'ext.heart.vendors.phpexcel.Classes.PHPExcel'; //the path to the PHP excel lib
+    private static $libPathPDF = 'ext.heart.vendors.tcpdf.tcpdf'; //the path to the TCPDFlib
 
     public function actionIndex() {
         $this->render('index');

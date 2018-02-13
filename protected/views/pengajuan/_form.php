@@ -1,11 +1,4 @@
 <?php
-/* @var $this PengajuanController */
-/* @var $model Pengajuan */
-/* @var $form CActiveForm */
-?>
-
-
-<?php
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'pengajuan-form',
     // Please note: When you enable ajax validation, make sure the corresponding
@@ -15,52 +8,42 @@ $form = $this->beginWidget('CActiveForm', array(
     'enableAjaxValidation' => false,
         ));
 ?>
-
- <div class="text-danger">
-    <?php echo $form->errorSummary($model); ?>
-</div>
-
-<div class="main-box">
-    <header class="main-box-header clearfix">
-        <h2 class="pull-left"><i class="fa fa-search"></i> Pilih Pengajuan KP/Skripsi</h2>
-        <div class="icon-box pull-right">                                       
-            <a class="btn pull-left" href="#">
-                <i class="fa fa-times"></i>
-            </a>
+<div class="row">                
+    <div class="col-lg-12">
+        <?php
+        $this->beginWidget('zii.widgets.CPortlet', array(
+            'title' => $model->isNewRecord ? 'Pilih Proposal yang diajukan' : 'Masukan Judul',
+        ));
+        ?>
+        <p>
+        <div class="text-danger">
+            <?php echo $form->errorSummary($model); ?>
         </div>
-    </header> 
-    <div class="main-box-body clearfix">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Jenis Sidang :</label>
-                <div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-10">     
-                           
-                            <?php echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisSidangProposal(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control')); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-10">
-                    <?php
-                    if ($model->isNewRecord) {
-                        echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-success'), 'Lanjutkan <i class="fa fa-arrow-right"></i> ');
-                    } else {
-                        echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-save"></i> Save');
-                    }
-                    ?>
-                </div>
-            </div> 
+        <?php
+        if (Pendaftaran::model()->cekPersyaratanProposal($IDJenisSidang, $IDPengajuan) == "Syarat Lengkap" && $IDPengajuan != 0) {
+            echo $form->textArea($model, 'Judul', array('class' => 'input-block-level', 'rows' => '6'));
+        } else {
+            echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisSidangProposal(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control','style'=>'width:30%'));
+        }
+        ?>
+        <br/>
+        <div class="form-group">
+            <?php
+            if ($model->isNewRecord) {
+                echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-success'), 'Lanjutkan <i class="fa fa-arrow-right"></i> ');
+            } else {
+                echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-save"></i> Save');
+            }
+            ?>
+            <?php $this->endWidget(); ?>
         </div>
+        <?php $this->endWidget(); ?>
     </div>
 </div>
-<?php $this->endWidget(); ?>
 
 
 
 
-  
+
 
 

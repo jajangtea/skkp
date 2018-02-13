@@ -28,20 +28,16 @@ class PendaftaranController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
-                'users' => array('*'),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view'),
+                'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'bukti', 'target', 'pdf', 'createpdf'),
-                'users' => array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete'),
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'export', 'simpanPenguji'),
+                'actions' => array('admin', 'delete', 'create', 'export', 'simpanPenguji'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -58,7 +54,7 @@ class PendaftaranController extends Controller {
 
         $dataProviderUpload = Pendaftaran::model()->tampilUpload($id);
         $dataProviderPersetujuan = Pendaftaran::model()->tampilPersetujuan($id);
-        
+
         $modelPenguji = new Pengujikp;
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -93,7 +89,7 @@ class PendaftaranController extends Controller {
                 echo CJSON::encode(array(
                     'status' => 'success'
                 ));
-                
+
                 Yii::app()->end();
             } else {
                 $error = CActiveForm::validate($model);
@@ -191,11 +187,10 @@ class PendaftaranController extends Controller {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
                                         'NIM' => $model->NIM));
-                                }
-                                else{
+                                } else {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->update('prd_nilaimasterskripsi', array(
-                                        'idPendaftaran' => $model->idPendaftaran),'NIM=:NIM',array(':NIM'=>$model->NIM));
+                                        'idPendaftaran' => $model->idPendaftaran), 'NIM=:NIM', array(':NIM' => $model->NIM));
                                 }
                             }
                         }
@@ -693,5 +688,7 @@ class PendaftaranController extends Controller {
         $mpdf->Output('Target_SKP_' . 'hello' . '.pdf', 'I');
         exit();
     }
+
+  
 
 }
