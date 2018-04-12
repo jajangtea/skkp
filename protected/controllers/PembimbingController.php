@@ -14,7 +14,7 @@ class PembimbingController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+                //  'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -33,6 +33,10 @@ class PembimbingController extends Controller {
                 'actions' => array('create', 'update', 'admin', 'delete', 'getValue'),
                 'expression' => '$user->getLevel()==1',
             ),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('admin', 'view'),
+                'expression' => '$user->getLevel()==3',
+            ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
@@ -44,7 +48,15 @@ class PembimbingController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id, $idPengajuan) {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $modelUploadProposal = new UploadProposal('search');
         $modelUploadProposal->unsetAttributes();  // clear any default values
 
@@ -59,7 +71,7 @@ class PembimbingController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate($id) {
         $this->layout = 'main';
         $model = new Pembimbing;
 
@@ -69,12 +81,14 @@ class PembimbingController extends Controller {
         if (isset($_POST['Pembimbing'])) {
 
             $model->attributes = $_POST['Pembimbing'];
+            $model->idPengajuan = $id;
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idPembimbing));
+                $this->redirect(array('view', 'id' => $model->idPembimbing, 'idPengajuan' => $id));
         }
 
         $this->render('create', array(
             'model' => $model,
+            'id' => $id,
         ));
     }
 
@@ -129,7 +143,15 @@ class PembimbingController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $model = new Pembimbing('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pembimbing']))

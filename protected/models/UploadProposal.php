@@ -34,7 +34,7 @@ class UploadProposal extends CActiveRecord
 		return array(
                         array('namaFile','required'),
 			array('idPengajuan, idPersyaratan', 'numerical', 'integerOnly'=>true),
-                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg,doc,docx','maxSize'=>1000000,'tooLarge'=>'Ukuran File Maksimal 1MB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
+                        array('namaFile', 'file', 'allowEmpty'=>true, 'types'=>'jpg,doc,docx','maxSize'=>200000,'tooLarge'=>'Ukuran File Maksimal 200KB', 'message'=>'Jpg files only ','on'=>'update', 'on'=>'insert'),
                         //array('yourfile','file', 'types'=>'mp3,mp4,3gp', 'maxSize'=>2097152, 'tooLarge'=>'File has to be smaller than 80MB') .	
                         array('namaFile, ukuranFIle', 'length', 'max'=>300),
 			// The following rule is used by search().

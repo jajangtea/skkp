@@ -9,16 +9,16 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
-        
-        <!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        <!-- blueprint CSS framework -->
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+        <!--[if lt IE 8]>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+        <![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body class="theme-turquoise fixed-header">
@@ -147,13 +147,30 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </li>   
+                                        </li>  
                                         <li>
-                                            <a href="index.php?r=pendaftaran/admin">
-                                                <i class="fa fa-star"></i>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-list"></i>
                                                 <span>Kelola Pendaftaran</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
                                             </a>
-                                        </li> 
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="index.php?r=pendaftaran/admin">
+                                                        <i class="fa fa-star"></i>
+                                                        <span>Pendaftaran Sidang</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.php?r=pengajuan/admin">
+                                                        <i class="fa fa-star"></i>
+                                                        <span>Pendaftaran Proposal</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>   
+
+
                                         <li>
                                             <a href="index.php?r=pengujiskripsi/admin">
                                                 <i class="fa fa-magic"></i>
@@ -166,14 +183,14 @@
                                                 <span>Setting Penguji KP</span>
                                             </a>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="index.php?r=periode/admin">
                                                 <i class="fa fa-clipboard"></i>
                                                 <span>Periode</span>
                                             </a>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="index.php?r=sidangmaster/admin">
                                                 <i class="fa fa-graduation-cap"></i>
@@ -187,7 +204,7 @@
                                                 <span>Nilai KP</span>
                                             </a>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="index.php?r=nilaimasterkompre/admin">
                                                 <i class="fa fa-book"></i>
@@ -214,7 +231,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="#" class="dropdown-toggle">
                                                 <i class="fa fa-envelope"></i>
@@ -234,7 +251,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="#" class="dropdown-toggle">
                                                 <i class="fa fa-envelope"></i>

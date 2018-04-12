@@ -21,9 +21,9 @@ $form = $this->beginWidget('CActiveForm', array(
         </div>
         <?php
         if (Pendaftaran::model()->cekPersyaratanProposal($IDJenisSidang, $IDPengajuan) == "Syarat Lengkap" && $IDPengajuan != 0) {
-            echo $form->textArea($model, 'Judul', array('class' => 'input-block-level', 'rows' => '6'));
+            echo $form->textArea($model, 'Judul', array('class' => 'form-control', 'rows' => '6'));
         } else {
-            echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisSidangProposal(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control','style'=>'width:30%'));
+            echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisSidangProposal(), array('prompt' => 'Pilih Pengajuan', 'class' => 'form-control','style'=>'width:30%'));
         }
         ?>
         <br/>

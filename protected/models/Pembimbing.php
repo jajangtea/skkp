@@ -89,6 +89,23 @@ class Pembimbing extends CActiveRecord {
             'criteria' => $criteria,
         ));
     }
+    
+    public function searchid($id) {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+        if (Yii::app()->user->getLevel() == 3) {
+            $criteria = new CDbCriteria(array
+                (
+                'condition' => 'idDosen=:idDosen',
+                'params' => array(':idDosen' => Yii::app()->user->id),
+            ));
+        } else {
+            $criteria = new CDbCriteria;
+        }
+        $criteria->compare('idPengajuan', $id);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     /**
      * Returns the static model of the specified AR class.

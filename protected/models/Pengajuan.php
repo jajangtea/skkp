@@ -1,4 +1,4 @@
- <?php
+<?php
 
 /**
  * This is the model class for table "prd_pengajuan".
@@ -9,14 +9,14 @@
  * @property integer $NIM
  * @property string $TanggalDaftar
  * @property string $Judul
- * @property integer $idstatusProposal
+ * @property integer $IDstatusProposal
  * @property string $keterangan
  *
  * The followings are the available model relations:
  * @property Pembimbing[] $pembimbings
  * @property Jenissidang $iDJenisSidang
  * @property Mahasiswa $nIM
- * @property StatusProposal $idstatusProposal0
+ * @property StatusProposal $idstatus
  * @property UploadProposal[] $uploadProposals
  */
 class Pengajuan extends CActiveRecord {
@@ -36,13 +36,25 @@ class Pengajuan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('IDJenisSidang', 'required', 'message' => 'Jenis proposal tidak boleh kosong.'),
-            array('IDJenisSidang, NIM,idstatusProposal', 'numerical', 'integerOnly' => true),
-            array('TanggalDaftar, Judul,keterangan,idstatusProposal', 'safe'),
+            array('IDJenisSidang','cekPendaftaran','on'=>'create'),
+            array('IDJenisSidang, NIM,IDstatusProposal', 'numerical', 'integerOnly' => true),
+            array('TanggalDaftar, Judul,keterangan,IDstatusProposal', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IDPengajuan, IDJenisSidang, NIM, TanggalDaftar,idstatusProposal,keterangan, Judul', 'safe', 'on' => 'search'),
+            array('IDPengajuan, IDJenisSidang, NIM, TanggalDaftar,IDstatusProposal,keterangan, Judul', 'safe', 'on' => 'search'),
         );
     }
+    public function cekPendaftaran($attribute,$params)
+	{
+		if(!$this->hasErrors())
+		{
+			$sql = "select count(*) from prd_pengajuan where nim='$this->NIM' and IDJenisSidang='$this->IDJenisSidang'"; 
+			$command = Yii::app()->db->createCommand($sql)->queryScalar();
+			if($command >=1)
+				$this->addError('IDJenisSidang','Anda telah terdaftar.');
+		}
+	}
+    
 
     /**
      * @return array relational rules.
@@ -53,7 +65,7 @@ class Pengajuan extends CActiveRecord {
         return array(
             'iDJenisSidang' => array(self::BELONGS_TO, 'Jenissidang', 'IDJenisSidang'),
             'nIM' => array(self::BELONGS_TO, 'Mahasiswa', 'NIM'),
-            'idstatusProposal0' => array(self::BELONGS_TO, 'StatusProposal', 'idstatusProposal'),
+            'iDstatusProposal' => array(self::BELONGS_TO, 'StatusProposal', 'IDstatusProposal'),
             'uploadProposals' => array(self::HAS_MANY, 'UploadProposal', 'idPengajuan'),
         );
     }
@@ -68,7 +80,7 @@ class Pengajuan extends CActiveRecord {
             'NIM' => 'NIM',
             'TanggalDaftar' => 'Tanggal Daftar',
             'Judul' => 'Judul',
-            'idstatusProposal' => 'Status',
+            'IDstatusProposal' => 'Status',
             'keterangan' => 'Keterangan'
         );
     }
@@ -103,8 +115,8 @@ class Pengajuan extends CActiveRecord {
         $criteria->compare('NIM', $this->NIM);
         $criteria->compare('TanggalDaftar', $this->TanggalDaftar, true);
         $criteria->compare('Judul', $this->Judul, true);
-        $criteria->compare('idstatusProposal', $this->idstatusProposal);
-       
+        $criteria->compare('IDstatusProposal', $this->IDstatusProposal);
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
@@ -120,11 +132,11 @@ class Pengajuan extends CActiveRecord {
         return parent::model($className);
     }
 
-    public function suggest($keyword, $limit = 20) {
+    public function suggest($id, $limit = 20) {
         $sql = "SELECT * FROM prd_mahasiswa t 
             INNER JOIN prd_pengajuan pp ON pp.NIM=t.NIM 
             INNER JOIN prd_jenissidang ps ON pp.IDJenisSidang=ps.IDJenisSidang 
-            WHERE t.Nama LIKE '%$keyword%' or t.NIM LIKE '%$keyword%'";
+            WHERE t.Nama LIKE '%$id%' or t.NIM LIKE '%$id%'";
 //        echo $sql;
 //        exit();
         $models = Yii::app()->db->createCommand($sql)->queryAll();
@@ -144,7 +156,7 @@ class Pengajuan extends CActiveRecord {
 
     public function status() {
         //this function returns the list of categories to use in a dropdown        
-        return CHtml::listData(StatusProposal::model()->findAll(), 'idstatusProposal', 'statusProposal');
+        return CHtml::listData(StatusProposal::model()->findAll(), 'idstatusProp', 'nstatusProposal');
     }
 
 }

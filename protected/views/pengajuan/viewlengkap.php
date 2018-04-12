@@ -18,15 +18,33 @@ $this->menu = array(
 //echo CHtml::link('Lanjutkan <i class="fa  fa-arrow-right fa-lg"></i>', array('pengajuan/update', 'IDPengajuan' => $IDPengajuan, 'IDJenisSidang' => $IDJenisSidang), array('class' => 'btn btn-primary pull-left'));
 ?>
 
-<div class="main-box clearfix">
-    <div class="row-fluid">
-        <div class="span12">
-            <?php
-            $this->beginWidget('zii.widgets.CPortlet', array(
-                'title' => "Data Pengajuan Proposal",
-            ));
-            ?>
-            <?php
+<div>
+    <?php
+    if (Yii::app()->user->getLevel() == 1) {
+        $this->renderPartial('_search', array(
+            'model' => $model,
+        ));
+    }
+    ?>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-bars"></i> Pengajuan Proposal</h2> 
+                <?php
+                if (Yii::app()->user->getLevel() == 1) {
+                    echo "<div class=\"filter-block pull-right\">";
+                    echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>";
+                    echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left'));
+                    echo "</div>";
+                }
+                ?>
+
+            </header>
+            <div class="main-box-body clearfix">  
+                <div class="table-responsive">
+                    <?php
             $this->widget('zii.widgets.grid.CGridView', array(
                 'id' => 'news-grid',
                 'itemsCssClass' => 'table table-hover',
@@ -63,13 +81,13 @@ $this->menu = array(
                         'type' => 'raw',
                         'header' => 'Status',
                         'htmlOptions' => array('width' => '10%'),
-                        'value' => '$data["statusProposal"]',
+                        'value' => '$data["nstatusProposal"]',
                     ),
                     array(
                         'type' => 'raw',
                         'header' => 'Keterangan',
                         'htmlOptions' => array('width' => '10%'),
-                        'value' => '$data["keterangan"]==null ? "-" : $data["statusProposal"]',
+                        'value' => '$data["keterangan"]==null ? "-" : $data["nstatusProposal"]',
                     ),
                     array(
                         'type' => 'raw',
@@ -80,8 +98,8 @@ $this->menu = array(
                 ),
             ));
             ?>
-            <?php $this->endWidget(); ?>
-
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</div>   

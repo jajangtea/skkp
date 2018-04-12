@@ -30,7 +30,7 @@ class NilaikpController extends Controller {
                 'expression' => '$user->getLevel()==1', //admin
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index'),
+                'actions' => array('index','nilaiperusahaan','view_nilaiperusahaan'),
                 'expression' => '$user->getLevel()==2', //mahasiswa
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
@@ -44,10 +44,7 @@ class NilaikpController extends Controller {
         );
     }
 
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
+
     public function actionView($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -59,6 +56,21 @@ class NilaikpController extends Controller {
             $this->layout = 'mainHome';
         }
         $this->render('view', array(
+            'model' => $this->loadModel($NIM),
+        ));
+    }
+    
+    public function actionView_nilaiperusahaan($NIM) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $this->render('view_nilaiperusahaan', array(
             'model' => $this->loadModel($NIM),
         ));
     }
@@ -88,6 +100,27 @@ class NilaikpController extends Controller {
         }
 
         $this->render('create', array(
+            'model' => $model,
+        ));
+    }
+    
+    public function actionNilaiperusahaan($NIM) {
+         
+        if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } 
+      
+        $model = $this->loadModelNIM($NIM);
+        $model->NIM = $NIM;
+        if (isset($_POST['Nilaikp'])) {
+            $model->attributes = $_POST['Nilaikp'];
+            if ($model->save())
+            {
+               $this->loadReset($NIM);
+               $this->redirect(array('view_nilaiperusahaan', 'NIM' => $model->NIM));
+            }
+        }
+        $this->render('nperusahaan', array(
             'model' => $model,
         ));
     }

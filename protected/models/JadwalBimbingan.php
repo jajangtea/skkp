@@ -19,7 +19,7 @@ class JadwalBimbingan extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'prd_jadwalBimbingan';
+		return 'prd_jadwalbimbingan';
 	}
 
 	/**

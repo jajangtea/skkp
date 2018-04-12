@@ -15,13 +15,18 @@ $this->menu = array(
 );
 ?>
 
-<h3>Tampil Pembimbing #<?php echo $model->idDosen0->username; ?></h3>
+<h3>Tampil Pembimbing # <?php echo $model->idDosen0->username; ?></h3>
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
-        'idDosen0.username',
+        array(
+                            'name' => 'Pembimbing',
+                            'type' => 'raw',
+                            'value' => $model->idDosen0->username,
+                            'htmlOptions' => array('width' => '5%'),
+                        ),
         'idPengajuan0.NIM',
         'idPengajuan0.nIM.Nama',
         'idPengajuan0.Judul'

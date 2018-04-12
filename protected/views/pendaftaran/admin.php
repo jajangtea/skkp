@@ -6,11 +6,9 @@ $this->breadcrumbs = array(
     'Pendaftaran' => array('index'),
     'Manage',
 );
-
-
 ?>
 
-<?php //echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
+<?php //echo CHtml::link('Advanced Search', '#', array('class' => 'search-button'));  ?>
 
 <div>
     <?php
@@ -30,12 +28,87 @@ $this->menu = array(
 
 <!-- search-form -->
 <hr/>
+<?php
+if (Yii::app()->user->getLevel() == 2) {
+    echo "<div class=\"admin-form\">";
+    echo "<div class=\"row\">";
+    echo "<div class=\"col-lg-12\">";
+    echo "<div class=\"main-box clearfix\">";
+    echo "<header class=\"main-box-header clearfix\">";
+    echo "<h2 class=\"pull-left\"><i class=\"fa fa-bars\"></i> Data Pendaftaran Proposal</h2>";
+    echo "</header>";
+    echo "<div class=\"main-box-body clearfix\">";
+    echo "<div class=\"table-responsive\">";
+
+    $dataProviderUpload = Pendaftaran::model()->tampilStatusPengajuan(Yii::app()->user->name);
+    $this->widget('zii.widgets.grid.CGridView', array(
+        'id' => 'news-grid',
+        'itemsCssClass' => 'table table-hover',
+        'dataProvider' => $dataProviderUpload,
+        //'template'=>"{items}",
+        'columns' => array(
+            array(
+                'header' => "No",
+                'value' => '($this->grid->dataProvider->pagination->currentPage*
+                                       $this->grid->dataProvider->pagination->pageSize
+                                      )+
+                                      array_search($data,$this->grid->dataProvider->getData())+1',
+                'htmlOptions' => array('width' => '1%'),
+            ),
+            array(
+                'type' => 'raw',
+                'header' => 'Tanggal Daftar',
+                'htmlOptions' => array('width' => '3%'),
+                'value' => '$data["TanggalDaftar"]',
+            ),
+            array(
+                'type' => 'raw',
+                'header' => 'Proposal',
+                'htmlOptions' => array('width' => '8%'),
+                'value' => '$data["NamaSidang"]',
+            ),
+            array(
+                'type' => 'raw',
+                'header' => 'Judul',
+                'htmlOptions' => array('width' => '30%'),
+                'value' => '$data["Judul"]',
+            ),
+            array(
+                'type' => 'raw',
+                'header' => 'Status',
+                'htmlOptions' => array('width' => '10%'),
+                'value' => '$data["nstatusProposal"]',
+            ),
+            array(
+                'type' => 'raw',
+                'header' => 'Keterangan',
+                'htmlOptions' => array('width' => '10%'),
+                'value' => '$data["keterangan"]==null ? "-" : $data["keterangan"]',
+            ),
+            array(
+                'type' => 'raw',
+                // 'header' => 'Aksi',
+                'htmlOptions' => array('width' => '10%'),
+                'value' => 'Chtml::link("<span class=\"badge badge-info\">Lihat</span>",array("pengajuan/view","IDPengajuan"=>$data["IDPengajuan"],"IDJenisSidang"=>$data["IDJenisSidang"]))." | ".Chtml::link("<span class=\"badge badge-important\">Hapus</span>",array("pengajuan/delete","IDPengajuan"=>$data["IDPengajuan"]))',
+            ),
+        ),
+    ));
+
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+}
+?>
+
 <div class="admin-form">
     <div class="row">
         <div class="col-lg-12">
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
-                    <h2 class="pull-left"><i class="fa fa-bars"></i> Data Pendaftaran</h2> 
+                    <h2 class="pull-left"><i class="fa fa-bars"></i> Data Pendaftaran Sidang</h2> 
                     <?php
                     if (Yii::app()->user->getLevel() == 1) {
                         echo "<div class=\"filter-block pull-right\">";
@@ -64,13 +137,6 @@ $this->menu = array(
                                       )+
                                       array_search($data,$this->grid->dataProvider->getData())+1',
                                 ),
-//                            array(
-//                                'name' => 'idPendaftaran',
-//                                'header' => 'Qrcode',
-//                                'type' => 'raw',
-//                                'value' => 'CHtml::image(Yii::app()->baseUrl . \'/images/qrcode/\' . $data->idPendaftaran . \'.jpg\' ,\'\')',
-//                                'htmlOptions' => array('width' => '5%'),
-//                            ),
                                 array(
                                     'name' => 'Tanggal',
                                     'type' => 'raw',
@@ -100,13 +166,6 @@ $this->menu = array(
                                     'value' => 'CHtml::encode($data->kodePembimbing1->KodeDosen)',
                                     'htmlOptions' => array('width' => '40px'),
                                 ),
-//                            array(
-//                                'name' => 'KodePembimbing1',
-//                                'type' => 'raw',
-//                                'header' => 'Nama Dosen',
-//                                'value' => 'CHtml::encode($data->kodePembimbing1->NamaDosen)',
-//                                'htmlOptions' => array('width' => '160px'),
-//                            ),
                                 array(
                                     'name' => 'KodePembimbing2',
                                     'type' => 'raw',
@@ -114,13 +173,6 @@ $this->menu = array(
                                     'value' => 'CHtml::encode($data->kodePembimbing2->KodeDosen)',
                                     'htmlOptions' => array('width' => '40px'),
                                 ),
-//                            array(
-//                                'name' => 'KodePembimbing1',
-//                                'type' => 'raw',
-//                                'header' => 'Nama Dosen',
-//                                'value' => 'CHtml::encode($data->kodePembimbing2->NamaDosen)',
-//                                'htmlOptions' => array('width' => '160px'),
-//                            ),
                                 array(
                                     'name' => 'Judul',
                                     'type' => 'raw',
@@ -140,20 +192,19 @@ $this->menu = array(
                                     'template' => '{upload}{penguji}{delete}',
                                     'htmlOptions' => array('width' => '', 'style' => 'text-align:center'),
                                     'buttons' => array
-                                    (
-                                        'penguji' => array
                                         (
+                                        'penguji' => array
+                                            (
                                             'label' => 'Penguji KP/Skripsi',
                                             'imageUrl' => Yii::app()->request->baseUrl . '/images/adduser.png',
                                             'url' => '(CHtml::encode($data->idSidang->IDJenisSidang))!="3" ? Yii::app()->createUrl("pengujiskripsi/create", array("id"=>$data->idPendaftaran)) : Yii::app()->createUrl("pengujikp/create", array("id"=>$data->idPendaftaran))',
-                                            'visible'=>'Yii::app()->user->getLevel()==1',
+                                            'visible' => 'Yii::app()->user->getLevel()==1',
                                         ),
                                         'upload' => array
-                                        (
+                                            (
                                             'label' => 'Upload',
                                             'imageUrl' => Yii::app()->request->baseUrl . '/images/folder.png',
                                             'url' => 'Yii::app()->createUrl("pendaftaran/view",array("id"=>$data->idPendaftaran))',
-                                            //'visible'=>'$data->idSidang->IDJenisSidang=="4" ? false : true',
                                         ),
                                     ),
                                 ),

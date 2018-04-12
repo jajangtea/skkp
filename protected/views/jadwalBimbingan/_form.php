@@ -9,12 +9,12 @@ $form = $this->beginWidget('CActiveForm', array(
     'htmlOptions' => array('enctype' => 'multipart/form-data'),
         ));
 ?>
-<?php echo CHtml::form($this->createUrl('upload'), 'post', array('enctype' => 'multipart/form-data')); ?>
 <div class="row">                
     <div class="col-lg-12">
         <br/>
         <div class="main-box">
             <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-plus"></i> Jadwal Bimbingan</h2>
                 <div class="icon-box pull-right">                                       
                     <a class="btn pull-left" href="#">
                         <i class="fa fa-times"></i>
@@ -22,7 +22,7 @@ $form = $this->beginWidget('CActiveForm', array(
                 </div>
             </header> 
             <div class="main-box-body clearfix">
-                <!--<p class="text-info">Kolom dengan tanda <span class="required">*</span> tidak boleh kosong.</p>-->
+                <p class="text-info">Kolom dengan tanda <span class="required">*</span> tidak boleh kosong.</p>
                 <div class="col-lg-6">
                     <div class="form-horizontal">
                         <div class="text-danger">
@@ -30,24 +30,26 @@ $form = $this->beginWidget('CActiveForm', array(
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Judul :</label>
+                            <label class="col-lg-4 control-label">Dosen :</label>
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-                                        <?php
-                                        echo $form->textArea($model, 'Judul', array('rows' => 5, 'style' => 'width:850px','readonly' => true, 'class' => 'form-control')); 
-                                        ?>
+                                         <?php echo $form->dropDownList($model, 'KodeDosen', CHtml::listData(Dosen::model()->findAll("KodeDosen <> '--'"), 'KodeDosen', 'NamaDosen'), array('style' => 'width:60%', 'prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
+                                    </div>
+                                    <div class="col-lg-10">        
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <?php
+                       
+                        ?>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Proposal :</label>
+                            <label class="col-lg-4 control-label">Hari :</label>
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
-                                        <?php echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisProposal(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control','readonly'=>true)); ?>
+                                        <?php echo CHtml::activeDropDownList($model, 'hari', $model->getHari(), array('prompt' => 'Pilih Hari', 'class' => 'form-control', 'style' => 'width:60%')); ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
@@ -55,31 +57,18 @@ $form = $this->beginWidget('CActiveForm', array(
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Status :</label>
+                            <label class="col-lg-4 control-label">Jam :</label>
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-lg-12">   
-                                        <?php echo CHtml::activeDropDownList($model, 'IDstatusProposal', Pengajuan::model()->status(), array('prompt' => 'Pilih Status', 'class' => 'form-control')); ?>
+                                    <div class="col-lg-12">  
+                                         <?php echo $form->textField($model, 'jam', array('size' => 60, 'maxlength' => 200, 'class' => 'form-control', 'style' => 'width:30%')); ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">Keterangan :</label>
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-lg-12">   
-                                        <?php echo $form->textArea($model, 'keterangan', array('rows' => 6, 'style' => 'width:420px', 'class' => 'form-control')); ?>
-
-                                    </div>
-                                    <div class="col-lg-10">        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="form-group">
                             <div class="col-lg-offset-4 col-lg-10">
                                 <?php
@@ -91,8 +80,6 @@ $form = $this->beginWidget('CActiveForm', array(
                                 ?>
                             </div>
                         </div> 
-
-
                     </div>
                 </div>
 
@@ -100,16 +87,6 @@ $form = $this->beginWidget('CActiveForm', array(
         </div>
     </div>
 </div>
+
 <?php $this->endWidget(); ?>
-
-
-
-
-
-
-
-
-
-
-
 

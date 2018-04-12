@@ -6,14 +6,6 @@ $this->breadcrumbs = array(
     'Upload Proposals' => array('index'),
     $model->idUpload,
 );
-
-$this->menu = array(
-    array('label' => 'List UploadProposal', 'url' => array('index')),
-    array('label' => 'Create UploadProposal', 'url' => array('create')),
-    array('label' => 'Update UploadProposal', 'url' => array('update', 'id' => $model->idUpload)),
-    array('label' => 'Delete UploadProposal', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->idUpload), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage UploadProposal', 'url' => array('admin')),
-);
 ?>
 
 <div class="main-box clearfix">
@@ -38,4 +30,35 @@ $this->menu = array(
         ));
         echo CHtml::image(Yii::app()->baseUrl . "/persyaratan/" . $model->namaFile, 'alt', array("width" => "1000px", "height" => "600px"))
         ?>
-    </div></div>
+    </div>
+    <?php
+    $this->widget('zii.widgets.grid.CGridView', array(
+        'id' => 'pembimbing-grid',
+        'itemsCssClass' => 'table table-striped',
+        'dataProvider' => $modelUploadProposal->searchUpload($model->idPengajuan),
+        // 'filter' => $model,
+        'columns' => array(
+            array(
+                'header' => "No",
+                'value' => '($this->grid->dataProvider->pagination->currentPage*
+                                               $this->grid->dataProvider->pagination->pageSize
+                                              )+
+                                              array_search($data,$this->grid->dataProvider->getData())+1',
+                'htmlOptions' => array(
+                    'style' => 'width: 2%; text-align: center;',
+                ),
+            ),
+            array(
+                'name' => 'namaFile',
+                'type' => 'raw',
+                'value' => 'CHtml::link($data->namaFile,"persyaratan/{$data->namaFile}")',
+                'filterHtmlOptions' => array('style' => 'width:40%;')
+            ),
+            'ukuranFIle',
+            array(
+                'class' => 'CButtonColumn',
+            ),
+        ),
+    ));
+    ?>
+</div>

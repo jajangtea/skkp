@@ -249,6 +249,11 @@ class Pendaftaran extends CActiveRecord {
     }
 
     public function getJenisSidangProposal() {
+        return CHtml::listData(Sidangmaster::model()->with('iDJenisSidang')->findAll('iDJenisSidang.IDJenisSidang in(5,6) and status=1'), 'iDJenisSidang.IDJenisSidang', 'iDJenisSidang.NamaSidang');
+        //return CHtml::listData(Jenissidang::model()->findAll('IDJenisSidang in(5,6) and status=1'), 'IDJenisSidang', 'NamaSidang');
+    }
+
+    public function getJenisProposal() {
         return CHtml::listData(Jenissidang::model()->findAll('IDJenisSidang in(5,6)'), 'IDJenisSidang', 'NamaSidang');
     }
 
@@ -408,6 +413,7 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
     }
 
     public function cekPersyaratanProposal($idJenisProposal, $idPengajuan) {
+
         $sqlSyarat = "
             SELECT COUNT(*) AS jml FROM prd_pengajuan pp 
             INNER JOIN prd_jenissidang pj ON pp.idjenissidang=pj.idjenissidang
@@ -416,13 +422,14 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
             LEFT JOIN prd_uploadProposal pu ON (pu.idPersyaratan = pst.idPersyaratan) AND (pu.idPengajuan = pp.idPengajuan) 
             WHERE    pj.idjenissidang =$idJenisProposal and  pp.idPengajuan =$idPengajuan";
         $syarat = Yii::app()->db->createCommand($sqlSyarat)->queryScalar();
+
         $sqlUpload = "
             SELECT COUNT(*) AS Jml 
-            FROM `dbPengajuan`.`prd_uploadProposal` 
-            INNER JOIN `dbPengajuan`.`prd_pengajuan` ON ( `prd_uploadProposal`.`idPengajuan` = `prd_pengajuan`.`IDPengajuan` ) 
-            INNER JOIN `dbPengajuan`.`prd_persyaratan` ON ( `prd_uploadProposal`.`idPersyaratan` = `prd_persyaratan`.`idPersyaratan` ) 
-            INNER JOIN `dbPengajuan`.`prd_jenissidang` ON ( `prd_pengajuan`.`IDJenisSidang` = `prd_jenissidang`.`IDJenisSidang` ) 
-            INNER JOIN `dbPengajuan`.`prd_mahasiswa` ON ( `prd_pengajuan`.`NIM` = `prd_mahasiswa`.`NIM` ) 
+            FROM `prd_uploadProposal` 
+            INNER JOIN `prd_pengajuan` ON ( `prd_uploadProposal`.`idPengajuan` = `prd_pengajuan`.`IDPengajuan` ) 
+            INNER JOIN `prd_persyaratan` ON ( `prd_uploadProposal`.`idPersyaratan` = `prd_persyaratan`.`idPersyaratan` ) 
+            INNER JOIN `prd_jenissidang` ON ( `prd_pengajuan`.`IDJenisSidang` = `prd_jenissidang`.`IDJenisSidang` ) 
+            INNER JOIN `prd_mahasiswa` ON ( `prd_pengajuan`.`NIM` = `prd_mahasiswa`.`NIM` ) 
             WHERE prd_pengajuan.IDJenisSidang=$idJenisProposal and prd_pengajuan.IDPengajuan=$idPengajuan";
         $upload = Yii::app()->db->createCommand($sqlUpload)->queryScalar();
 
@@ -497,16 +504,16 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
     }
 
     public function tampilStatusPengajuan($NIM) {
-        $sqlUpload = " SELECT `prd_pengajuan`.`IDJenisSidang`
+        $sqlUpload = "SELECT `prd_pengajuan`.`IDJenisSidang`
     , `prd_pengajuan`.`IDPengajuan`
     , `prd_pengajuan`.`keterangan`
     , `prd_pengajuan`.`Judul`
     , `prd_pengajuan`.`TanggalDaftar`
-    , `prd_statusproposal`.`statusProposal`
+    , `prd_statusproposal`.`nstatusProposal`
     , `prd_jenissidang`.`NamaSidang`
     FROM `prd_pengajuan`
     INNER JOIN `prd_jenissidang` ON (`prd_pengajuan`.`IDJenisSidang` = `prd_jenissidang`.`IDJenisSidang`)
-    LEFT JOIN `prd_statusproposal` ON (`prd_pengajuan`.`idstatusProposal` = `prd_statusproposal`.`idstatusProposal`)
+    LEFT JOIN `prd_statusproposal` ON (`prd_pengajuan`.`IDstatusProposal` = `prd_statusproposal`.`idstatusProp`)
     where `prd_pengajuan`.`NIM`=$NIM";
 
         $dataProviderUpload = new CSqlDataProvider($sqlUpload, array(

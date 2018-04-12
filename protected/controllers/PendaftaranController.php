@@ -311,7 +311,9 @@ class PendaftaranController extends Controller {
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
 
-
+        
+        
+        
 
         if (isset($_GET['Pendaftaran']))
             $model->attributes = $_GET['Pendaftaran'];

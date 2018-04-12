@@ -106,6 +106,21 @@
                                 <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
                                     <ul class="nav nav-pills nav-stacked">
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
+                                            Pembimbing KP/Skripsi
+                                        </li>
+                                        <li>
+                                            <a href="index.php?r=pembimbing/admin">
+                                                <i class="fa fa-book"></i>
+                                                <span>Pembimbing</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="index.php?r=jadwalBimbingan/admin">
+                                                <i class="fa fa-book"></i>
+                                                <span>Jadwal Bimbingan</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             Penilaian Pembimbing
                                         </li>
 

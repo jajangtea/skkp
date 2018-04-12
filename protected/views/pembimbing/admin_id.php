@@ -1,11 +1,10 @@
 <div>
-    <hr/>
     <?php
-    if (Yii::app()->user->getLevel() == 1) {
-        $this->renderPartial('_search', array(
-            'model' => $model,
-        ));
-    }
+//    if (Yii::app()->user->getLevel() == 1) {
+//        $this->renderPartial('_search', array(
+//            'model' => $model,
+//        ));
+//    }
     ?>
 </div>
 <div class="row">
@@ -29,7 +28,7 @@
                     $this->widget('zii.widgets.grid.CGridView', array(
                         'id' => 'pembimbing-grid',
                         'itemsCssClass' => 'table table-striped',
-                        'dataProvider' => $model->search(),
+                        'dataProvider' => $model->searchid($id),
                         // 'filter' => $model,
                         'columns' => array(
                             array(
@@ -49,7 +48,6 @@
                                 'value' => '$data->idDosen0->username',
                                 'htmlOptions' => array('width' => '40px'),
                             ),
-                            'idPengajuan0.iDJenisSidang.NamaSidang',
                             'idPengajuan0.NIM',
                             'idPengajuan0.nIM.Nama',
                             'idPengajuan0.Judul',
@@ -61,17 +59,16 @@
                                     (
                                     'download' => array
                                         (
-                                        'label' => 'Download ',
+                                        'label' => 'Download |',
                                         // 'imageUrl' => Yii::app()->request->baseUrl . '/images/sync.png',
                                         'url' => ' Yii::app()->createUrl("pembimbing/view", array("id"=>$data["idPembimbing"],"idPengajuan"=>$data["idPengajuan"]))',
                                     //'click' => 'function(){return confirm("Password akan direset menjadi 1234 ?");}',
                                     ),
                                     'ubah' => array
                                         (
-                                        'label' => '| Ubah |',
+                                        'label' => ' Ubah |',
                                         'url' => ' Yii::app()->createUrl("pembimbing/update", array("id"=>$data["idPembimbing"]))',
                                         'click' => 'function(){return confirm("Apakah akan diubah ?");}',
-                                        'visible' => 'Yii::app()->user->getLevel()==1',
                                     ),
                                     'hapus' => array
                                         (
@@ -79,7 +76,6 @@
                                         //  'imageUrl' => Yii::app()->request->baseUrl . '/images/sync.png',
                                         'url' => ' Yii::app()->createUrl("pembimbing/delete", array("id"=>$data["idPembimbing"]))',
                                         'click' => 'function(){return confirm("Apakah akan dihapus ?");}',
-                                        'visible' => 'Yii::app()->user->getLevel()==1',
                                     ),
                                 ),
                             ),

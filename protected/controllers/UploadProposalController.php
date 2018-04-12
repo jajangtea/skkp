@@ -26,7 +26,7 @@ class UploadProposalController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'delete','admin'),
+                'actions' => array('index', 'view', 'delete', 'admin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -48,8 +48,11 @@ class UploadProposalController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $modelUploadProposal = new UploadProposal('search');
+        $modelUploadProposal->unsetAttributes();  // clear any default values
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'modelUploadProposal' => $modelUploadProposal,
         ));
     }
 
@@ -70,7 +73,7 @@ class UploadProposalController extends Controller {
 
                 $model->namaFile = $IDPengajuan . '_' . $model->idPengajuan0->nIM->Nama . '_' . $model->idPersyaratan0->namaPersyaratan . '.' . $sss->extensionName;
                 $model->ukuranFIle = $sss->size . 'kb';
-               // $model->recipe_file_url->getExtensionName()
+                // $model->recipe_file_url->getExtensionName()
             }
 
             if ($model->save()) {
@@ -113,32 +116,22 @@ class UploadProposalController extends Controller {
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionDelete($id, $IDJenisSidang, $idDaftar) {
-
-        $model = $this->loadModel($id);
-
+    public function actionDelete($id) {
 
         // Define image's location
-
         $imageLocation = Yii::app()->basePath . '/../persyaratan/';
 
         $patientInfo = UploadProposal::model()->find("idUpload = " . $id);
         if (!$patientInfo == '') {
             $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pengajuan/view', 'IDPengajuan' => $idDaftar, 'IDJenisSidang' => $IDJenisSidang));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pendaftaran/admin'));
         }
         else {
             if (!empty($patientInfo->namaFile)) {
                 unlink($imageLocation . $patientInfo->namaFile);
             }
             $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pengajuan/view', 'IDPengajuan' => $idDaftar, 'IDJenisSidang' => $IDJenisSidang));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('pendaftaran/admin'));
         }
     }
 

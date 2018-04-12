@@ -37,11 +37,11 @@ class PengajuanController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view'),
+                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view', 'pengajuan'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view'),
+                'actions' => array('create', 'update', 'index', 'view','viewlengkap'),
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -98,13 +98,13 @@ class PengajuanController extends Controller {
             $this->layout = 'mainHome';
         }
         
-        $model = new Pengajuan;
+        $model = new Pengajuan('create');
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         $model->NIM = Yii::app()->user->name;
         $model->TanggalDaftar = date('Y-m-d H:i:s');
-        $model->idstatusProposal=3;
+        $model->IDstatusProposal=3;
         $model->Judul = strtoupper($model->Judul);
         if (isset($_POST['Pengajuan'])) {
             $model->attributes = $_POST['Pengajuan'];
@@ -138,6 +138,7 @@ class PengajuanController extends Controller {
 
         if (isset($_POST['Pengajuan'])) {
             $model->attributes = $_POST['Pengajuan'];
+            $model->Judul = strtoupper($model->Judul);
             if ($model->save())
                 $this->redirect(array('viewlengkap', 'NIM' => $model->NIM));
         }
@@ -161,7 +162,7 @@ class PengajuanController extends Controller {
 
         if (isset($_POST['Pengajuan'])) {
             $model->attributes = $_POST['Pengajuan'];
-            $model->idstatusProposal = $model->idstatusProposal;
+            $model->IDstatusProposal = $model->IDstatusProposal;
             $model->keterangan = strtoupper($model->keterangan);
             if ($model->save())
                 $this->redirect(array('admin'));
@@ -284,6 +285,56 @@ class PengajuanController extends Controller {
                     'htmlOptions' => array('width' => '40px'),
                 ),
                 'keterangan',
+            ),
+        ));
+    }
+    
+      public function actionExport($bulan, $tahun) {
+        $model = new Pendaftaran();
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_POST['Pengajuan']))
+            $model->attributes = $_POST['Pengajuan'];
+
+        $exportType = 'Excel5';
+        $this->widget('ext.heart.export.EHeartExport', array(
+            'title' => 'Data Pengajuan',
+            'dataProvider' => $model->searchaktif($bulan, $tahun),
+            'filter' => $model,
+            'grid_mode' => 'export',
+            'exportType' => $exportType,
+            'columns' => array(
+                'Tanggal',
+                'NIM',
+                array(
+                    'name' => 'NIM',
+                    'type' => 'raw',
+                    'header' => 'Mahasiswa',
+                    'value' => 'CHtml::encode($data->nIM->Nama)',
+                    'htmlOptions' => array('width' => '40px'),
+                ),
+                array(
+                    'name' => 'IdSidang',
+                    'type' => 'raw',
+                    'header' => 'Nama Sidang',
+                    'value' => 'CHtml::encode($data->idSidang->iDJenisSidang->NamaSidang)',
+                    'htmlOptions' => array('width' => ''),
+                ),
+                'KodePembimbing1',
+                'KodePembimbing2',
+                array(
+                    'name' => 'Judul',
+                    'type' => 'raw',
+                    'header' => 'Judul',
+                    'value' => '$data->Judul',
+                    'htmlOptions' => array('width' => '260px'),
+                ),
+                array(
+                    'name' => 'keterangan',
+                    'type' => 'raw',
+                    'header' => 'Keterangan',
+                    'value' => '$data->keterangan',
+                    'htmlOptions' => array('width' => '260px'),
+                ),
             ),
         ));
     }

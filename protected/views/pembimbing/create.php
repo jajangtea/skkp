@@ -13,6 +13,5 @@ $this->menu=array(
 );
 ?>
 
-<h3>Tambah Pembimbing</h3>
-
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('admin_id', array('model'=>$model,'id'=>$id)); ?>

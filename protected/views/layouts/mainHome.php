@@ -142,12 +142,12 @@
                                         }
                                         ?>
                                         
-<!--                                        <li>
+                                        <li>
                                             <a href="index.php?r=pengajuan/create">
                                                 <i class="fa fa-calendar"></i>
                                                 <span>Pengajuan KP/Skripsi</span>
                                             </a>
-                                        </li>   -->
+                                        </li>   
                                         
                                         <li>
                                             <a href="index.php?r=pendaftaran/create">

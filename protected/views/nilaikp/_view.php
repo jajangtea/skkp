@@ -5,8 +5,7 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left"><i class="fa fa-bars"></i> Nilai Kerja Praktek</h2> 
                 <div class="filter-block pull-right">                                                   
-                    <a id="ctl0_maincontent_btnPrintOut" class="btn btn-primary pull-left" title="Print Out Daftar Matkul" href="#"><i class="fa fa-print fa-lg"></i></a> 	
-                    <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left')); ?>
+                    <?php echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i> Nilai Perusahaan', array('nilaikp/nilaiperusahaan','NIM'=>Yii::app()->user->name), array('class' => 'btn btn-primary pull-left','title'=>'Nilai Perusahaan')); ?>
                 </div>
             </header>
             <div class="main-box-body clearfix">  

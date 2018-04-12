@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "prd_statusProposal".
+ * This is the model class for table "prd_statusproposal".
  *
- * The followings are the available columns in table 'prd_statusProposal':
- * @property integer $idstatusProposal
- * @property string $statusProposal
+ * The followings are the available columns in table 'prd_statusproposal':
+ * @property integer $idstatusProp
+ * @property string $nstatusProposal
  *
  * The followings are the available model relations:
  * @property Pengajuan[] $pengajuans
@@ -17,7 +17,7 @@ class StatusProposal extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'prd_statusProposal';
+		return 'prd_statusproposal';
 	}
 
 	/**
@@ -28,10 +28,10 @@ class StatusProposal extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('statusProposal', 'length', 'max'=>250),
+			array('nstatusProposal', 'length', 'max'=>250),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idstatusProposal, statusProposal', 'safe', 'on'=>'search'),
+			array('idstatusProp, nstatusProposal', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +53,8 @@ class StatusProposal extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idstatusProposal' => 'Idstatus Proposal',
-			'statusProposal' => 'Status Proposal',
+			'idstatusProp' => 'Idstatus Prop',
+			'nstatusProposal' => 'Nstatus Proposal',
 		);
 	}
 
@@ -76,8 +76,8 @@ class StatusProposal extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('idstatusProposal',$this->idstatusProposal);
-		$criteria->compare('statusProposal',$this->statusProposal,true);
+		$criteria->compare('idstatusProp',$this->idstatusProp);
+		$criteria->compare('nstatusProposal',$this->nstatusProposal,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -88,7 +88,7 @@ class StatusProposal extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return StatusProposal the static model class
+	 * @return Statusproposal the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
