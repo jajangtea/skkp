@@ -98,7 +98,7 @@ class NilaimasterskripsiController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id,$idPengajuan) {
         
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -119,7 +119,16 @@ class NilaimasterskripsiController extends Controller {
             $model->Index=$nh;
             if ($model->save())
             {
+                if ($model->NPembimbing > 0) {
+                    $command = Yii::app()->db->createCommand();
+                   
+                    $command->update('prd_pembimbing', array(
+                        'status' => 'Tuntas',
+                            ), 'idPengajuan=:idPengajuan', array(':idPengajuan' => $idPengajuan));
+                }
+
                 Nilaimasterskripsi::model()->tuntasorno($model->NIM);
+                
                 $this->redirect(array('view', 'id' => $model->IdNMSkripsi));
             }
                
@@ -270,11 +279,11 @@ class NilaimasterskripsiController extends Controller {
             $this->layout = 'mainHome';
         }
 
-        $dataProviderNilaiPembimbingSkripsi = Nilaikp::model()->tampilNilaiPembimbingSkripsi(1, Yii::app()->user->getUsername());
+        $dataProviderNilaiPembimbingSkripsi = Nilaikp::model()->tampilNilaiPembimbingSkripsi(2, Yii::app()->user->getUsername());
 
         $this->render('adminpembimbingskripsi', array(
             'dataProviderNilaiPembimbingSkripsi' => $dataProviderNilaiPembimbingSkripsi,
-            'IDJenisSidang' => 1,
+            'IDJenisSidang' => 2,
             'KodePembimbing1' => Yii::app()->user->getUsername(),
         ));
     }

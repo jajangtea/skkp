@@ -30,7 +30,7 @@ class PembimbingController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'admin', 'delete', 'getValue'),
+                'actions' => array('create', 'update', 'admin', 'delete', 'getValue','rekap'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -82,6 +82,7 @@ class PembimbingController extends Controller {
 
             $model->attributes = $_POST['Pembimbing'];
             $model->idPengajuan = $id;
+            $model->status="Tidak Tuntas";
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->idPembimbing, 'idPengajuan' => $id));
         }
@@ -192,6 +193,27 @@ class PembimbingController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+    public function actionRekap(){
+        
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $model = new Pembimbing('carirekap');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Pembimbing']))
+            $model->attributes = $_GET['Pembimbing'];
+
+        $this->render('rekap', array(
+            'model' => $model,
+        ));
     }
 
 }

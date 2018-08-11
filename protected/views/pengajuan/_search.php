@@ -62,34 +62,34 @@
                 echo "</div>";
                 ?>
 
-<!--                <div class="form-group">
+                <div class="form-group">
                     <label class="col-lg-2 control-label">Periode [Bulan] :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php //echo CHtml::activeDropDownList($model, 'bulan', $model->getBulan(), array('prompt' => 'Pilih Bulan', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'bulan', Pendaftaran::model()->getBulan(), array('prompt' => 'Pilih Bulan', 'class' => 'form-control', 'style' => 'width:30%')); ?>
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
 
-<!--                <div class="form-group">
+                <div class="form-group">
                     <label class="col-lg-2 control-label">Periode [Tahun] :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php // echo CHtml::activeDropDownList($model, 'tahun', $model->getTahun(), array('prompt' => 'Pilih Tahun', 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'tahun', Pendaftaran::model()->getTahun(), array('prompt' => 'Pilih Tahun', 'class' => 'form-control', 'style' => 'width:30%')); ?>
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
 
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Jenis Sidang :</label>
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-10">        
-                                <?php echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisProposal(), array('prompt' => 'Pilih Proposal', 'class' => 'form-control','style'=>'width:40%')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'IDJenisSidang', Pendaftaran::model()->getJenisProposal(), array('prompt' => 'Pilih Proposal', 'class' => 'form-control', 'style' => 'width:40%')); ?>
                             </div>
                         </div>
                     </div>

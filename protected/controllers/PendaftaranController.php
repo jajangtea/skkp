@@ -5,6 +5,8 @@ class PendaftaranController extends Controller {
     private static $_isInitialized = false;
     private static $libPathPHPExcel = 'ext.heart.vendors.phpexcel.Classes.PHPExcel'; //the path to the PHP excel lib
     private static $libPathPDF = 'ext.heart.vendors.tcpdf.tcpdf'; //the path to the TCPDFlib
+    public $jenis, $namaSidang;
+
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -17,7 +19,8 @@ class PendaftaranController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-                // 'postOnly + delete', // we only allow deletion via POST request
+            // 'postOnly + delete', // we only allow deletion via POST request
+            'ajaxOnly + judul',
         );
     }
 
@@ -29,11 +32,11 @@ class PendaftaranController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view'),
+                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view', 'judul'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete'),
+                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete', 'judul'),
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -118,18 +121,29 @@ class PendaftaranController extends Controller {
         if (isset($_POST['Pendaftaran'])) {
             $model->attributes = $_POST['Pendaftaran'];
             $valid = $model->validate();
+            $criteria = new CDbCriteria();
+
+            //$dataPembimbing = Pembimbing::model()->with('idPengajuan0')->with('idDosen0')->findAll('idPengajuan0.idPengajuan=:idPengajuan', array(':idPengajuan' => $model->idPengajuan));
+            $sql = "select * from prd_pembimbing pp inner join prd_pengajuan pj on pp.idPengajuan=pj.idPengajuan inner join prd_user pu on pp.idDosen=pu.id where pj.idPengajuan=$model->idPengajuan";
+
+            $cmd = Yii::app()->db->createCommand($sql)->queryAll();
+
+            foreach ($cmd as $dt) {
+                $model->KodePembimbing1 = $dt['username'];
+                $model->Judul = $dt['Judul'];
+            }
 
             if ($valid) {
 
                 if (Yii::app()->user->getLevel() == 1) {
                     $this->layout = 'main';
-                    $model->NIM = $model->NIM;
-                    $model->Judul = strtoupper($model->Judul);
+                    $model->NIM = Yii::app()->user->getUsername();
+                    // $model->Judul = strtoupper($model->Judul);
                     $model->Tanggal = date('Y-m-d H:i:s');
                 } else {
                     $this->layout = 'mainHome';
                     $model->NIM = Yii::app()->user->getUsername();
-                    $model->Judul = strtoupper($model->Judul);
+                    // $model->Judul = strtoupper($model->Judul);
                     $model->Tanggal = date('Y-m-d H:i:s');
 
                     // $model->idPendaftaran=$this->buatBarcode($model->idPendaftaran);
@@ -146,18 +160,21 @@ class PendaftaranController extends Controller {
                 $jmlKompre = Pendaftaran::model()->cekKompre($model->NIM);
                 $jmlBarisNilai = Pendaftaran::model()->cekNilaiMaster($model->NIM);
                 $tes = $model->idSidang->IDJenisSidang;
+
                 if ($tes == 4) {//cek kompre
                     if ($jmlKompre > 0) {
                         $session = new CHttpSession;
                         $session->open();
                         $session['cekpendaftaranKompre'] = "Tidak boleh melakukan pendaftaran kompre lebih dari sekali.";
                     } else {
-                        $model->Judul = strtoupper($model->Judul);
+                        $model->idPengajuan = $model->idPengajuan;
+                        $model->KodePembimbing1 = $model->KodePembimbing1;
                         if ($model->save()) {
                             if ($jmlBarisNilai == 0) {
                                 $commandNilaiMaster = Yii::app()->db->createCommand();
                                 $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
-                                    'NIM' => $model->NIM));
+                                    'NIM' => $model->NIM
+                                ));
                             }
                         }
                         $this->redirect(array('view', 'id' => $model->idPendaftaran));
@@ -168,7 +185,8 @@ class PendaftaranController extends Controller {
                         $session->open();
                         $session['cekpendaftaran'] = "Tidak boleh melakukan pendaftaran sidang lebih dari sekali.";  // set session variable 'name3'
                     } else {
-                        $model->Judul = strtoupper($model->Judul);
+                        $model->idPengajuan = $model->idPengajuan;
+                        $model->KodePembimbing1 = $model->KodePembimbing1;
                         if ($model->save()) {
                             if ($tes == 1) {
                                 $command = Yii::app()->db->createCommand();
@@ -177,7 +195,10 @@ class PendaftaranController extends Controller {
                                 if ($jmlBarisNilai == 0) {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
-                                        'NIM' => $model->NIM));
+                                        'NIM' => Yii::app()->user->getUsername(),
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan,
+                                    ));
                                 }
                             } else if ($tes == 2) {
                                 $command = Yii::app()->db->createCommand();
@@ -186,11 +207,14 @@ class PendaftaranController extends Controller {
                                 if ($jmlBarisNilai == 0) {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
-                                        'NIM' => $model->NIM));
+                                        'NIM' => Yii::app()->user->getUsername(),
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan
+                                    ));
                                 } else {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->update('prd_nilaimasterskripsi', array(
-                                        'idPendaftaran' => $model->idPendaftaran), 'NIM=:NIM', array(':NIM' => $model->NIM));
+                                        'idPendaftaran' => $model->idPendaftaran), 'NIM=:NIM', array(':NIM' => Yii::app()->user->getUsername()));
                                 }
                             }
                         }
@@ -202,12 +226,15 @@ class PendaftaranController extends Controller {
                         $session->open();
                         $session['cekpendaftaran'] = "Tidak boleh melakukan pendaftaran sidang lebih dari sekali.";  // set session variable 'name3'
                     } else {
-                        $model->Judul = strtoupper($model->Judul);
+                        $model->idPengajuan = $model->idPengajuan;
+                        $model->KodePembimbing1 = $model->KodePembimbing1;
                         if ($model->save()) {
                             $command = Yii::app()->db->createCommand();
                             $command->insert('prd_nilaikp', array(
-                                'NIM' => $model->NIM,
-                                'idPendaftaran' => $model->idPendaftaran));
+                                'NIM' => Yii::app()->user->getUsername(),
+                                'idPendaftaran' => $model->idPendaftaran,
+                                'idPengajuan' => $model->idPengajuan
+                            ));
                         }
                         $this->redirect(array('view', 'id' => $model->idPendaftaran));
                     }
@@ -311,9 +338,9 @@ class PendaftaranController extends Controller {
         $model = new Pendaftaran('search');
         $model->unsetAttributes();  // clear any default values
 
-        
-        
-        
+
+
+
 
         if (isset($_GET['Pendaftaran']))
             $model->attributes = $_GET['Pendaftaran'];
@@ -690,7 +717,27 @@ class PendaftaranController extends Controller {
         $mpdf->Output('Target_SKP_' . 'hello' . '.pdf', 'I');
         exit();
     }
+    
+    public function getKode(){
+        return $this->Judul."".$this->NIM;
+    }
 
-  
+    public function actionJudul() {
+        $data = Sidangmaster::model()->findAll('IdSidang=:IdSidang', array(':IdSidang' => (int) $_POST['Pendaftaran']['IdSidang']));
+        foreach ($data as $value) {
+            $this->jenis = $value['IDJenisSidang'];
+        }
+        if($this->jenis ==3){
+            $this->jenis=5;
+        }else{
+            $this->jenis=6;
+        }
+        $dataPengajuan = Pengajuan::model()->findAll('NIM=:NIM and IDJenisSidang=:IDJenisSidang', array(':NIM' => Yii::app()->user->getUsername(),':IDJenisSidang'=> $this->jenis));
+        $dataPengajuanList = CHtml::listData($dataPengajuan, 'IDPengajuan', 'Judul');
+        echo "<option value=''>Pilih Judul</option>";
+        foreach ($dataPengajuanList as $val => $Judul) {
+            echo CHtml::tag('option', array('value' => $val), CHtml::encode($Judul), true);
+        }
+    }
 
 }

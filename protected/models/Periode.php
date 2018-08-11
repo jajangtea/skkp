@@ -82,7 +82,7 @@ class Periode extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->order = 'tglPeriode DESC';
         $criteria->compare('idPeriode', $this->idPeriode);
         $criteria->compare('tgl', $this->tgl, true);
         $criteria->compare('bulan', $this->bulan, true);
@@ -93,6 +93,7 @@ class Periode extends CActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+           
         ));
     }
 

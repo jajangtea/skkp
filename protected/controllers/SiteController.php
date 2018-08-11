@@ -202,5 +202,9 @@ class SiteController extends Controller {
             Yii::app()->end();
         }
     }
+    
+     public function actionJq() {
+        $this->render('latihan');
+    }
 
 }

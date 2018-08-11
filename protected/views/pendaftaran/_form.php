@@ -31,15 +31,15 @@ $form = $this->beginWidget('CActiveForm', array(
             </header> 
             <div class="main-box-body clearfix">
                 <p class="text-info">Kolom dengan tanda <span class="required">*</span> tidak boleh kosong.</p>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="form-horizontal">
                         <div class="text-danger">
                             <?php echo $form->errorSummary($model); ?>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Nomor Pendaftaran :</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-1 control-label">Nomor :</label>
+                            <div class="col-lg-2">
                                 <div class="row">
                                     <div class="col-lg-12">   
                                         <?php
@@ -101,56 +101,46 @@ $form = $this->beginWidget('CActiveForm', array(
                         }
                         ?>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Pilih Sidang :</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-1 control-label">Pilih :</label>
+                            <div class="col-lg-4">
                                 <div class="row">
                                     <div class="col-lg-12">   
-                                        <?php echo CHtml::activeDropDownList($model, 'IdSidang', $model->getNamaSidang(), array('prompt' => 'Pilih Sidang', 'class' => 'form-control')); ?>
+                                        <?php
+                                        echo CHtml::activeDropDownList($model, 'IdSidang', $model->getNamaSidang(), array(
+                                            'ajax' => array(
+                                                'type' => 'POST',
+                                                'url' => CController::createUrl('pendaftaran/judul'),
+                                                'update' => '#' . CHtml::activeId($model, 'idPengajuan'),
+                                            ),
+                                            'prompt' => 'Pilih Sidang',
+                                            'class' => 'form-control'
+                                        ));
+                                        ?>
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Pembimbing1 :</label>
-                            <div class="col-lg-8">
+                            <label class="col-lg-1 control-label">Judul :</label>
+                            <div class="col-lg-10">
                                 <div class="row">
                                     <div class="col-lg-12">  
-                                        <?php echo CHtml::activeDropDownList($model, 'KodePembimbing1', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
+                                        <?php // CHtml::activeDropDownList($model, 'idPengajuan', '', array('prompt' => 'Judul KP/Skripsi', 'class' => 'form-control')); ?>
+                                        <?php echo CHtml::activeDropDownList($model, 'idPengajuan', Pendaftaran::model()->getPengajuan(), array('prompt' => 'Pilih Pengajuan', 'class' => 'form-control','style'=>'width:80%')); ?>
+                                            <?php //echo CHtml::dropDownList('idPengajuan','', array());?> 
                                     </div>
                                     <div class="col-lg-10">        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">Pembimbing2 :</label>
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-lg-12">   
-                                        <?php echo CHtml::activeDropDownList($model, 'KodePembimbing2', $model->getPembimbing(), array('prompt' => 'Pilih Pembimbing', 'class' => 'form-control')); ?>
-                                    </div>
-                                    <div class="col-lg-10">        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">Judul :</label>
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-lg-12">   
-                                        <?php echo $form->textArea($model, 'Judul', array('rows' => 6, 'style' => 'width:420px', 'class' => 'form-control')); ?>
 
-                                    </div>
-                                    <div class="col-lg-10">        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="form-group">
-                            <div class="col-lg-offset-4 col-lg-10">
+                            <div class="col-lg-offset-1 col-lg-10">
                                 <?php
                                 if ($model->isNewRecord) {
                                     echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-save"></i> Daftar');

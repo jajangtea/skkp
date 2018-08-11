@@ -17,7 +17,7 @@
                 if (Yii::app()->user->getLevel() == 1) {
                     echo "<div class=\"filter-block pull-right\">";
                     echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>";
-                    echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left'));
+                    echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('pengajuan/admin'), array('class' => 'btn btn-primary pull-left','title'=>'Tambah Pembimbing'));
                     echo "</div>";
                 }
                 ?>

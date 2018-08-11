@@ -7,6 +7,7 @@ class PengajuanController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
+    public $idp;
 
     /**
      * @return array action filters
@@ -33,19 +34,18 @@ class PengajuanController extends Controller {
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
      */
-    
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view', 'pengajuan'),
+                'actions' => array('bukti', 'target', 'pdf', 'createpdf', 'index', 'view', 'export'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view','viewlengkap'),
+                'actions' => array('create', 'update', 'index', 'view', 'viewlengkap'),
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                  'actions' => array('create', 'update','admin', 'viewlengkap', 'delete', 'suggestPengajuan', 'verifikasi', 'laporanMahasiswa'),
+                'actions' => array('create', 'update', 'admin', 'viewlengkap', 'delete', 'suggestPengajuan', 'verifikasi', 'laporanMahasiswa'),
                 'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
@@ -53,7 +53,7 @@ class PengajuanController extends Controller {
             ),
         );
     }
-    
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -64,7 +64,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $dataProviderUpload = Pendaftaran::model()->tampilUploadPengajuan($IDPengajuan, $IDJenisSidang);
         $this->render('view', array(
             'dataProviderUpload' => $dataProviderUpload,
@@ -79,7 +79,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $dataProviderUpload = Pendaftaran::model()->tampilStatusPengajuan($NIM);
         $this->render('viewlengkap', array(
             'dataProviderUpload' => $dataProviderUpload,
@@ -97,17 +97,22 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
         $model = new Pengajuan('create');
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         $model->NIM = Yii::app()->user->name;
         $model->TanggalDaftar = date('Y-m-d H:i:s');
-        $model->IDstatusProposal=3;
+        $model->IDstatusProposal = 3;
         $model->Judul = strtoupper($model->Judul);
+
         if (isset($_POST['Pengajuan'])) {
+            $idperiode = Yii::app()->db->createCommand('SELECT * FROM prd_sidangmaster where status=1')->queryAll();
+            // print_r($idperiode);
+            // exit();
+
+            foreach ($idperiode as $row) {
+                $idp = $row['idPeriode']; //instead of $row['column1']
+            }
             $model->attributes = $_POST['Pengajuan'];
+            $model->idPeriode = $idp;
             if ($model->save())
                 $this->redirect(array('view', 'IDPengajuan' => $model->IDPengajuan, 'IDJenisSidang' => $model->IDJenisSidang));
         }
@@ -131,7 +136,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $model = $this->loadModel($IDPengajuan);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -157,7 +162,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $model = $this->loadModel($id);
 
         if (isset($_POST['Pengajuan'])) {
@@ -167,7 +172,7 @@ class PengajuanController extends Controller {
             if ($model->save())
                 $this->redirect(array('admin'));
         }
-        
+
         $this->render('updatever', array(
             'model' => $model,
         ));
@@ -197,7 +202,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $dataProvider = new CActiveDataProvider('Pengajuan');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -213,7 +218,7 @@ class PengajuanController extends Controller {
         } else {
             $this->layout = 'mainHome';
         }
-        
+
         $model = new Pengajuan('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Pengajuan']))
@@ -288,9 +293,9 @@ class PengajuanController extends Controller {
             ),
         ));
     }
-    
-      public function actionExport($bulan, $tahun) {
-        $model = new Pendaftaran();
+
+    public function actionExport($bulan, $tahun) {
+        $model = new Pengajuan();
         $model->unsetAttributes();  // clear any default values
         if (isset($_POST['Pengajuan']))
             $model->attributes = $_POST['Pengajuan'];
@@ -298,12 +303,12 @@ class PengajuanController extends Controller {
         $exportType = 'Excel5';
         $this->widget('ext.heart.export.EHeartExport', array(
             'title' => 'Data Pengajuan',
-            'dataProvider' => $model->searchaktif($bulan, $tahun),
+            'dataProvider' => $model->searcproposal($bulan, $tahun),
             'filter' => $model,
             'grid_mode' => 'export',
             'exportType' => $exportType,
             'columns' => array(
-                'Tanggal',
+                'TanggalDaftar',
                 'NIM',
                 array(
                     'name' => 'NIM',
@@ -313,14 +318,12 @@ class PengajuanController extends Controller {
                     'htmlOptions' => array('width' => '40px'),
                 ),
                 array(
-                    'name' => 'IdSidang',
+                    'name' => 'IdPengajuan',
                     'type' => 'raw',
                     'header' => 'Nama Sidang',
-                    'value' => 'CHtml::encode($data->idSidang->iDJenisSidang->NamaSidang)',
+                    'value' => 'CHtml::encode($data->iDJenisSidang->NamaSidang)',
                     'htmlOptions' => array('width' => ''),
                 ),
-                'KodePembimbing1',
-                'KodePembimbing2',
                 array(
                     'name' => 'Judul',
                     'type' => 'raw',

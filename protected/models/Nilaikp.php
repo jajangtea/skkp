@@ -32,7 +32,7 @@ class Nilaikp extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('NIM,NilaiPerusahaan,NilaiPenguji,NilaiPembimbing', 'required'),
+            array('NIM,NilaiPerusahaan,NilaiPenguji,idPengajuan,NilaiPembimbing', 'required'),
             array('NIM', 'numerical', 'integerOnly' => true),
             array('NilaiPembimbing, NilaiPenguji, NilaiPerusahaan, NA', 'numerical'),
             array('Index', 'length', 'max' => 2),
@@ -182,7 +182,8 @@ class Nilaikp extends CActiveRecord {
         prd_nilaikp.NilaiPenguji,
         prd_nilaikp.NilaiPerusahaan,
         prd_nilaikp.NA,
-        prd_nilaikp.Index
+        prd_nilaikp.Index,
+        prd_nilaikp.idPengajuan
         FROM sttitpi_skkp.prd_sidangmaster
         INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
         INNER JOIN sttitpi_skkp.prd_pendaftaran ON ( prd_pendaftaran.IdSidang = prd_sidangmaster.IdSidang)
@@ -207,7 +208,7 @@ class Nilaikp extends CActiveRecord {
             'keyField' => 'NIM',
             'totalItemCount' => $count,
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => 100,
             ),
         ));
 
@@ -232,8 +233,8 @@ class Nilaikp extends CActiveRecord {
         prd_sidangmaster.Tanggal,
         prd_sidangmaster.IDJenisSidang,
         prd_nilaimasterskripsi.NPembimbing,
-        prd_nilaimasterskripsi.IdNMSkripsi
-        
+        prd_nilaimasterskripsi.IdNMSkripsi,
+        prd_nilaimasterskripsi.idPengajuan
         
         FROM sttitpi_skkp.prd_sidangmaster
         INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
@@ -243,7 +244,6 @@ class Nilaikp extends CActiveRecord {
         LEFT JOIN sttitpi_skkp.prd_nilaimasterskripsi ON (prd_nilaimasterskripsi.NIM = prd_pendaftaran.NIM)
         WHERE prd_sidangmaster.IDJenisSidang = '$IDJenisSidang' AND prd_pendaftaran.KodePembimbing1 = '$KodePembimbing1'
         ORDER BY prd_sidangmaster.Tanggal DESC";
-        
         $sqlCount = "SELECT COUNT(*)
         FROM sttitpi_skkp.prd_sidangmaster
         INNER JOIN sttitpi_skkp.prd_jenissidang ON ( prd_sidangmaster.IDJenisSidang = prd_jenissidang.IDJenisSidang)
@@ -259,7 +259,7 @@ class Nilaikp extends CActiveRecord {
             'keyField' => 'NIM',
             'totalItemCount' => $count,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 100,
             ),
         ));
 

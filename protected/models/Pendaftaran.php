@@ -17,6 +17,7 @@
  * @property Nilaimasterskripsi[] $nilaimasterskripsis
  * @property Mahasiswa $nIM
  * @property Sidangmaster $idSidang
+ * @property Sidangmaster $idPengajuan
  * @property Dosen $kodePembimbing1
  * @property Dosen $kodePembimbing2
  * @property Sidangdetil[] $sidangdetils
@@ -39,14 +40,10 @@ class Pendaftaran extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('NIM,idPendaftaran, IdSidang,IDJenisSidang', 'numerical', 'integerOnly' => true),
+            array('NIM,idPendaftaran, IdSidang,IDJenisSidang, idPengajuan', 'numerical', 'integerOnly' => true),
             array('IdSidang', 'required', 'message' => 'Sidang harus dipilih.'),
-            array('KodePembimbing1', 'required', 'message' => 'Pembimbing 1 tidak boleh kosong.'),
-            array('KodePembimbing2', 'required', 'message' => 'Pembimbing 2 tidak boleh kosong/Pilih "Tidak Ada" jika hanya 1 Pembimbing.'),
-            array('Judul', 'required', 'message' => 'Judul tidak boleh kosong.'),
-            array('KodePembimbing1, KodePembimbing2', 'length', 'max' => 3),
-            array('Tanggal, Judul', 'safe'),
-            array('idPendaftaran, Tanggal, NIM, IdSidang,status,bulan,tahun, KodePembimbing1, KodePembimbing2, Judul', 'safe', 'on' => 'search'),
+            array('Tanggal, Judul, KodePembimbing1', 'safe'),
+            array('idPendaftaran, Tanggal, NIM, IdSidang,status,bulan,tahun,Judul', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,6 +83,7 @@ class Pendaftaran extends CActiveRecord {
             'KodePembimbing1' => 'Kode Pembimbing1',
             'KodePembimbing2' => 'Kode Pembimbing2',
             'Judul' => 'Judul',
+            'idPengajuan'=>'idPengajuan'
         );
     }
 
@@ -184,7 +182,6 @@ class Pendaftaran extends CActiveRecord {
         $criteria->compare('NIM', $this->NIM);
         $criteria->compare('js.IDJenisSidang', $this->IDJenisSidang);
         $criteria->compare('KodePembimbing1', $this->KodePembimbing1, true);
-        $criteria->compare('KodePembimbing2', $this->KodePembimbing2, true);
         // $criteria->compare('IdSidang', $this->IdSidang, true);
         $criteria->compare('Judul', $this->Judul, true);
 
@@ -511,9 +508,12 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
     , `prd_pengajuan`.`TanggalDaftar`
     , `prd_statusproposal`.`nstatusProposal`
     , `prd_jenissidang`.`NamaSidang`
+    , `prd_dosen`.`NamaDosen`
     FROM `prd_pengajuan`
     INNER JOIN `prd_jenissidang` ON (`prd_pengajuan`.`IDJenisSidang` = `prd_jenissidang`.`IDJenisSidang`)
     LEFT JOIN `prd_statusproposal` ON (`prd_pengajuan`.`IDstatusProposal` = `prd_statusproposal`.`idstatusProp`)
+    LEFT JOIN `prd_pembimbing` ON (`prd_pengajuan`.`IDPengajuan` = `prd_pembimbing`.`idPengajuan`)
+    LEFT JOIN `prd_dosen` ON (`prd_pembimbing`.`idDosen` = `prd_dosen`.`IdUser`)
     where `prd_pengajuan`.`NIM`=$NIM";
 
         $dataProviderUpload = new CSqlDataProvider($sqlUpload, array(
@@ -524,6 +524,11 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
         ));
 
         return $dataProviderUpload;
+    }
+    public function getPengajuan() {
+        //this function returns the list of categories to use in a dropdown  
+        $dataPengajuan = Pengajuan::model()->findAll('NIM=:NIM', array(':NIM' => Yii::app()->user->getUsername()));
+        return CHtml::listData($dataPengajuan, 'IDPengajuan', 'Judul');
     }
 
 }

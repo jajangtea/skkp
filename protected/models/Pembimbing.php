@@ -7,6 +7,7 @@
  * @property integer $idPembimbing
  * @property integer $idDosen
  * @property integer $idPengajuan
+ * @property string $status
  *
  * The followings are the available model relations:
  * @property User $idDosen0
@@ -17,6 +18,7 @@ class Pembimbing extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
+    public $kodeDosen,$bulan, $tahun, $jml, $namaDosen, $namaSidang;
     public function tableName() {
         return 'prd_pembimbing';
     }
@@ -28,10 +30,11 @@ class Pembimbing extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('idDosen, idPengajuan', 'numerical', 'integerOnly' => true),
+            array('idDosen, idPengajuan,namaSidang', 'numerical', 'integerOnly' => true),
+            array('status', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('idPembimbing, idDosen, idPengajuan', 'safe', 'on' => 'search'),
+            array('idPembimbing, idDosen, kodeDosen,namaSidang, namaDosen jml, idPengajuan', 'safe', 'on' => 'search'),
         );
     }
 
@@ -55,6 +58,9 @@ class Pembimbing extends CActiveRecord {
             'idPembimbing' => 'Id Pembimbing',
             'idDosen' => 'Id Dosen',
             'idPengajuan' => 'Id Pengajuan',
+            'jml'=>'jml',
+            'kodeDosen'=>'kodeDosen',
+            'status'=>'status',
         );
     }
 
@@ -89,6 +95,39 @@ class Pembimbing extends CActiveRecord {
             'criteria' => $criteria,
         ));
     }
+    public function carirekap() {
+        if (Yii::app()->user->getLevel() == 3) {
+            $criteria = new CDbCriteria(array
+                (
+                'condition' => 'idDosen=:idDosen',
+                'params' => array(':idDosen' => Yii::app()->user->id),
+            ));
+        } else {
+            $criteria = new CDbCriteria();
+            $criteria->select='count(t.idPengajuan) as jml,pu.username as kodeDosen,pd.NamaDosen as namaDosen';
+            $criteria->join = ' INNER JOIN prd_user pu ON t.idDosen=pu.id
+                                INNER JOIN prd_pengajuan pj ON t.idPengajuan=pj.IDPengajuan
+                                INNER JOIN prd_jenissidang ps ON pj.IDJenisSidang=ps.IDJenisSidang
+                                INNER JOIN prd_dosen pd ON pu.id=pd.idUser';
+            $criteria->group='t.idDosen';
+            $criteria->order = 'jml Desc';
+        }
+       
+        $criteria->compare('t.idPembimbing', $this->idPembimbing);
+        $criteria->compare('t.idDosen', $this->idDosen);
+        $criteria->compare('kodeDosen', $this->kodeDosen);
+        $criteria->compare('namaDosen', $this->namaDosen);
+        $criteria->compare('ps.IDJenisSidang', $this->namaSidang,true);
+        $criteria->compare('jml', $this->jml);
+        $criteria->compare('status', $this->status);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination'=>array
+            (
+                'pageSize'=>50,
+            )
+        ));
+    }
     
     public function searchid($id) {
         // @todo Please modify the following code to remove attributes that should not be searched.
@@ -115,6 +154,16 @@ class Pembimbing extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+    
+    
+    public function getIDJenisSidang() {
+        //this function returns the list of categories to use in a dropdown        
+        return CHtml::listData(Sidangmaster::model()->with('iDJenisSidang')->findAll('t.idJenisSidang in(5,6)'), 'IDJenisSidang', 'iDJenisSidang.NamaSidang');
+    }
+    
+    public function statuspembimbing($nim){
+        Yii::app()->db->createCommand();
     }
 
 }

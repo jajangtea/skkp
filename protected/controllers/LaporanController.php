@@ -10,6 +10,7 @@ class LaporanController extends Controller {
     }
 
     public function actionExport() {
+        
         $model = new Pendaftaran();
         $model->unsetAttributes();  // clear any default values
         if (isset($_POST['Pendaftaran']))

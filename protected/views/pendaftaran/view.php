@@ -64,16 +64,8 @@ $this->breadcrumbs = array(
                             'value' => $model->KodePembimbing1,
                         ),
                         array(
-                            'name' => 'Nama P1',
+                            'name' => 'Nama Pembimbing',
                             'value' => $model->kodePembimbing1->NamaDosen,
-                        ),
-                        array(
-                            'name' => 'Kode',
-                            'value' => $model->KodePembimbing2,
-                        ),
-                        array(
-                            'name' => 'Nama P2',
-                            'value' => $model->kodePembimbing2->NamaDosen,
                         ),
                         array(
                             'name' => 'Judul KP/Skripsi',

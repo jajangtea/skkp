@@ -30,20 +30,18 @@ class NilaikpController extends Controller {
                 'expression' => '$user->getLevel()==1', //admin
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index','nilaiperusahaan','view_nilaiperusahaan'),
+                'actions' => array('index', 'nilaiperusahaan', 'view_nilaiperusahaan'),
                 'expression' => '$user->getLevel()==2', //mahasiswa
             ),
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'view', 'create', 'update', 'admin', 'adminpembimbing', 'adminpenguji', 'adminpembimbingskripsi'),
                 'expression' => '$user->getLevel()==3', //pembimbing kp
             ),
-           
             array('deny', // deny all users
                 'users' => array('*'),
             ),
         );
     }
-
 
     public function actionView($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
@@ -59,7 +57,7 @@ class NilaikpController extends Controller {
             'model' => $this->loadModel($NIM),
         ));
     }
-    
+
     public function actionView_nilaiperusahaan($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -79,45 +77,49 @@ class NilaikpController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate($NIM) {
+    public function actionCreate($NIM, $idPengajuan) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
         } else if (Yii::app()->user->getLevel() == 3) {
             $this->layout = 'mainNilai';
-        } 
+        }
         $model = $this->loadModelNIM($NIM);
         $model->NIM = $NIM;
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
-            if ($model->save())
-            {
-               $this->loadReset($NIM);
-               $this->redirect(array('view', 'NIM' => $model->NIM));
+            if ($model->save()) {
+                if ($model->NilaiPembimbing > 0) {
+                    $command = Yii::app()->db->createCommand();
+                    $command->update('prd_pembimbing', array(
+                        'status' => 'Tuntas',
+                            ), 'idPengajuan=:idPengajuan', array(':idPengajuan' => $idPengajuan));
+                }
+
+                $this->loadReset($NIM);
+                $this->redirect(array('view', 'NIM' => $model->NIM));
             }
-             
         }
 
         $this->render('create', array(
             'model' => $model,
         ));
     }
-    
+
     public function actionNilaiperusahaan($NIM) {
-         
+
         if (Yii::app()->user->getLevel() == 2) {
             $this->layout = 'mainHome';
-        } 
-      
+        }
+
         $model = $this->loadModelNIM($NIM);
         $model->NIM = $NIM;
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
-            if ($model->save())
-            {
-               $this->loadReset($NIM);
-               $this->redirect(array('view_nilaiperusahaan', 'NIM' => $model->NIM));
+            if ($model->save()) {
+                $this->loadReset($NIM);
+                $this->redirect(array('view_nilaiperusahaan', 'NIM' => $model->NIM));
             }
         }
         $this->render('nperusahaan', array(
@@ -130,7 +132,7 @@ class NilaikpController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($NIM) {
+    public function actionUpdate($NIM, $idPengajuan) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
         } else if (Yii::app()->user->getLevel() == 2) {
@@ -147,11 +149,19 @@ class NilaikpController extends Controller {
 
         if (isset($_POST['Nilaikp'])) {
             $model->attributes = $_POST['Nilaikp'];
-            if ($model->save())
-                 $this->loadReset($NIM);
-                 $this->redirect(array('view', '$NIM' => $model->IdNilaiKp));
+            if ($model->save()) {
+                if ($model->NilaiPembimbing > 0) {
+                    $command = Yii::app()->db->createCommand();
+                    $command->update('prd_pembimbing', array(
+                        'status' => 'Tuntas',
+                            ), 'idPengajuan=:idPengajuan', array(':idPengajuan' => $idPengajuan));
+                }
+
+                $this->loadReset($NIM);
+                $this->redirect(array('view', 'NIM' => $model->NIM));
+            }
         }
-       
+
         $this->render('update', array(
             'model' => $model,
         ));
@@ -320,27 +330,20 @@ class NilaikpController extends Controller {
         $nperusahaan = $model->NilaiPerusahaan;
         $na = ($nPenguji * 0.3) + ($nPembimbing * 0.5) + ($nperusahaan * 0.2);
         $model->NA = $na;
-        if($na <=50)
-        {
-            $model->Index='D';
-        }
-        else if($na >=50 && $na<=69)
-        {
-            $model->Index='C';
-        }
-        else if($na >=70 && $na<=79)
-        {
-            $model->Index='B';
-        }
-        else if($na >=80 && $na<=100)
-        {
-            $model->Index='A';
+        if ($na <= 50) {
+            $model->Index = 'D';
+        } else if ($na >= 50 && $na <= 69) {
+            $model->Index = 'C';
+        } else if ($na >= 70 && $na <= 79) {
+            $model->Index = 'B';
+        } else if ($na >= 80 && $na <= 100) {
+            $model->Index = 'A';
         }
         $model->save();
         $model->unsetAttributes();  // clear any default values
         $this->redirect(Yii::app()->request->getUrlReferrer());
     }
-    
+
     public function loadReset($NIM) {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -357,21 +360,14 @@ class NilaikpController extends Controller {
         $nperusahaan = $model->NilaiPerusahaan;
         $na = ($nPenguji * 0.3) + ($nPembimbing * 0.5) + ($nperusahaan * 0.2);
         $model->NA = $na;
-        if($na <=50)
-        {
-            $model->Index='D';
-        }
-        else if($na >=50 && $na<=69)
-        {
-            $model->Index='C';
-        }
-        else if($na >=70 && $na<=79)
-        {
-            $model->Index='B';
-        }
-        else if($na >=80 && $na<=100)
-        {
-            $model->Index='A';
+        if ($na <= 50) {
+            $model->Index = 'D';
+        } else if ($na >= 50 && $na <= 69) {
+            $model->Index = 'C';
+        } else if ($na >= 70 && $na <= 79) {
+            $model->Index = 'B';
+        } else if ($na >= 80 && $na <= 100) {
+            $model->Index = 'A';
         }
         $model->save();
         //$model->unsetAttributes();  // clear any default values

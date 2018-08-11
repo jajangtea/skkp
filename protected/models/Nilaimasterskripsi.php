@@ -36,7 +36,7 @@ class Nilaimasterskripsi extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('NIM', 'numerical', 'integerOnly' => true),
-            array('NKompre, NPraSidang, NSidangSkripsi, NPembimbing, NA', 'numerical'),
+            array('NKompre, NPraSidang, NSidangSkripsi, idPengajuan,NPembimbing, NA', 'numerical'),
             array('Index', 'length', 'max' => 2),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -185,12 +185,20 @@ class Nilaimasterskripsi extends CActiveRecord {
         $model = Nilaimasterskripsi::model()->find("NIM=$nim");
         if ($model->NKompre == 0 || $model->NPraSidang == 0 || $model->NSidangSkripsi == 0 || $model->NPembimbing == 0) {
             $commandTuntas = Yii::app()->db->createCommand();
-            $commandTuntas->update('prd_nilaimasterskripsi', array(
-                'status' => "Tidak Tuntas"), 'NIM=:NIM', array(':NIM' => $nim));
+            $commandTuntas->update
+                    ('prd_nilaimasterskripsi', array
+                (
+                'status' => "Tidak Tuntas"
+                    ), 'NIM=:NIM', array
+                (
+                ':NIM' => $nim
+                    )
+            );
         } else {
             $commandTuntas = Yii::app()->db->createCommand();
             $commandTuntas->update('prd_nilaimasterskripsi', array(
                 'status' => "Tuntas"), 'NIM=:NIM', array(':NIM' => $nim));
         }
     }
+
 }

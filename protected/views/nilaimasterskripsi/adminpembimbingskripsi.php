@@ -69,7 +69,7 @@ $this->menu = array(
                                 'htmlOptions' => array('width' => '30%'),
                                // 'value' => '$data["NilaiPembimbing"]==null?0:$data["NilaiPembimbing"]',
                                // 'value'=>'CHtml::link($data->judul, "http://" . $_SERVER["SERVER_NAME"] . Yii::app()->request->baseUrl . "/file/" . $data->nama_file)',
-                                'value'=>'CHtml::link($data["NPembimbing"]==null?0:$data["NPembimbing"], array("nilaimasterskripsi/update","id"=> $data["IdNMSkripsi"]))',
+                                'value'=>'CHtml::link($data["NPembimbing"]== 0 ?0:$data["NPembimbing"], array("nilaimasterskripsi/update","id"=> $data["IdNMSkripsi"],"idPengajuan"=>$data["idPengajuan"]))',
                             ),
                             
                         ),

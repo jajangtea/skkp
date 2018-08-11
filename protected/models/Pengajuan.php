@@ -11,7 +11,8 @@
  * @property string $Judul
  * @property integer $IDstatusProposal
  * @property string $keterangan
- *
+ * @property Pembimbing[] $pembimbings
+ * 
  * The followings are the available model relations:
  * @property Pembimbing[] $pembimbings
  * @property Jenissidang $iDJenisSidang
@@ -24,6 +25,8 @@ class Pengajuan extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
+    public $IDJenisSidang, $jmlsyarat, $telahupload, $status, $bulan, $tahun;
+
     public function tableName() {
         return 'prd_pengajuan';
     }
@@ -36,25 +39,24 @@ class Pengajuan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('IDJenisSidang', 'required', 'message' => 'Jenis proposal tidak boleh kosong.'),
-            array('IDJenisSidang','cekPendaftaran','on'=>'create'),
-            array('IDJenisSidang, NIM,IDstatusProposal', 'numerical', 'integerOnly' => true),
+            array('IDJenisSidang', 'cekPendaftaran', 'on' => 'create'),
+            array('update_at', 'safe'),
+            array('IDJenisSidang,idPeriode, NIM,IDstatusProposal', 'numerical', 'integerOnly' => true),
             array('TanggalDaftar, Judul,keterangan,IDstatusProposal', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('IDPengajuan, IDJenisSidang, NIM, TanggalDaftar,IDstatusProposal,keterangan, Judul', 'safe', 'on' => 'search'),
+            array('IDPengajuan, IDJenisSidang,idPeriode, NIM, TanggalDaftar,bulan,tahun,IDstatusProposal,keterangan, Judul', 'safe', 'on' => 'search'),
         );
     }
-    public function cekPendaftaran($attribute,$params)
-	{
-		if(!$this->hasErrors())
-		{
-			$sql = "select count(*) from prd_pengajuan where nim='$this->NIM' and IDJenisSidang='$this->IDJenisSidang'"; 
-			$command = Yii::app()->db->createCommand($sql)->queryScalar();
-			if($command >=1)
-				$this->addError('IDJenisSidang','Anda telah terdaftar.');
-		}
-	}
-    
+
+    public function cekPendaftaran($attribute, $params) {
+        if (!$this->hasErrors()) {
+            $sql = "select count(*) from prd_pengajuan where nim='$this->NIM' and IDJenisSidang='$this->IDJenisSidang'";
+            $command = Yii::app()->db->createCommand($sql)->queryScalar();
+            if ($command >= 1)
+                $this->addError('IDJenisSidang', 'Anda telah terdaftar.');
+        }
+    }
 
     /**
      * @return array relational rules.
@@ -67,6 +69,7 @@ class Pengajuan extends CActiveRecord {
             'nIM' => array(self::BELONGS_TO, 'Mahasiswa', 'NIM'),
             'iDstatusProposal' => array(self::BELONGS_TO, 'StatusProposal', 'IDstatusProposal'),
             'uploadProposals' => array(self::HAS_MANY, 'UploadProposal', 'idPengajuan'),
+            'pembimbings' => array(self::HAS_MANY, 'Pembimbing', 'idPengajuan'),
         );
     }
 
@@ -77,6 +80,7 @@ class Pengajuan extends CActiveRecord {
         return array(
             'IDPengajuan' => 'Idpengajuan',
             'IDJenisSidang' => 'Proposal',
+            'idPeriode' => 'Id Periode',
             'NIM' => 'NIM',
             'TanggalDaftar' => 'Tanggal Daftar',
             'Judul' => 'Judul',
@@ -106,16 +110,40 @@ class Pengajuan extends CActiveRecord {
                 'params' => array(':NIM' => Yii::app()->user->name),
             ));
         } else {
-            $criteria = new CDbCriteria;
+            $criteria = new CDbCriteria();
+            $criteria->join ='INNER JOIN prd_jenissidang js ON js.IDJenisSidang=t.IDJenisSidang '
+                    . 'INNER JOIN prd_periode pr ON t.idPeriode=pr.idPeriode';
+            $criteria->order = 't.IDstatusProposal desc';
         }
 
 
         $criteria->compare('IDPengajuan', $this->IDPengajuan);
-        $criteria->compare('IDJenisSidang', $this->IDJenisSidang);
+        $criteria->compare('t.IDJenisSidang', $this->IDJenisSidang);
         $criteria->compare('NIM', $this->NIM);
         $criteria->compare('TanggalDaftar', $this->TanggalDaftar, true);
         $criteria->compare('Judul', $this->Judul, true);
         $criteria->compare('IDstatusProposal', $this->IDstatusProposal);
+        $criteria->compare('pr.bulan', $this->bulan);
+        $criteria->compare('pr.tahun', $this->tahun);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+    
+    public function searc() {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+     
+
+  $criteria = new CDbCriteria();
+        $criteria->compare('IDPengajuan', $this->IDPengajuan);
+        $criteria->compare('t.IDJenisSidang', $this->IDJenisSidang);
+        $criteria->compare('NIM', $this->NIM);
+        $criteria->compare('TanggalDaftar', $this->TanggalDaftar, true);
+        $criteria->compare('Judul', $this->Judul, true);
+        $criteria->compare('IDstatusProposal', $this->IDstatusProposal);
+        $criteria->compare('pr.bulan', $this->bulan);
+        $criteria->compare('pr.tahun', $this->tahun);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -157,6 +185,34 @@ class Pengajuan extends CActiveRecord {
     public function status() {
         //this function returns the list of categories to use in a dropdown        
         return CHtml::listData(StatusProposal::model()->findAll(), 'idstatusProp', 'nstatusProposal');
+    }
+    
+    public function searcproposal($bulan, $tahun) {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+        if (Yii::app()->user->getLevel() == 2) {
+            $criteria = new CDbCriteria(array
+                (
+                'condition' => 'NIM=:NIM',
+                'params' => array(':NIM' => Yii::app()->user->name),
+            ));
+        } else {
+            $criteria = new CDbCriteria(array
+                (
+                'condition' => "pr.bulan=$bulan and pr.tahun=$tahun",
+            ));
+            $criteria->join ='INNER JOIN prd_jenissidang js ON js.IDJenisSidang=t.IDJenisSidang '
+                    . 'INNER JOIN prd_periode pr ON t.idPeriode=pr.idPeriode';
+            $criteria->order = 'js.NamaSidang';
+        }
+        $criteria->compare('IDPengajuan', $this->IDPengajuan);
+        $criteria->compare('TanggalDaftar', $this->TanggalDaftar, true);
+        $criteria->compare('NIM', $this->NIM);
+        $criteria->compare('js.IDJenisSidang', $this->IDJenisSidang);
+        $criteria->compare('Judul', $this->Judul, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
     }
 
 }
