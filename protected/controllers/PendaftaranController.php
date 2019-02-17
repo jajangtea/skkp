@@ -36,7 +36,7 @@ class PendaftaranController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete', 'judul'),
+                'actions' => array('create', 'update', 'index', 'view', 'admin', 'delete', 'judul', 'old'),
                 'expression' => '$user->getLevel()==2',
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -107,6 +107,131 @@ class PendaftaranController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
+    public function actionOld() {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else {
+            $this->layout = 'mainHome';
+        }
+        $model = new Pendaftaran;
+
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+        if (isset($_POST['Pendaftaran'])) {
+            $model->attributes = $_POST['Pendaftaran'];
+            $valid = $model->validate();
+
+            if ($valid) {
+
+                if (Yii::app()->user->getLevel() == 1) {
+                    $this->layout = 'main';
+                    $model->NIM = $model->NIM;
+                    $model->Judul = strtoupper($model->Judul);
+                    $model->Tanggal = date('Y-m-d H:i:s');
+                } else {
+                    $this->layout = 'mainHome';
+                    $model->NIM = Yii::app()->user->getUsername();
+                    $model->Judul = strtoupper($model->Judul);
+                    $model->Tanggal = date('Y-m-d H:i:s');
+
+                    // $model->idPendaftaran=$this->buatBarcode($model->idPendaftaran);
+                }
+                //  $model->NIM = Yii::app()->user->getUsername();
+                //$nim = Yii::app()->user->getUsername();
+//                if ($nim == "") {
+//                    $nim = 0;
+//                }
+//                echo $model->NIM;
+
+
+                $jml = Pendaftaran::model()->cekPendaftaran($model->NIM);
+                $jmlKompre = Pendaftaran::model()->cekKompre($model->NIM);
+                $jmlBarisNilai = Pendaftaran::model()->cekNilaiMaster($model->NIM);
+                $tes = $model->idSidang->IDJenisSidang;
+                if ($tes == 4) {//cek kompre
+                    if ($jmlKompre > 0) {
+                        $session = new CHttpSession;
+                        $session->open();
+                        $session['cekpendaftaranKompre'] = "Tidak boleh melakukan pendaftaran kompre lebih dari sekali.";
+                    } else {
+                        $model->Judul = strtoupper($model->Judul);
+                        if ($model->save()) {
+                            if ($jmlBarisNilai == 0) {
+                                $commandNilaiMaster = Yii::app()->db->createCommand();
+                                $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
+                                    'idPendaftaran' => $model->idPendaftaran,
+                                    'idPengajuan' => $model->idPengajuan,
+                                    'NIM' => $model->NIM));
+                            }
+                        }
+                        $this->redirect(array('view', 'id' => $model->idPendaftaran));
+                    }
+                } else if ($tes == 1 || $tes == 2) {
+                    if ($jml > 0) {
+                        $session = new CHttpSession;
+                        $session->open();
+                        $session['cekpendaftaran'] = "Tidak boleh melakukan pendaftaran sidang lebih dari sekali.";  // set session variable 'name3'
+                    } else {
+                        $model->Judul = strtoupper($model->Judul);
+                        if ($model->save()) {
+                            if ($tes == 1) {
+                                $command = Yii::app()->db->createCommand();
+                                $command->insert('prd_nilaidetilskirpsi', array(
+                                    'IdPendaftaran' => $model->idPendaftaran));
+                                if ($jmlBarisNilai == 0) {
+                                    $commandNilaiMaster = Yii::app()->db->createCommand();
+                                    $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan,
+                                        'NIM' => $model->NIM));
+                                }
+                            } else if ($tes == 2) {
+                                $command = Yii::app()->db->createCommand();
+                                $command->insert('prd_nilaidetilskirpsi', array(
+                                    'IdPendaftaran' => $model->idPendaftaran));
+                                if ($jmlBarisNilai == 0) {
+                                    $commandNilaiMaster = Yii::app()->db->createCommand();
+                                    $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan,
+                                        'NIM' => $model->NIM));
+                                } else {
+                                    $commandNilaiMaster = Yii::app()->db->createCommand();
+                                    $commandNilaiMaster->update('prd_nilaimasterskripsi', array(
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan,
+                                            ), 'NIM=:NIM', array(':NIM' => $model->NIM));
+                                }
+                            }
+                        }
+                        $this->redirect(array('view', 'id' => $model->idPendaftaran));
+                    }
+                } else if ($tes == 3) {
+                    if ($jml > 0) {
+                        $session = new CHttpSession;
+                        $session->open();
+                        $session['cekpendaftaran'] = "Tidak boleh melakukan pendaftaran sidang lebih dari sekali.";  // set session variable 'name3'
+                    } else {
+                        $model->Judul = strtoupper($model->Judul);
+                        if ($model->save()) {
+                            $command = Yii::app()->db->createCommand();
+                            $command->insert('prd_nilaikp', array(
+                                'NIM' => $model->NIM,
+                                'idPendaftaran' => $model->idPendaftaran));
+                        }
+                        $this->redirect(array('view', 'id' => $model->idPendaftaran));
+                    }
+                }
+            }
+        }
+        //$this->layout='mainHome';
+
+        $this->render('create_old', array(
+            'model' => $model,
+        ));
+    }
+
     public function actionCreate() {
         if (Yii::app()->user->getLevel() == 1) {
             $this->layout = 'main';
@@ -173,6 +298,8 @@ class PendaftaranController extends Controller {
                             if ($jmlBarisNilai == 0) {
                                 $commandNilaiMaster = Yii::app()->db->createCommand();
                                 $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
+                                    'idPendaftaran' => $model->idPendaftaran,
+                                    'idPengajuan' => $model->idPengajuan,
                                     'NIM' => $model->NIM
                                 ));
                             }
@@ -205,6 +332,7 @@ class PendaftaranController extends Controller {
                                 $command->insert('prd_nilaidetilskirpsi', array(
                                     'IdPendaftaran' => $model->idPendaftaran));
                                 if ($jmlBarisNilai == 0) {
+
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
                                     $commandNilaiMaster->insert('prd_nilaimasterskripsi', array(
                                         'NIM' => Yii::app()->user->getUsername(),
@@ -213,8 +341,11 @@ class PendaftaranController extends Controller {
                                     ));
                                 } else {
                                     $commandNilaiMaster = Yii::app()->db->createCommand();
-                                    $commandNilaiMaster->update('prd_nilaimasterskripsi', array(
-                                        'idPendaftaran' => $model->idPendaftaran), 'NIM=:NIM', array(':NIM' => Yii::app()->user->getUsername()));
+                                    $commandNilaiMaster->update('prd_nilaimasterskripsi', array
+                                        (
+                                        'idPendaftaran' => $model->idPendaftaran,
+                                        'idPengajuan' => $model->idPengajuan,
+                                            ), 'NIM=:NIM', array(':NIM' => Yii::app()->user->getUsername()));
                                 }
                             }
                         }
@@ -717,9 +848,9 @@ class PendaftaranController extends Controller {
         $mpdf->Output('Target_SKP_' . 'hello' . '.pdf', 'I');
         exit();
     }
-    
-    public function getKode(){
-        return $this->Judul."".$this->NIM;
+
+    public function getKode() {
+        return $this->Judul . "" . $this->NIM;
     }
 
     public function actionJudul() {
@@ -727,12 +858,12 @@ class PendaftaranController extends Controller {
         foreach ($data as $value) {
             $this->jenis = $value['IDJenisSidang'];
         }
-        if($this->jenis ==3){
-            $this->jenis=5;
-        }else{
-            $this->jenis=6;
+        if ($this->jenis == 3) {
+            $this->jenis = 5;
+        } else {
+            $this->jenis = 6;
         }
-        $dataPengajuan = Pengajuan::model()->findAll('NIM=:NIM and IDJenisSidang=:IDJenisSidang', array(':NIM' => Yii::app()->user->getUsername(),':IDJenisSidang'=> $this->jenis));
+        $dataPengajuan = Pengajuan::model()->findAll('NIM=:NIM and IDJenisSidang=:IDJenisSidang', array(':NIM' => Yii::app()->user->getUsername(), ':IDJenisSidang' => $this->jenis));
         $dataPengajuanList = CHtml::listData($dataPengajuan, 'IDPengajuan', 'Judul');
         echo "<option value=''>Pilih Judul</option>";
         foreach ($dataPengajuanList as $val => $Judul) {

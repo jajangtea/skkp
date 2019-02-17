@@ -4,23 +4,17 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form-group">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+<?php
+$form = $this->beginWidget('CActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+        ));
+?>
 
-	
-	<div class="form-group">
-		<?php echo $form->label($model,'NIM'); ?>
-		<?php echo $form->textField($model,'NIM', array('class'=>'form-control','style'=>'width:30%')); ?>
-	</div>
-
-	<div class="form-group">
-		<?php echo CHtml::tag('button',array('name'=>'btnSubmit','type'=>'submit','class'=>'btn btn-info'),'<i class="fa fa-search"></i> Cari');?>
-	</div>
+<div class="pull-right">
+    <?php echo $form->textField($model, 'NIM', array('class' => 'form-control pull-right', 'style' => 'width:80%','placeholder'=>'NIM')); ?>
+    <?php echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info pull-right'), '<i class="fa fa-search"></i> Cari'); ?>
+</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

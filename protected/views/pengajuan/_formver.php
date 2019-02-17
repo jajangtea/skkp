@@ -55,7 +55,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">Status :</label>
+                            <label class="col-lg-4 control-label">Status Berkas :</label>
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-lg-12">   
@@ -67,19 +67,7 @@ $form = $this->beginWidget('CActiveForm', array(
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-lg-4 control-label">Keterangan :</label>
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-lg-12">   
-                                        <?php echo $form->textArea($model, 'keterangan', array('rows' => 6, 'style' => 'width:420px', 'class' => 'form-control')); ?>
-
-                                    </div>
-                                    <div class="col-lg-10">        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <div class="col-lg-offset-4 col-lg-10">
                                 <?php

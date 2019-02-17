@@ -52,8 +52,14 @@ $('.search-form form').submit(function(){
 		'NA',
 		'Index',
                 'status',
-		array(
-			'class'=>'CButtonColumn',
-		),
+                'idPengajuan',
+				 
+				 array(
+                            'type' => 'raw',
+                            'header' => 'NA',
+                            'htmlOptions' => array('width' => '10%'),
+                            'value' => 'CHtml::link($data["NA"]==null?0:"Refresh Nilai", array("nilaimasterskripsi/update","id"=> $data->IdNMSkripsi,"idPengajuan"=> $data->idPengajuan))',
+                        ),
+		
 	),
 )); ?>

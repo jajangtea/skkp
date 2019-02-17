@@ -34,7 +34,7 @@ class MahasiswaController extends Controller {
                 'expression' => '$user->getLevel()==1',
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('suggestMahasiswa', 'suggestPendaftaranmhs'),
+                'actions' => array('suggestMahasiswa', 'suggestPendaftaranmhs','suggestpendaftaran'),
                 'expression' => '$user->getLevel()==3',
             ),
             array('deny', // deny all users

@@ -84,7 +84,7 @@
                     <div class="col-lg-offset-2 col-lg-10">
                         <?php
                             echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-info'), '<i class="fa fa-search"></i> Search');
-                            echo CHtml::link('<i class="fa fa-refresh"></i> Reset','index.php?r=sidangmaster/admin',array('class' => 'btn btn-success'));
+                            echo CHtml::link('<i class="fa fa-refresh"></i> Reset','sidangmaster/admin',array('class' => 'btn btn-success'));
                         ?>
                     </div>
                 </div> 

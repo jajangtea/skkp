@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/libs/nanoscroller.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/css/compiled/theme_styles.css" />
-        
+
         <link type="image/x-icon" href="resources/favicon.ico" rel="shortcut icon"/>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -110,59 +110,32 @@
                                             Pembimbing KP/Skripsi
                                         </li>
                                         <li>
-                                            <a href="index.php?r=pembimbing/admin">
-                                                <i class="fa fa-book"></i>
-                                                <span>Pembimbing</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Pembimbing</span>', array('pembimbing/admin')) ?>
                                         </li>
                                         <li>
-                                            <a href="index.php?r=jadwalBimbingan/admin">
-                                                <i class="fa fa-book"></i>
-                                                <span>Jadwal Bimbingan</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Jadwal Bimbingan</span>', array('jadwalBimbingan/admin')) ?>
                                         </li>
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             Penilaian Pembimbing
                                         </li>
-
                                         <li>
-                                            <a href="index.php?r=nilaikp/adminpembimbing">
-                                                <i class="fa fa-book"></i>
-                                                <span>Nilai Pembimbing KP</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Nilai Pembimbing KP</span>', array('nilaikp/adminpembimbing')) ?>
                                         </li>
-
                                         <li>
-                                            <a href="index.php?r=nilaimasterskripsi/adminpembimbingskripsi">
-                                                <i class="fa fa-envelope"></i>
-                                                <span>Nilai Pembimbing Skripsi</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Nilai Pembimbing Skripsi</span>', array('nilaimasterskripsi/adminpembimbingskripsi')) ?>
                                         </li>
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             Penilaian Penguji
                                         </li>
-
                                         <li>
-                                            <a href="index.php?r=nilaikp/adminpenguji">
-                                                <i class="fa fa-book"></i>
-                                                <span>Nilai Penguji KP</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Nilai Penguji KP</span>', array('nilaikp/adminpenguji')) ?>
                                         </li>
-
                                         <li>
-                                            <a href="index.php?r=nilaidetilskirpsi/adminpengujiskripsi">
-                                                <i class="fa fa-envelope"></i>
-                                                <span>Nilai Penguji Skripsi</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Nilai Penguji Skripsi</span>', array('pengujiskripsi/admin')) ?>
                                         </li>
-                                        
                                         <li>
-                                            <a href="index.php?r=user/cp">
-                                                <i class="fa fa-key"></i>
-                                                <span>Ubah Password</span>
-                                            </a>
+                                            <?php echo CHtml::link('<i class="fa fa-book"></i><span>Ubah Password</span>', array('user/cp')) ?>
                                         </li>
-                                        
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
                                         </li>
@@ -171,7 +144,7 @@
                                             $this->beginWidget('zii.widgets.CPortlet', array(
                                             ));
                                             $this->widget('zii.widgets.CMenu', array(
-                                                'encodeLabel'=>false,
+                                                'encodeLabel' => false,
                                                 'items' => $this->menu,
                                                 'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
                                             ));
@@ -204,108 +177,18 @@
                                 </div>
                             </div>
                         </div>					
-<!--                        <footer id="footer-bar" class="row">
-                            <p id="footer-copyright" class="col-xs-12">                        
-                                Powered by <a href="https://www.yacanet.com">z.com</a>
-                            </p>
-                        </footer>-->
+                        <!--                        <footer id="footer-bar" class="row">
+                                                    <p id="footer-copyright" class="col-xs-12">                        
+                                                        Powered by <a href="https://www.yacanet.com">z.com</a>
+                                                    </p>
+                                                </footer>-->
                     </div>
                 </div>
             </div>
         </div>	
-        <div id="config-tool" class="closed">
-            <a id="config-tool-cog">
-                <i class="fa fa-cog"></i>
-            </a>
-
-            <div id="config-tool-options">
-                <h4>Layout Options</h4>
-                <ul>
-                    <li>
-                        <div class="checkbox-nice">
-                            <input type="checkbox" id="config-fixed-header" />
-                            <label for="config-fixed-header">
-                                Fixed Header
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checkbox-nice">
-                            <input type="checkbox" id="config-fixed-sidebar" />
-                            <label for="config-fixed-sidebar">
-                                Fixed Left Menu
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checkbox-nice">
-                            <input type="checkbox" id="config-fixed-footer" />
-                            <label for="config-fixed-footer">
-                                Fixed Footer
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checkbox-nice">
-                            <input type="checkbox" id="config-boxed-layout" />
-                            <label for="config-boxed-layout">
-                                Boxed Layout
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checkbox-nice">
-                            <input type="checkbox" id="config-rtl-layout" />
-                            <label for="config-rtl-layout">
-                                Right-to-Left
-                            </label>
-                        </div>
-                    </li>
-                </ul>
-                <br/>
-                <h4>Skin Color</h4>
-                <ul id="skin-colors" class="clearfix">
-                    <li>
-                        <a class="skin-changer" data-skin="" data-toggle="tooltip" title="Default" style="background-color: #34495e;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-white" data-toggle="tooltip" title="White/Green" style="background-color: #2ecc71;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer blue-gradient" data-skin="theme-blue-gradient" data-toggle="tooltip" title="Gradient">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-turquoise" data-toggle="tooltip" title="Green Sea" style="background-color: #1abc9c;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-amethyst" data-toggle="tooltip" title="Amethyst" style="background-color: #9b59b6;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-blue" data-toggle="tooltip" title="Blue" style="background-color: #2980b9;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-red" data-toggle="tooltip" title="Red" style="background-color: #e74c3c;">
-                        </a>
-                    </li>
-                    <li>
-                        <a class="skin-changer" data-skin="theme-whbl" data-toggle="tooltip" title="White/Blue" style="background-color: #3498db;">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/bootstrap.min.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.nanoscroller.min.js"></script>				
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.nanoscroller.min.js"></script>	
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/scripts.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/pace.min.js"></script>	
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/portalekampus.js" type="text/javascript"></script>
     </body>
 </html>

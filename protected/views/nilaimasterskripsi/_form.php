@@ -18,7 +18,7 @@
                 <header class="main-box-header clearfix">
                     <h2 class="pull-left"><i class="fa fa-plus"></i> Nilai Skripsi</h2>
                     <div class="icon-box pull-right">                                       
-                        <a class="btn pull-left" href="index.php?r=nilaimasterskripsi/admin">
+                        <a class="btn pull-left" href="nilaimasterskripsi/admin">
                             <i class="fa fa-times"></i>
                         </a>
                     </div>

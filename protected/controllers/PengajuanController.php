@@ -100,7 +100,7 @@ class PengajuanController extends Controller {
         $model = new Pengajuan('create');
         $model->NIM = Yii::app()->user->name;
         $model->TanggalDaftar = date('Y-m-d H:i:s');
-        $model->IDstatusProposal = 3;
+        $model->IDstatusProposal = 2;
         $model->Judul = strtoupper($model->Judul);
 
         if (isset($_POST['Pengajuan'])) {

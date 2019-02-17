@@ -117,7 +117,7 @@ class Pembimbing extends CActiveRecord {
         $criteria->compare('t.idDosen', $this->idDosen);
         $criteria->compare('kodeDosen', $this->kodeDosen);
         $criteria->compare('namaDosen', $this->namaDosen);
-        $criteria->compare('ps.IDJenisSidang', $this->namaSidang,true);
+        $criteria->compare('ps.IDJenisSidang', $this->namaSidang);
         $criteria->compare('jml', $this->jml);
         $criteria->compare('status', $this->status);
         return new CActiveDataProvider($this, array(

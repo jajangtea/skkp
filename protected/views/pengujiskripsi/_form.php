@@ -13,7 +13,7 @@ $form = $this->beginWidget('CActiveForm', array(
     // There is a call to performAjaxValidation() commented in generated controller code.
     // See class documentation of CActiveForm for details on this.
     'enableAjaxValidation' => false,
-    //'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        //'htmlOptions' => array('enctype' => 'multipart/form-data'),
         ));
 ?>
 <div class="main-box">
@@ -31,13 +31,26 @@ $form = $this->beginWidget('CActiveForm', array(
                 <label class="col-lg-2 control-label">Pilih Penguji :</label>
                 <div class="col-lg-10">
                     <div class="row">
-                        <div class="col-lg-5">   
+                        <div class="col-lg-12">   
                             <?php
                             echo $form->checkBoxList($model, 'idUser', Pendaftaran::model()->getDosenPenguji(), array(
                                 'separator' => '',
-                                'template' => '<tr><td> {label} </td><td> {input} </td></tr>',
+                                'template' => '<tr><td><b>{label}</b></td><td> {input}   | </td></tr>',
                             ));
                             ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Update IDPengajuan :</label>
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-12">  
+                            <?php echo $form->textField($model, 'idPengajuan', array('size' => 50, 'maxlength' => 50, 'class' => 'form-control', 'style' => 'width:30%')); ?>
+                            <?php echo $form->error($model, 'idPengajuan', array('class' => 'text-danger')); ?> 
                         </div>
                         <div class="col-lg-10">        
                         </div>
@@ -46,6 +59,7 @@ $form = $this->beginWidget('CActiveForm', array(
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
+
                     <?php
                     if ($model->isNewRecord) {
                         echo CHtml::tag('button', array('name' => 'btnSubmit', 'type' => 'submit', 'class' => 'btn btn-success'), '<i class="fa fa-save"></i> Simpan');

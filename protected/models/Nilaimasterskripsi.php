@@ -93,15 +93,15 @@ class Nilaimasterskripsi extends CActiveRecord {
             $criteria = new CDbCriteria();
         } else {
             $criteria = new CDbCriteria();
-            $criteria->join = "INNER JOIN prd_pendaftaran p ON p.IdPendaftaran=t.idPendaftaran "
-                    . "INNER JOIN prd_sidangmaster ps ON p.IdSidang=ps.IdSidang "
-                    . "INNER JOIN prd_periode pp ON ps.idPeriode=pp.idPeriode";
+            $criteria->join = "LEFT JOIN prd_pendaftaran p ON p.IdPendaftaran=t.idPendaftaran "
+                    . "LEFT JOIN prd_sidangmaster ps ON p.IdSidang=ps.IdSidang "
+                    . "LEFT JOIN prd_periode pp ON ps.idPeriode=pp.idPeriode";
         }
 
         $criteria->compare('pp.bulan', $this->bulan);
         $criteria->compare('pp.tahun', $this->tahun);
         $criteria->compare('IdNMSkripsi', $this->IdNMSkripsi, true);
-        $criteria->compare('p.NIM', $this->NIM);
+        $criteria->compare('t.NIM', $this->NIM);
         $criteria->compare('NKompre', $this->NKompre);
         $criteria->compare('NPraSidang', $this->NPraSidang);
         $criteria->compare('NSidangSkripsi', $this->NSidangSkripsi);
@@ -109,6 +109,7 @@ class Nilaimasterskripsi extends CActiveRecord {
         $criteria->compare('NA', $this->NA);
         $criteria->compare('t.status', $this->status);
         $criteria->compare('Index', $this->Index, true);
+        $criteria->order = 't.idPendaftaran DESC';
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

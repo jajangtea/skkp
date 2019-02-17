@@ -82,30 +82,31 @@
                                     <div class="user-box">
                                         <span class="name">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <?php if (Yii::app()->user->isGuest) {
+                                                <?php
+                                                if (Yii::app()->user->isGuest) {
                                                     echo 'Tamu';
-                                                }
-                                                else if (Yii::app()->user->getLevel()==2)
-                                                {
+                                                } else if (Yii::app()->user->getLevel() == 2) {
                                                     echo Yii::app()->user->name;
-                                                    echo "(".User::model()->getNamaDetil().")";
+                                                    echo "(" . User::model()->getNamaDetil() . ")";
                                                 }
                                                 ?>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
-                                             <?php if (!Yii::app()->user->isGuest) {
-                                                    echo "<ul class=\"dropdown-menu\">";
-                                                    echo "<li>";
-                                                    echo CHtml::link("<i class=\"fa  fa-plus-circle fa-lg\"></i> Logout", array('site/logout'), array('visible' => !Yii::app()->user->isGuest));
-                                                    echo "</li>";
-                                                    echo "</ul>";
-                                                }
-                                                ?>
+                                            <?php
+                                            if (!Yii::app()->user->isGuest) {
+                                                echo "<ul class=\"dropdown-menu\">";
+                                                echo "<li>";
+                                                echo CHtml::link("<i class=\"fa  fa-plus-circle fa-lg\"></i> Logout", array('site/logout'), array('visible' => !Yii::app()->user->isGuest));
+                                                echo "</li>";
+                                                echo "</ul>";
+                                            }
+                                            ?>
                                         </span>
                                         <span class="status">
-                                             <?php if (!Yii::app()->user->isGuest) {
-                                                    echo '<i class="fa fa-circle"></i> Online';
-                                                }
+                                            <?php
+                                            if (!Yii::app()->user->isGuest) {
+                                                echo '<i class="fa fa-circle"></i> Online';
+                                            }
                                             ?>
                                         </span>
                                     </div>
@@ -116,95 +117,79 @@
                                             Navigasi
                                         </li>
                                         <li class="active">
-                                            <a href="index.php?r=pendaftaran/admin">
-                                                <i class="fa fa-dashboard"></i>
-                                                <span>Dashboard</span>
-                                            </a>
+
+                                            <?= CHtml::link("<i class=\"fa  fa-home\"></i><span>Dashboard</span>", array('pendaftaran/admin', 'class' => 'fa fa-home')) ?>
                                         </li>
                                         <?php
-                                        if(Yii::app()->user->isGuest)
-                                        {
+                                        if (Yii::app()->user->isGuest) {
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=user/create\">";
+                                            echo "<a href=\"user/create\">";
                                             echo "<i class=\"fa fa-user\"></i>";
                                             echo "<span>Registrasi</span>";
                                             echo "</a>";
                                             echo "</li>";
                                         }
-                                        if(Yii::app()->user->isGuest)
-                                        {
+                                        if (Yii::app()->user->isGuest) {
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=site/login\">";
+                                            echo "<a href=\"site/login\">";
                                             echo "<i class=\"fa fa-lock\"></i>";
                                             echo "<span>Login</span>";
                                             echo "</a>";
                                             echo "</li>";
                                         }
                                         ?>
-                                        
+
                                         <li>
-                                            <a href="index.php?r=pengajuan/create">
-                                                <i class="fa fa-calendar"></i>
-                                                <span>Pengajuan KP/Skripsi</span>
-                                            </a>
+                                            <?= CHtml::link("<i class=\"fa fa-calendar\"></i><span>Pengajuan KP/Skripsi</span>", array('pengajuan/create')) ?>
+
                                         </li>   
-                                        
+
                                         <li>
-                                            <a href="index.php?r=pendaftaran/create">
-                                                <i class="fa fa-pencil"></i>
-                                                <span>Pendaftaran Sidang</span>
-                                            </a>
+                                            <?= CHtml::link("<i class=\"fa fa-pencil\"></i><span>Pendaftaran Sidang</span>", array('pendaftaran/create')) ?>
+
                                         </li>
-                                        
-                                       
-                                        
+
+
+
                                         <?php
-                                        if(Yii::app()->user->getLevel()==2)
-                                        {
+                                        if (Yii::app()->user->getLevel() == 2) {
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=nilaikp/index\">";
-                                            echo "<i class=\"fa fa-lock\"></i>";
-                                            echo "<span>Nilai Kerja Praktek</span>";
-                                            echo "</a>";
+
+                                            echo CHtml::link("<i class=\"fa fa-lock\"></i><span> Nilai KP</span>", array('nilaikp/index'));
+
                                             echo "</li>";
-                                       
+
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=nilaimasterskripsi/index\">";
-                                            echo "<i class=\"fa fa-lock\"></i>";
-                                            echo "<span>Nilai Skripsi</span>";
-                                            echo "</a>";
+                                            echo CHtml::link("<i class=\"fa fa-lock\"></i><span>Nilai Skripsi</span>", array('nilaimasterskripsi/index'));
+
                                             echo "</li>";
                                         }
                                         ?>
                                         <?php
-                                        if(Yii::app()->user->getLevel()==2)
-                                        {
+                                        if (Yii::app()->user->getLevel() == 2) {
                                             echo "<li>";
-                                            echo "<a href=\"index.php?r=user/cp\">";
-                                            echo "<i class=\"fa fa-key\"></i>";
-                                            echo "<span>Ubah Password</span>";
-                                            echo "</a>";
+                                            echo CHtml::link("<i class=\"fa fa-lock\"></i><span>Ubah Password</span>", array('user/cp'));
                                             echo "</li>";
                                         }
                                         ?>
-                                        
-                                        
+
+
                                         <li class="nav-header hidden-sm hidden-xs">
                                             Components
                                         </li>
                                         <li>
                                             <?php
-                                                $this->beginWidget('zii.widgets.CPortlet', array(
-                                                ));
-                                                $this->widget('zii.widgets.CMenu', array(
-                                                    'encodeLabel'=>false,
-                                                    'items' => $this->menu,
-                                                    'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
-                                                ));
-                                                $this->endWidget();
+                                            $this->beginWidget('zii.widgets.CPortlet', array(
+                                            ));
+                                            $this->widget('zii.widgets.CMenu', array(
+                                                'encodeLabel' => false,
+                                                'items' => $this->menu,
+                                                'htmlOptions' => array('class' => 'nav nav-pills nav-stacked'),
+                                            ));
+                                            $this->endWidget();
                                             ?>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                             </div>
@@ -291,9 +276,7 @@
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.js"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/bootstrap.min.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.nanoscroller.min.js"></script>				
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/jquery.nanoscroller.min.js"></script>	
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/scripts.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/pace.min.js"></script>	
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/themes/cube/js/portalekampus.js" type="text/javascript"></script>
     </body>
 </html>

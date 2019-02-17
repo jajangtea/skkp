@@ -2,27 +2,34 @@
 /* @var $this PengujiskripsiController */
 /* @var $model Pengujiskripsi */
 
-$this->breadcrumbs=array(
-	'Pengujiskripsis'=>array('index'),
-	$model->idPengujiSkripsi,
+$this->breadcrumbs = array(
+    'Pengujiskripsis' => array('index'),
+    $model->idPengujiSkripsi,
 );
 
-$this->menu=array(
-	array('label'=>'List Pengujiskripsi', 'url'=>array('index')),
-	array('label'=>'Create Pengujiskripsi', 'url'=>array('create')),
-	array('label'=>'Update Pengujiskripsi', 'url'=>array('update', 'id'=>$model->idPengujiSkripsi)),
-	array('label'=>'Delete Pengujiskripsi', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idPengujiSkripsi),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Pengujiskripsi', 'url'=>array('admin')),
-);
+
 ?>
 
 <h1>View Pengujiskripsi #<?php echo $model->idPengujiSkripsi; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'idPengujiSkripsi',
-		'idPendaftaran',
-		'idUser',
-	),
-)); ?>
+<?php
+$this->widget('zii.widgets.CDetailView', array(
+    'data' => $model,
+    'attributes' => array(
+        array(
+            'name' => 'NIM',
+            'type' => 'raw',
+            'value' => $model->idPendaftaran0->NIM,
+        ),
+        array(
+            'name' => 'Mahasiswa',
+            'value' => $model->idPendaftaran0->nIM->Nama,
+        ),
+        array(
+            'name' => 'Judul',
+            'value' => $model->idPendaftaran0->Judul,
+        ),
+        'nilai',
+    ),
+));
+?>

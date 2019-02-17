@@ -279,7 +279,7 @@ class NilaimasterskripsiController extends Controller {
             $this->layout = 'mainHome';
         }
 
-        $dataProviderNilaiPembimbingSkripsi = Nilaikp::model()->tampilNilaiPembimbingSkripsi(2, Yii::app()->user->getUsername());
+        $dataProviderNilaiPembimbingSkripsi = Nilaikp::model()->tampilNilaiPembimbingSkripsi(1, Yii::app()->user->getUsername());
 
         $this->render('adminpembimbingskripsi', array(
             'dataProviderNilaiPembimbingSkripsi' => $dataProviderNilaiPembimbingSkripsi,

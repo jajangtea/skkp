@@ -14,7 +14,7 @@
                 <?php
                 if (Yii::app()->user->getLevel() == 1) {
                     echo "<div class=\"filter-block pull-right\">";
-                    echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"index.php?r=pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>";
+                    echo "<a id=\"ctl0_maincontent_btnPrintOut\" class=\"btn btn-primary pull-left\" title=\"Print Out Data Pendaftaran\" href=\"pendaftaran/export\"><i class=\"fa fa-print fa-lg\"></i></a>";
                     echo CHtml::link('<i class="fa  fa-plus-circle fa-lg"></i>', array('create'), array('class' => 'btn btn-primary pull-left'));
                     echo "</div>";
                 }
@@ -38,14 +38,27 @@
                                     'style' => 'width: 2%; text-align: center;',
                                 ),
                             ),
+				array(
+                                'type' => 'raw',
+                                'header' => 'ID Pengajuan',
+                                'htmlOptions' => array('width' => '15%'),
+                                'value' => 'CHtml::link($data["idPengajuan"]==null?0:$data["idPengajuan"], array("pengujiskripsi/update","id"=> $data["idPengujiSkripsi"]))',
+                            ),
                             'idPendaftaran0.NIM',
                             'idPendaftaran0.nIM.Nama',
-                            'idPendaftaran0.Judul',
+                            'idPengajuan0.Judul',
                             array(
                                 'name' => 'idUser',
                                 'type' => 'raw',
                                 'header' => 'Penguji',
                                 'value' => 'CHtml::encode($data->idUser0->username)',
+                            ),
+                            'idPendaftaran0.idSidang.iDJenisSidang.NamaSidang',
+                            array(
+                                'type' => 'raw',
+                                'header' => 'Nilai Penguji',
+                                'htmlOptions' => array('width' => '15%'),
+                                'value' => 'CHtml::link($data["nilai"]==null?0:$data["nilai"], array("pengujiskripsi/createnilai","idPengujiSkripsi"=> $data["idPengujiSkripsi"],"idPengajuan"=> $data["idPengajuan"],"nim"=> $data->idPendaftaran0->NIM))',
                             ),
                             array(
                                 'class' => 'CButtonColumn',

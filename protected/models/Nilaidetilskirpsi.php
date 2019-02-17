@@ -22,7 +22,6 @@ class Nilaidetilskirpsi extends CActiveRecord {
     public $statusVakasi;
     public static $NilaiPrasidang = 'NP';
     public static $NilaiSidang = 'NS';
-   
 
     public function tableName() {
         return 'prd_nilaidetilskirpsi';
@@ -62,7 +61,6 @@ class Nilaidetilskirpsi extends CActiveRecord {
             'NilaiPenguji1' => 'Nilai Penguji 1',
             'NIlaiPenguji2' => 'Nilai Penguji 2',
             'NPraSidang' => 'Nilai Sidang',
-    
         );
     }
 
@@ -205,8 +203,8 @@ FROM
         return $dataProvidersqlNpSkripsi;
     }
 
-    public function searchVakasi(){
-       // $this->statusVakasi="Lunas";
+    public function searchVakasi() {
+        // $this->statusVakasi="Lunas";
         $criteria = new CDbCriteria();
         $criteria->join = 'INNER JOIN prd_pendaftaran pp ON (t.IdPendaftaran = pp.idPendaftaran)
             INNER JOIN prd_mahasiswa pm  ON (pm.NIM = pp.NIM)
@@ -214,10 +212,10 @@ FROM
             INNER JOIN prd_jenissidang pj ON pj.IDJenisSidang=ps.IDJenisSidang
             INNER JOIN prd_periode pr ON ps.idPeriode=pr.idPeriode
             INNER JOIN prd_pengujiskripsi pser ON pser.idPendaftaran = pp.idPendaftaran';
-        
+
         $criteria->compare('pr.bulan', $this->bulan);
         $criteria->compare('pr.tahun', $this->tahun);
-        $criteria->compare('pr.statusVakasi', $this->statusVakasi,true);
+        $criteria->compare('pr.statusVakasi', $this->statusVakasi, true);
         $criteria->compare('pj.IDJenisSidang', $this->idjenisSidang);
         $criteria->compare('NIlaiPenguji1', $this->NilaiPenguji1);
         $criteria->compare('NIlaiPenguji2', $this->NIlaiPenguji2, true);
@@ -229,7 +227,7 @@ FROM
         $criteria->compare('ps.IDJenisSidang', $this->idjenisSidang, true);
         $criteria->compare('pj.NamaSidang', $this->namaSidang, true);
         $criteria->compare('pser.idUser', Yii::app()->user->id);
-        
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(

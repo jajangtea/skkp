@@ -88,9 +88,9 @@
 				Yii::import('ext.heart.pdf.EHeartPDF',true);
 				EHeartPDF::init();
 				// create new PDF document
-//				$this->pdf=new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-//				$this->pdf->SetCreator(PDF_CREATOR);
-//				$this->pdf->SetAuthor('YiiHeart');
+				$this->pdf=new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+				$this->pdf->SetCreator(PDF_CREATOR);
+				$this->pdf->SetAuthor('YiiHeart');
 			}
 			if($this->exportType=="WORD"){
 				Yii::import('ext.heart.opentbs.EHeartOpenTBS',true);

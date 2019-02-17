@@ -11,15 +11,20 @@
  * @property string $KodePembimbing1
  * @property string $KodePembimbing2
  * @property string $Judul
+ * @property string $keterangan
+ * @property integer $idPengajuan
  *
  * The followings are the available model relations:
  * @property Nilaidetilskirpsi[] $nilaidetilskirpsis
+ * @property Nilaikp[] $nilaikps
  * @property Nilaimasterskripsi[] $nilaimasterskripsis
  * @property Mahasiswa $nIM
  * @property Sidangmaster $idSidang
- * @property Sidangmaster $idPengajuan
  * @property Dosen $kodePembimbing1
  * @property Dosen $kodePembimbing2
+ * @property Pengajuan $idPengajuan0
+ * @property Pengujikp[] $pengujikps
+ * @property Pengujiskripsi[] $pengujiskripsis
  * @property Sidangdetil[] $sidangdetils
  */
 class Pendaftaran extends CActiveRecord {
@@ -40,10 +45,11 @@ class Pendaftaran extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('idPengajuan', 'required'),
             array('NIM,idPendaftaran, IdSidang,IDJenisSidang, idPengajuan', 'numerical', 'integerOnly' => true),
             array('IdSidang', 'required', 'message' => 'Sidang harus dipilih.'),
             array('Tanggal, Judul, KodePembimbing1', 'safe'),
-            array('idPendaftaran, Tanggal, NIM, IdSidang,status,bulan,tahun,Judul', 'safe', 'on' => 'search'),
+            array('idPendaftaran,idPengajuan, Tanggal, NIM, IdSidang,status,bulan,tahun,Judul', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,11 +69,11 @@ class Pendaftaran extends CActiveRecord {
             'persyaratanKps' => array(self::HAS_MANY, 'PersyaratanKp', 'idPendafraran'),
             'persyaratanPrasidangs' => array(self::HAS_MANY, 'PersyaratanPrasidang', 'idPendaftaran'),
             'persyaratanSidangs' => array(self::HAS_MANY, 'PersyaratanSidang', 'idPendaftaran'),
-            'sidangdetils' => array(self::HAS_MANY, 'Sidangdetil', 'IdPendaftaran'),
             'nilaikps' => array(self::HAS_MANY, 'Nilaikp', 'idPendaftaran'),
             'pengujikps' => array(self::HAS_MANY, 'Pengujikp', 'idPendaftaran'),
             'pengujiskripsis' => array(self::HAS_MANY, 'Pengujiskripsi', 'idPendaftaran'),
             'sidangdetils' => array(self::HAS_MANY, 'Sidangdetil', 'IdPendaftaran'),
+            'idPengajuan0' => array(self::BELONGS_TO, 'Pengajuan', 'idPengajuan'),
         );
     }
 
@@ -83,7 +89,7 @@ class Pendaftaran extends CActiveRecord {
             'KodePembimbing1' => 'Kode Pembimbing1',
             'KodePembimbing2' => 'Kode Pembimbing2',
             'Judul' => 'Judul',
-            'idPengajuan'=>'idPengajuan'
+            'idPengajuan' =>'idPengajuan',
         );
     }
 
@@ -141,7 +147,7 @@ class Pendaftaran extends CActiveRecord {
             $criteria->join = 'INNER JOIN prd_sidangmaster sm ON t.IdSidang=sm.IdSidang '
                     . 'INNER JOIN prd_jenissidang js ON js.IDJenisSidang=sm.IDJenisSidang '
                     . 'INNER JOIN prd_periode pr ON sm.idPeriode=pr.idPeriode';
-            $criteria->order = 'js.NamaSidang';
+            $criteria->order = 't.idPendaftaran DESC';
         }
         $criteria->compare('js.IDJenisSidang', $this->IDJenisSidang);
         $criteria->compare('idPendaftaran', $this->idPendaftaran);
@@ -223,6 +229,11 @@ class Pendaftaran extends CActiveRecord {
     public function getNamaSidang() {
         //this function returns the list of categories to use in a dropdown        
         return CHtml::listData(Sidangmaster::model()->with('iDJenisSidang')->findAll('status=1'), 'IdSidang', 'iDJenisSidang.NamaSidang');
+    }
+
+    public function getNamaSidangd() {
+        //this function returns the list of categories to use in a dropdown        
+        return CHtml::listData(Sidangmaster::model()->with('iDJenisSidang')->findAll('status=1 and iDJenisSidang.IDJenisSidang in(1,2,3,4)'), 'IdSidang', 'iDJenisSidang.NamaSidang');
     }
 
     public function getIDJenisSidang() {
@@ -525,6 +536,7 @@ WHERE prd_pendaftaran.idPendaftaran=$id";
 
         return $dataProviderUpload;
     }
+
     public function getPengajuan() {
         //this function returns the list of categories to use in a dropdown  
         $dataPengajuan = Pengajuan::model()->findAll('NIM=:NIM', array(':NIM' => Yii::app()->user->getUsername()));

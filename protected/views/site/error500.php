@@ -48,7 +48,7 @@
 								ada sesuatu yang salah.
 							</p>
 							<p>
-								Kembali ke <a href="index.php?r=site/index">homepage</a>
+								Kembali ke <a href="site/index">homepage</a>
 							</p>
 						</div>
 					</div>

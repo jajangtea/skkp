@@ -20,6 +20,7 @@ return array(
         'application.extensions.qrcode.*',
         'application.extensions.tcpdf.*',
         'application.extensions.mpdf.*',
+        'application.extensions.yiidropbox.*',
     ),
     'modules' => array(
         //languange
@@ -73,6 +74,12 @@ return array(
         // If you do override it, make sure you change it to a derived class of AUserIdentity.
         //'userIdentityClass' => 'AUserIdentity',           //optional
         ),
+        'dropbox' => array(
+            'class' => 'ext.yiidropbox.YiiDropbox',
+            'appKey' => 'wta7tqqf0cukx4d',
+            'appSecret' => 'uwn7jayao08fw0t',
+            'root' => 'dropbox' //or 'sandbox'
+        ),
         'localtime' => array(
             'class' => 'LocalTime',
         ),
@@ -112,19 +119,24 @@ return array(
             ),
         ),
         // uncomment the following to enable URLs in path-format
-        /*
-          'urlManager'=>array(
-          'urlFormat'=>'path',
-          'rules'=>array(
-          '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-          '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-          '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-          ),
-          ),
-         */
+        'urlManager' => array(
+            'urlFormat' => 'path',
+            'rules' => array(
+               '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                // REST patterns
+                array('api/list', 'pattern' => '<model:\w+>', 'verb' => 'POST'),
+                array('api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
+                array('api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'), // Update
+                array('api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
+                array('api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'), // Create
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ),
+            'showScriptName'=>false,
+        ),
         // database settings are configured in database.php
         'db' => require(dirname(__FILE__) . '/database.php'),
-       
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(

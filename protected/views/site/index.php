@@ -93,7 +93,7 @@ $this->pageTitle = Yii::app()->name;
 </div>
 <div class="row">
     <div class="col-lg-3 col-sm-6 col-xs-12">
-        <a href="index.php?r=pendaftaran/create" OnClick="return true;">
+        <a href="pendaftaran/create" OnClick="return true;">
             <div class="main-box infographic-box colored emerald-bg">
                 <i class="fa fa-users"></i>
                 <span class="headline">Pendaftar Sidang Kerja Praktek</span>
@@ -102,7 +102,7 @@ $this->pageTitle = Yii::app()->name;
         </a>
     </div>    
     <div class="col-lg-3 col-sm-6 col-xs-12">
-        <a href="index.php?r=pendaftaran/create" OnClick="return true;">
+        <a href="pendaftaran/create" OnClick="return true;">
             <div class="main-box infographic-box colored green-bg">
                 <i class="fa fa-table"></i>
                 <span class="headline">Pendaftar Sidang Pra Sidang Skripsi</span>
@@ -111,7 +111,7 @@ $this->pageTitle = Yii::app()->name;
         </a>
     </div>
     <div class="col-lg-3 col-sm-6 col-xs-12">
-        <a href="index.php?r=pendaftaran/create" OnClick="return true;">
+        <a href="pendaftaran/create" OnClick="return true;">
             <div class="main-box infographic-box colored purple-bg">
                 <i class="fa fa-graduation-cap"></i>
                 <span class="headline">Pendaftar Sidang Sidang Akhir Skripsi</span>
@@ -120,7 +120,7 @@ $this->pageTitle = Yii::app()->name;
         </a>
     </div>   
     <div class="col-lg-3 col-sm-6 col-xs-12">
-        <a href="index.php?r=pendaftaran/create" OnClick="return true;">
+        <a href="pendaftaran/create" OnClick="return true;">
             <div class="main-box infographic-box colored red-bg">
                 <i class="fa fa-thumbs-up"></i>
                 <span class="headline">Pendaftar Sidang Komprehensif</span>
@@ -173,7 +173,7 @@ $this->pageTitle = Yii::app()->name;
                     echo "</strong>";
                     echo "Diberitahukan kepada mahasiswa/i bahwa Sidang Akhir Skripsi akan diadakan pada tanggal : <strong>" . Yii::t('zii', $hariSidangAkhir) . "," . $tglSidangAkhir . "</strong>";
                     echo "<br/>";
-                    echo "Pendaftaran dibuka Tanggal : <strong>" . Yii::t('zii', $hariSidangAkhir) . "," . $tglSidangAkhir . "</strong>";
+                    echo "Pendaftaran dibuka Tanggal : <strong>" . Yii::t('zii', $hariSidangAkhirBuka). "," . $tglSidangAkhirBuka. "</strong>";
                     echo "<br/>";
                     echo "Pendaftaran ditutup Tanggal : <strong>" . Yii::t('zii', $hariSidangAkhirTutup) . "," . $tglSidangAkhirTutup . "</strong>";
                     echo "</div>";

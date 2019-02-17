@@ -14,7 +14,7 @@ class PengujiskripsiController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-           // 'postOnly + delete', // we only allow deletion via POST request
+                // 'postOnly + delete', // we only allow deletion via POST request
         );
     }
 
@@ -26,16 +26,16 @@ class PengujiskripsiController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
-                'users' => array('*'),
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin'),
+                'expression' => '$user->getLevel()==1',
             ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'users' => array('@'),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin', 'adminpengujiskripsi', 'vakasi', 'createnilai'),
+                'expression' => '$user->getLevel()==3',
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view', 'create', 'update', 'delete', 'admin', 'adminpengujiskripsi', 'vakasi', 'createnilai'),
+                'expression' => '$user->getLevel()==1',
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -48,7 +48,15 @@ class PengujiskripsiController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $this->layout = 'main';
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -58,20 +66,20 @@ class PengujiskripsiController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate($id) {
+    public function actionCreate($id, $idPengajuan) {
         $this->layout = 'main';
         $model = new Pengujiskripsi;
         if (isset($_POST['Pengujiskripsi'])) {
             $model->attributes = $_POST['Pengujiskripsi'];
-            for ($i=0;$i<count($model->idUser);$i++) 
-            {
+            for ($i = 0; $i < count($model->idUser); $i++) {
                 $model2 = new Pengujiskripsi;
-                $model2->idPendaftaran=$id;
-                $model2->idUser=$model->idUser[$i];
+                $model2->idPendaftaran = $id;
+                $model2->idUser = $model->idUser[$i];
+                $model2->idPengajuan = $idPengajuan;
                 $model2->save();
-                
+
                 $model3 = new NilaiPenguji();
-                $model3->idPengujiSkripsi=$model2->idPengujiSkripsi;
+                $model3->idPengujiSkripsi = $model2->idPengujiSkripsi;
                 $model3->save();
             }
             $model->unsetAttributes();  // clear any default values
@@ -79,7 +87,57 @@ class PengujiskripsiController extends Controller {
         }
         $this->render('create', array(
             'model' => $model,
-            'id'=>$id,
+            'id' => $id,
+        ));
+    }
+
+    public function actionCreatenilai($idPengujiSkripsi, $idPengajuan, $nim) {
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() == 3) {
+            $this->layout = 'mainNilai';
+        } else {
+            $this->layout = 'mainHome';
+        }
+
+        $model = $this->loadModel($idPengujiSkripsi);
+        $this->performAjaxValidation($model);
+        if (isset($_POST['Pengujiskripsi'])) {
+            $model->attributes = $_POST['Pengujiskripsi'];
+            if ($model->save())
+                $nrataSkripsi = $this->hitungrataSkripsi($idPengajuan, $nim) == '' ? 0 : $this->hitungrataSkripsi($idPengajuan, $nim);
+            $nrataPra = $this->hitungrataPra($idPengajuan, $nim) == '' ? 0 : $this->hitungrataPra($idPengajuan, $nim);
+            $updatensidang = "update prd_nilaimasterskripsi set NSidangSkripsi=$nrataSkripsi,NPraSidang=$nrataPra where idPengajuan=$idPengajuan and nim=$nim";
+            Yii::app()->db->createCommand($updatensidang)->execute();
+            //========================================
+            $modelMasterNilai = $this->loadModelNIM($nim);
+            $this->performAjaxValidation($modelMasterNilai);
+            $na = Nilaimasterskripsi::model()->hitung_na($modelMasterNilai->NPembimbing, $modelMasterNilai->NPraSidang, $modelMasterNilai->NKompre, $modelMasterNilai->NSidangSkripsi);
+            $nh = Nilaimasterskripsi::model()->nilai_khuruf($na);
+            $modelMasterNilai->NA = $na;
+            $modelMasterNilai->Index = $nh;
+            if ($modelMasterNilai->save()) {
+                if ($modelMasterNilai->NPembimbing > 0) {
+                    $command = Yii::app()->db->createCommand();
+
+                    $command->update('prd_pembimbing', array(
+                        'status' => 'Tuntas',
+                            ), 'idPengajuan=:idPengajuan', array(':idPengajuan' => $idPengajuan));
+                }
+
+                Nilaimasterskripsi::model()->tuntasorno($modelMasterNilai->NIM);
+            }
+
+            //========================================
+
+
+            $this->redirect(array('view', 'id' => $model->idPengujiSkripsi));
+        }
+
+        $this->render('createnilai', array(
+            'model' => $model,
         ));
     }
 
@@ -91,22 +149,20 @@ class PengujiskripsiController extends Controller {
     public function actionUpdate($id) {
         $this->layout = 'main';
         $model = $this->loadModel($id);
-
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pengujiskripsi'])) {
+
             $model->attributes = $_POST['Pengujiskripsi'];
-            for ($i=0;$i<count($model->idUser);$i++) 
-            {
-                $model2 = $this->loadModel($id);
-                $model2->idPendaftaran=$id;
-                $model2->idUser=$model->idUser[$i];
-                $model2->save();
-            }
+
+            $command = Yii::app()->db->createCommand();
+            $command->update('prd_pengujiskripsi', array(
+                'idPengajuan' => $model->idPengajuan,
+                    ), 'idPengujiSkripsi=:idPengujiSkripsi', array(':idPengujiSkripsi' => $id));
+            $model->save();
             $model->unsetAttributes();  // clear any default values
             $this->redirect(Yii::app()->request->getUrlReferrer());
-           
         }
 
         $this->render('update', array(
@@ -142,15 +198,31 @@ class PengujiskripsiController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $this->layout = 'main';
-        $model = new Pengujiskripsi('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Pengujiskripsi']))
-            $model->attributes = $_GET['Pengujiskripsi'];
+        if (Yii::app()->user->getLevel() == 1) {
+            $this->layout = 'main';
+            $model = new Pengujiskripsi('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['Pengujiskripsi']))
+                $model->attributes = $_GET['Pengujiskripsi'];
 
-        $this->render('admin', array(
-            'model' => $model,
-        ));
+            $this->render('admin', array(
+                'model' => $model,
+            ));
+        } else if (Yii::app()->user->getLevel() == 2) {
+            $this->layout = 'mainHome';
+        } else if (Yii::app()->user->getLevel() >= 3 && Yii::app()->user->getLevel() <= 7) {
+            $this->layout = 'mainNilai';
+            $model = new Pengujiskripsi('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['Pengujiskripsi']))
+                $model->attributes = $_GET['Pengujiskripsi'];
+
+            $this->render('admin_penguji', array(
+                'model' => $model,
+            ));
+        } else {
+            $this->layout = 'mainHome';
+        }
     }
 
     /**
@@ -160,13 +232,33 @@ class PengujiskripsiController extends Controller {
      * @return Pengujiskripsi the loaded model
      * @throws CHttpException
      */
+    public function hitungrataPra($idPengajuan, $nim) {
+        $sqlpra = "select avg(nilai) as total from prd_pengujiskripsi ps inner join prd_pendaftaran pp on ps.idPendaftaran=pp.idPendaftaran inner join prd_sidangmaster pm on pp.IdSidang=pm.IdSidang inner join prd_jenissidang pjs on pm.IDJenisSidang=pjs.IDJenisSidang where ps.idPengajuan=$idPengajuan and pjs.IDJenisSidang=1 and pp.nim=$nim";
+        $var_sum = Yii::app()->db->createCommand($sqlpra)->queryScalar(); //pra sidang
+        return $var_sum;
+    }
+
+    public function hitungrataSkripsi($idPengajuan, $nim) {
+        $sqlSkripsi = "select avg(nilai) as total from prd_pengujiskripsi ps inner join prd_pendaftaran pp on ps.idPendaftaran=pp.idPendaftaran inner join prd_sidangmaster pm on pp.IdSidang=pm.IdSidang inner join prd_jenissidang pjs on pm.IDJenisSidang=pjs.IDJenisSidang where ps.idPengajuan=$idPengajuan and pjs.IDJenisSidang=2 and pp.nim=$nim";
+        $var_sum = Yii::app()->db->createCommand($sqlSkripsi)->queryScalar(); //Skripsi sidang
+
+        return $var_sum;
+    }
+
     public function loadModel($id) {
         $model = Pengujiskripsi::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
-    
+
+    public function loadModelNIM($nim) {
+        $model = Nilaimasterskripsi::model()->find('NIM=:NIM', array(':NIM' => $nim));
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+
     public function loadModelNilaiPenguji($id) {
         $model = NilaiPenguji::model()->find("idPengujiSkripsi=$id");
         if ($model === null)

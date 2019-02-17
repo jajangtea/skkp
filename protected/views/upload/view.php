@@ -8,7 +8,7 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-    array('label' => '<span class="label label-danger">Hapus Upload</span>', 'url' => "index.php?r=upload/deleted&id=$model->idUpload",'confirm' => 'Are you sure you want to delete this item?'),
+    array('label' => '<span class="label label-danger">Hapus Upload</span>', 'url' => "upload/deleted&id=$model->idUpload",'confirm' => 'Are you sure you want to delete this item?'),
 );
 ?>
 

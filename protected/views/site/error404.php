@@ -49,7 +49,7 @@
 								If you find this page, let us know.
 							</p>
 							<p>
-								Kembali ke <a href="index.php?r=site/index">homepage</a>
+								Kembali ke <a href="site/index">homepage</a>
 							</p>
 						</div>
 					</div>

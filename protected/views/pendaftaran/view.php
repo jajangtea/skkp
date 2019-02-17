@@ -59,17 +59,10 @@ $this->breadcrumbs = array(
                             'name' => 'Sidang',
                             'value' => $model->idSidang->iDJenisSidang->NamaSidang,
                         ),
-                        array(
-                            'name' => 'Kode',
-                            'value' => $model->KodePembimbing1,
-                        ),
-                        array(
-                            'name' => 'Nama Pembimbing',
-                            'value' => $model->kodePembimbing1->NamaDosen,
-                        ),
+                        
                         array(
                             'name' => 'Judul KP/Skripsi',
-                            'value' => strtoupper($model->Judul),
+                            'value' => strtoupper($model->idPengajuan0->Judul),
                         ),
                     ),
                 ));

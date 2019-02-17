@@ -70,10 +70,9 @@ class UploadController extends Controller {
                     $model->ukuranFIle = $sss->size . 'kb';
                 }
                 if ($model->save()) {
-                   
+
                     if (strlen(trim($model->namaFile)) > 0) {
                         $sss->saveAs(Yii::app()->basePath . '/../persyaratan/' . $model->namaFile);
-                       
                     }
                     $transaction->commit();
                     $this->redirect(array('view', 'id' => $model->idUpload));
@@ -130,9 +129,12 @@ class UploadController extends Controller {
         // if patientPic(image) field in table is not empty
         // delete images  
         if (!empty($patientInfo->namaFile)) {
+            $this->loadModel($id)->delete();
+        } else if (!empty($patientInfo->namaFile)) {
             unlink($imageLocation . $patientInfo->namaFile);
+            $this->loadModel($id)->delete();
         }
-        $this->loadModel($id)->delete();
+
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))

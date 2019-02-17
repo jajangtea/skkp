@@ -56,6 +56,7 @@ $this->breadcrumbs = array(
                                         'style' => 'width: 2%; text-align: center;',
                                     ),
                                 ),
+				'IDPengajuan',
                                 'iDJenisSidang.NamaSidang',
                                 'NIM',
                                 'nIM.Nama',
@@ -71,7 +72,7 @@ $this->breadcrumbs = array(
                                 array(
                                     'name' => 'IDstatusProposal',
                                     'type' => 'raw',
-                                    'header' => 'Status',
+                                    'header' => 'Status Berkas',
                                     'value' => '$data->iDstatusProposal->nstatusProposal',
                                     // 'value' => '$data->idstatusProposal',//0->statusProposal',
                                     'htmlOptions' => array('width' => '40px'),
@@ -95,7 +96,7 @@ $this->breadcrumbs = array(
 //                                )
 //                        )',
 //                                ),
-                                'keterangan',
+                                
                                 array(
                                     'type' => 'raw',
                                     // 'header' => 'Aksi',
